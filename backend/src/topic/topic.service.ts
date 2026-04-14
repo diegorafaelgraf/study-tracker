@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { NotFoundException } from '@nestjs/common/exceptions';
 
 import { Model } from 'mongoose';
 
@@ -16,7 +15,12 @@ export class TopicService {
 
   // Add a new Topic to the database
   async create(data: AddTopicInput): Promise<TopicDocument> {
-    return this.topicModel.create(data);
+    const nameNormalized = this.normalizeName(data.name);
+    return this.topicModel.create({ ...data, nameNormalized });
+  }
+
+  async getTopics(): Promise<TopicDocument[]> {
+    return this.topicModel.find().exec();
   }
 
   async getTopicByName(name: string): Promise<TopicDocument | null> {
@@ -25,5 +29,13 @@ export class TopicService {
 
   async getTopicById(id: number): Promise<TopicDocument | null> {
     return this.topicModel.findById(id).exec();
+  }
+
+  private normalizeName(name: string): string {
+    return name
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
   }
 }

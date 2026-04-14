@@ -6,7 +6,9 @@ export type TopicDocument = HydratedDocument<Topic>;
 @Schema({ timestamps: true })
 export class Topic {
   @Prop({ required: true, unique: true })
-  name!: string;
+  name: string = '';
+  @Prop({ required: true, unique: true })
+  nameNormalized: string = '';
 }
 
 export const TopicSchema = SchemaFactory.createForClass(Topic);

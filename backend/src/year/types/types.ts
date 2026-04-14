@@ -2,5 +2,4 @@
 export type AddYearInput = {
   year: string;
   totalDays: number;
-  closed: boolean;
 };

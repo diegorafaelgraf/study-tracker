@@ -8,21 +8,22 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { YearTopicService } from './year-topic.service';
-import { CreateYearTopicDto } from './dto/year-topic.dto';
-import { AddYearTopicInput } from './types/types';
+import { PracticeService } from './practice.service';
+import { CreatePracticeDto } from './dto/practice.dto';
+import { AddPracticeInput } from './types/types';
 
-@Controller('api/year-topic')
-export class YearTopicController {
+@Controller('api/practice')
+export class PracticeController {
   constructor(
-    private readonly service: YearTopicService,
+    private readonly service: PracticeService,
   ) { }
 
   @Post()
-  async addYearTopic(@Body() dto: CreateYearTopicDto) {
-    const input: AddYearTopicInput = {
-      topicId: dto.topicId,
-      goalMinutes: dto.goalMinutes
+  async addPractice(@Body() dto: CreatePracticeDto) {
+    const input: AddPracticeInput = {
+      yearTopicId: dto.yearTopicId,
+      date: dto.date,
+      durationMinutes: dto.durationMinutes
     };
 
     return await this.service.create(input);

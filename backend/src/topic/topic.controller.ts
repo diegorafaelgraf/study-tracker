@@ -27,6 +27,12 @@ export class TopicController {
     return await this.service.create(input);
   }
 
+  @Get()
+  async getTopics() {
+    return await this.service.getTopics();
+  }
+
+
   @Get('by-name/:name')
   async getTopicByName(@Param('name') name: string) {
     const topic = await this.service.getTopicByName(name);

@@ -4,34 +4,36 @@ import { NotFoundException } from '@nestjs/common/exceptions';
 
 import { Model } from 'mongoose';
 
-import { YearTopic, YearTopicDocument } from './schemas/year-topic.schema';
+import { YearTopic, YearTopicDocument } from '../year-topic/schemas/year-topic.schema';
 import { Year, YearDocument } from '../year/schemas/year.schema';
-import { Topic, TopicDocument } from '../topic/schemas/topic.schema';
+import { Practice, PracticeDocument } from './schemas/practice.schema';
 
-import { AddYearTopicInput } from './types/types';
+import { AddPracticeInput } from './types/types';
 
 
 
 @Injectable()
-export class YearTopicService {
+export class PracticeService {
   constructor(
     @InjectModel(YearTopic.name) private yearTopicModel: Model<YearTopicDocument>,
     @InjectModel(Year.name) private yearModel: Model<YearDocument>,
-    @InjectModel(Topic.name) private topicModel: Model<TopicDocument>,
+    @InjectModel(Practice.name) private practiceModel: Model<PracticeDocument>
   ) { }
 
   // Add a new YearTopic to the database
-  async create(data: AddYearTopicInput): Promise<YearTopicDocument> {
-    const year = await this.yearModel.findOne({ closed: false }).exec();
+  async create(data: AddPracticeInput): Promise<PracticeDocument> {
+
+    const yearTopic = await this.yearTopicModel.findById(data.yearTopicId).exec();
+    if (!yearTopic) {
+      throw new NotFoundException(`El YearTopic con ID "${data.yearTopicId}" no existe`);
+    }
+
+    const year = await this.yearModel.findOne({ closed: false, _id: yearTopic.yearId }).exec();
     if (!year) {
-      throw new NotFoundException('No hay un año abierto para asociar el tópico');
+      throw new NotFoundException('No hay un año abierto para cargar una práctica');
     }
-    const topic = await this.topicModel.findById(data.topicId).exec();
-    if (!topic) {
-      throw new NotFoundException(`El tópico con ID "${data.topicId}" no existe`);
-    }
-    const yearId = year._id.toString();
-    return this.yearTopicModel.create({ ...data, yearId });
+
+    return this.practiceModel.create(data);
   }
 
   // Get a Topics by its year

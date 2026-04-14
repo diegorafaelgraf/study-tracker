@@ -18,12 +18,16 @@ export class YearController {
     private readonly service: YearService,
   ) { }
 
+  @Get()
+  async getYears() {
+    return await this.service.getYears();
+  }
+
   @Post()
   async addYear(@Body() dto: CreateYearDto) {
     const input: AddYearInput = {
       year: dto.year,
-      totalDays: dto.totalDays,
-      closed: dto.closed
+      totalDays: dto.totalDays
     };
 
     return await this.service.create(input);
