@@ -1,98 +1,261 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Study Tracker - Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST desarrollada con NestJS para gestionar sesiones de práctica y estudio.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos Previos
 
-## Description
+- **Docker** 
+- **Docker Compose**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Levantar entorno local para Desarrollo
 
-## Project setup
+### 1. Clonar el repositorio
 
 ```bash
-$ npm install
+git clone https://github.com/diegorafaelgraf/study-tracker
+cd project-refactor/backend
 ```
 
-## Compile and run the project
+### 2. Iniciar Servicios
+
+Desde la raíz del proyecto (donde está el `docker-compose.yml`):
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker compose up --build
 ```
 
-## Run tests
+Este comando:
+- Construye la imagen del backend usando `backend/Dockerfile`
+- Levanta el servicio `backend` y el servicio `mongo`
+- Expone el backend en `http://localhost:4000`
+- Usa `MONGO_URI=mongodb://mongo:27017/study-tracker-backend-dev`
+
+Si quieres ejecutarlo en segundo plano:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker compose up --build -d
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 3. Detener Servicios
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+docker compose down
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 4. Ver logs
 
-## Resources
+```bash
+docker compose logs -f
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## Levantar entorno Productivo
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 2. Iniciar Servicios
 
-## Support
+Desde la raíz del proyecto (donde está el `docker-compose.yml`):
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
 
-## Stay in touch
+### 2. Detener Servicios 
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+docker compose -f docker-compose.prod.yml up down
+```
 
-## License
+### 4. Ver logs
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+docker compose -f docker-compose.prod.yml logs -f
+```
+
+## Endpoints disponibles
+
+### Base URL
+```
+http://localhost:4000
+```
+
+### Health Check
+
+#### GET `/`
+- **Descripción**: Verifica que el servidor esté funcionando
+- **Respuesta**:
+  ```json
+  "Hello World!"
+  ```
+
+---
+
+### Temas (Topics)
+
+#### POST `/api/topics`
+- **Descripción**: Crear un nuevo tema de estudio
+- **Body**:
+  ```json
+  {
+    "name": "Escalas mayores"
+  }
+  ```
+- **Respuesta**: `{ id, name, createdAt }`
+
+#### GET `/api/topics`
+- **Descripción**: Obtener todos los temas
+- **Respuesta**: Array de temas con sus IDs y nombres
+
+#### GET `/api/topics/by-name/:name`
+- **Descripción**: Buscar un tema por su nombre
+- **Parámetros**:
+  - `name` (string): Nombre del tema
+- **Respuesta**: Objeto del tema encontrado
+
+#### GET `/api/topics/:id`
+- **Descripción**: Obtener un tema específico por ID
+- **Parámetros**:
+  - `id` (number): ID del tema
+- **Respuesta**: Objeto del tema
+
+---
+
+### Años Académicos (Years)
+
+#### GET `/api/years`
+- **Descripción**: Obtener todos los años académicos
+- **Respuesta**: Array de años con sus datos
+
+#### POST `/api/years`
+- **Descripción**: Crear un nuevo año académico
+- **Body**:
+  ```json
+  {
+    "year": 2024,
+    "totalDays": 365
+  }
+  ```
+- **Respuesta**: `{ id, year, totalDays, createdAt }`
+
+#### GET `/api/years/by-year/:year`
+- **Descripción**: Obtener un año específico por número de año
+- **Parámetros**:
+  - `year` (string): Número del año
+- **Respuesta**: Objeto del año encontrado
+
+#### GET `/api/years/:id`
+- **Descripción**: Obtener un año por ID
+- **Parámetros**:
+  - `id` (number): ID del año
+- **Respuesta**: Objeto del año
+
+---
+
+### Año-Tema (Year-Topic)
+
+Relaciona temas específicos con años académicos y establece metas de práctica.
+
+#### POST `/api/year-topic`
+- **Descripción**: Asociar un tema a un año con meta de minutos de práctica
+- **Body**:
+  ```json
+  {
+    "topicId": 1,
+    "goalMinutes": 500
+  }
+  ```
+- **Respuesta**: `{ id, topicId, goalMinutes, createdAt }`
+
+#### GET `/api/year-topic/:id`
+- **Descripción**: Obtener la asociación año-tema por ID
+- **Parámetros**:
+  - `id` (number): ID de la asociación
+- **Respuesta**: Objeto con los datos de la asociación
+
+---
+
+### Sesiones de Práctica (Practice)
+
+Registra las sesiones individuales de práctica.
+
+#### POST `/api/practice`
+- **Descripción**: Registrar una nueva sesión de práctica
+- **Body**:
+  ```json
+  {
+    "yearTopicId": 1,
+    "date": "2024-04-14",
+    "durationMinutes": 45
+  }
+  ```
+- **Respuesta**: `{ id, yearTopicId, date, durationMinutes, createdAt }`
+
+#### GET `/api/practice/:id`
+- **Descripción**: Obtener una sesión de práctica por ID
+- **Parámetros**:
+  - `id` (number): ID de la sesión
+- **Respuesta**: Objeto con los datos de la sesión
+
+---
+
+## Estructura del Proyecto
+
+```
+src/
+├── app.controller.ts          # Controlador raíz
+├── app.service.ts             # Servicio raíz
+├── app.module.ts              # Módulo principal
+├── main.ts                     # Punto de entrada
+├── setup-app.ts               # Configuración de la app
+├── common/                     # Código compartido
+│   └── filters/
+│       └── mongo-exception.filter.ts
+├── practice/                  # Módulo de prácticas
+│   ├── practice.controller.ts
+│   ├── practice.service.ts
+│   ├── practice.module.ts
+│   ├── dto/
+│   ├── schemas/
+│   └── types/
+├── topic/                     # Módulo de temas
+│   ├── topic.controller.ts
+│   ├── topic.service.ts
+│   ├── topic.module.ts
+│   ├── dto/
+│   ├── schemas/
+│   └── types/
+├── year/                      # Módulo de años
+│   ├── year.controller.ts
+│   ├── year.service.ts
+│   ├── year.module.ts
+│   ├── dto/
+│   ├── schemas/
+│   └── types/
+└── year-topic/               # Módulo de año-tema
+    ├── year-topic.controller.ts
+    ├── year-topic.service.ts
+    ├── year-topic.module.ts
+    ├── dto/
+    ├── schemas/
+    └── types/
+```
+
+## Parar los servicios
+
+Para detener la base de datos:
+
+```bash
+docker-compose down
+```
+
+## Tecnologías utilizadas
+
+- **NestJS** - Framework backend
+- **MongoDB** - Base de datos
+- **Mongoose** - ODM para MongoDB
+- **TypeScript** - Lenguaje de programación
+- **Jest** - Testing
+- **ESLint** - Linting
+- **Prettier** - Código formatting
+
+## Contacto y Soporte
+
+Para reportar problemas o sugerencias, por favor abre un issue en el repositorio.
