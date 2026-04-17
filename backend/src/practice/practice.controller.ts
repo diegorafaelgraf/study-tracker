@@ -29,18 +29,8 @@ export class PracticeController {
     return await this.service.create(input);
   }
 
-  // @Get('topics-by-year/:yearId')
-  // async getTopicsByYear(@Param('yearId') yearId: string) {
-  //   const topics = await this.service.getTopicsByYear(yearId);
-  //   if (!topics || topics.length === 0) {
-  //     throw new NotFoundException(`Topics with yearId \"${yearId}\" not found`);
-  //   }
-  //   return topics;
-  // }
-
-  @Get(':id')
-  async getYearTopicById(@Param('id', ParseIntPipe) id: number) {
-    return await this.service.getYearTopicById(id);
+  @Get('/by-year-topic/:yearTopicId')
+  async getPracticesByYearTopic(@Param('yearTopicId') yearTopicId: string) {
+    return await this.service.getPracticesByYearTopic(yearTopicId);
   }
-
 }

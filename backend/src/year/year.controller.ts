@@ -42,9 +42,25 @@ export class YearController {
     return year;
   }
 
-  @Get(':id')
+  @Get('by-id/:id')
   async getYearById(@Param('id', ParseIntPipe) id: number) {
     return await this.service.getYearById(id);
   }
 
+  @Get('closed')
+  async getClosedYears() {
+    const years = await this.service.getYears();
+    return years.filter(year => year.closed);
+  }
+
+  @Get('opened')
+  async getOpenedYears() {
+    const years = await this.service.getYears();
+    return years.filter(year => !year.closed);
+  }
+
+  @Get('by-topic/:topicId')
+  async getYearsByTopic(@Param('topicId') topicId: string) {
+    return await this.service.getYearsByTopic(topicId);
+  }
 }

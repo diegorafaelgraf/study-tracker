@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { Year, YearDocument } from './schemas/year.schema';
+import { YearTopic, YearTopicDocument } from '../year-topic/schemas/year-topic.schema';
 import { AddYearInput } from './types/types';
 
 
@@ -11,6 +12,7 @@ import { AddYearInput } from './types/types';
 export class YearService {
   constructor(
     @InjectModel(Year.name) private yearModel: Model<YearDocument>,
+    @InjectModel(YearTopic.name) private yearTopicModel: Model<YearTopicDocument>,
   ) { }
 
   // Add a new Year to the database
@@ -39,5 +41,11 @@ export class YearService {
   // Get a Year by its ID
   async getYearById(id: number): Promise<YearDocument | null> {
     return this.yearModel.findById(id).exec();
+  }
+
+  // Get all years by topic
+  async getYearsByTopic(topicId: string): Promise<YearDocument[]> {
+    const yearTopics = await this.yearTopicModel.find({ topicId }).exec();
+    return this.yearModel.find({ _id: { $in: yearTopics.map(yt => yt.yearId) } }).exec();
   }
 }

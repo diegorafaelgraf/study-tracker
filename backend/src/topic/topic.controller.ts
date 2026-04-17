@@ -32,7 +32,6 @@ export class TopicController {
     return await this.service.getTopics();
   }
 
-
   @Get('by-name/:name')
   async getTopicByName(@Param('name') name: string) {
     const topic = await this.service.getTopicByName(name);
@@ -47,4 +46,8 @@ export class TopicController {
     return await this.service.getTopicById(id);
   }
 
+  @Get('by-year/:yearId')
+  async getTopicsByYear(@Param('yearId') yearId: string) {
+    return await this.service.getTopicsByYear(yearId);
+  }
 }

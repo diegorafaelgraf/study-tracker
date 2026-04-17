@@ -36,13 +36,7 @@ export class PracticeService {
     return this.practiceModel.create(data);
   }
 
-  // Get a Topics by its year
-  //async getTopicsByYear(yearId: string): Promise<YearTopicDocument | null> {
-  //return this.yearTopicModel.find({ yearId }).exec();
-  //}
-
-  // Get a YearTopic by its ID
-  async getYearTopicById(id: number): Promise<YearTopicDocument | null> {
-    return this.yearTopicModel.findById(id).exec();
+  async getPracticesByYearTopic(yearTopicId: string): Promise<PracticeDocument[]> {
+    return this.practiceModel.find({ yearTopicId }).exec();
   }
 }
