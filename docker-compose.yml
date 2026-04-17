@@ -1,19 +1,27 @@
 services:
   backend:
     build:
-      context: .
+      context: ./backend
       target: development
     ports:
       - "4000:4000"
     volumes:
-      - .:/app
+      - ./backend:/app
       - /app/node_modules
     environment:
       NODE_ENV: development
+      MONGO_URI: mongodb://mongo:27017/study-tracker-backend-dev
     restart: unless-stopped
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo:7
     ports:
       - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
     restart: unless-stopped
+
+volumes:
+  mongo-data:
