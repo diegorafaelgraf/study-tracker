@@ -9,6 +9,7 @@ import { YearModule } from './year/year.module';
 import { TopicModule } from './topic/topic.module';
 import { YearTopicModule } from './year-topic/year-topic.module';
 import { PracticeModule } from './practice/practice.module';
+import { HealthModule } from './health/health.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +26,8 @@ import { PracticeModule } from './practice/practice.module';
     YearModule,
     TopicModule,
     YearTopicModule,
-    PracticeModule
+    PracticeModule,
+    HealthModule
   ],
   controllers: [AppController],
   providers: [AppService],

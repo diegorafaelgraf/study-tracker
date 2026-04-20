@@ -5,25 +5,26 @@ COPY package*.json ./
 
 # ---------- development ----------
 FROM base AS development
-RUN npm ci
+RUN npm install
 COPY . .
-EXPOSE 4000
-CMD ["npm", "run", "start:dev"]
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
 
 # ---------- build ----------
-FROM base AS build
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY package*.json ./
 RUN npm ci
+
 COPY . .
 RUN npm run build
 
 # ---------- production ----------
-FROM node:20-alpine AS production
-WORKDIR /app
+FROM nginx:alpine
 
-COPY package*.json ./
-RUN npm ci --omit=dev
+COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY --from=build /app/dist ./dist
+EXPOSE 80
 
-EXPOSE 3000
-CMD ["node", "dist/main"]
+CMD ["nginx", "-g", "daemon off;"]
