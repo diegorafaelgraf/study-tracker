@@ -54,9 +54,8 @@ export class YearController {
   }
 
   @Get('opened')
-  async getOpenedYears() {
-    const years = await this.service.getYears();
-    return years.filter(year => !year.closed);
+  async getOpenedYear() {
+    return await this.service.getOpenedYear();
   }
 
   @Get('by-topic/:topicId')

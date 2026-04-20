@@ -37,6 +37,9 @@ export class YearService {
   async getYearByYear(year: string): Promise<YearDocument | null> {
     return this.yearModel.findOne({ year }).exec();
   }
+  async getOpenedYear() {
+    return this.yearModel.findOne({ closed: false });
+  }
 
   // Get a Year by its ID
   async getYearById(id: number): Promise<YearDocument | null> {
