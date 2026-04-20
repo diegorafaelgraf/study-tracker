@@ -6,6 +6,6 @@ export const getTopics = async () => {
 };
 
 export const getTopicsByYear = async (yearId: string) => {
-  const { data } = await api.get(`/api/topics/year/${yearId}`);
+  const { data } = await api.get(`/api/topics/by-year/${yearId}`);
   return data;
 };

@@ -10,12 +10,12 @@ export const getClosedYears = async () => {
   return data;
 };
 
-export const getOpenedYears = async () => {
+export const getCurrentYear = async () => {
   const { data } = await api.get('/api/years/opened');
   return data;
 };
 
 export const getYearsByTopic = async (topicId: string) => {
-  const { data } = await api.get(`/api/years/topics/${topicId}`);
+  const { data } = await api.get(`/api/years/by-topic/${topicId}`);
   return data;
 };
