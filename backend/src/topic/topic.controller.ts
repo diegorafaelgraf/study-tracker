@@ -41,7 +41,7 @@ export class TopicController {
     return topic;
   }
 
-  @Get(':id')
+  @Get('by-id/:id')
   async getTopicById(@Param('id', ParseIntPipe) id: number) {
     return await this.service.getTopicById(id);
   }
@@ -49,5 +49,10 @@ export class TopicController {
   @Get('by-year/:yearId')
   async getTopicsByYear(@Param('yearId') yearId: string) {
     return await this.service.getTopicsByYear(yearId);
+  }
+
+  @Get('by-current-year')
+  async getTopicsCurrentYear() {
+    return await this.service.getTopicsCurrentYear();
   }
 }
