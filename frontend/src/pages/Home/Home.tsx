@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 import { getClosedYears, getCurrentYear } from '../../services/year.service';
 import { getTopics } from '../../services/topic.service';
@@ -26,6 +27,14 @@ export default function Home() {
     queryKey: ['topics'],
     queryFn: getTopics,
   });
+
+  const [hasOpenedYear, setHasOpenedYear] = useState(false);
+
+  useEffect(() => {
+    if (currentYear) {
+      setHasOpenedYear(true);
+    }
+  }, [currentYear]);
 
   return (
     <PageContainer>
@@ -57,6 +66,22 @@ export default function Home() {
           <p>Ir al formulario</p>
         </Card>
 
+      </Grid>
+
+      <h3 style={{ marginTop: '3rem' }}>Administración</h3>
+
+      <Grid columns={3}>
+        <Card onClick={() => navigate('/admin/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined}>
+          <h3>Agregar Año</h3>
+        </Card>
+
+        <Card onClick={() => navigate('/admin/topics')}>
+          <h3>Agregar Tópico</h3>
+        </Card>
+
+        <Card onClick={() => navigate('/admin/close-year')}>
+          <h3>Cerrar Año Actual</h3>
+        </Card>
       </Grid>
     </PageContainer>
   );
