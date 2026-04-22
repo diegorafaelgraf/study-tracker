@@ -4,6 +4,8 @@ import ClosedYears from './pages/Years/ClosedYears';
 import YearTopics from './pages/Years/YearTopics';
 import Topics from './pages/Topics/Topics'
 import TopicYears from './pages/Topics/TopicYears';
+import NewPractice from './pages/Practices/NewPractice';
+import CreateYear from './pages/Admin/CreateYear';
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
         <Route path="/topics" element={<Topics />} />
         <Route path="/topics/:topicId" element={<TopicYears />} />
 
-        <Route path="/practices/new" element={<div>Formulario</div>} />
+        <Route path="/practices/new" element={<NewPractice />} />
+
+        <Route path="/admin/years" element={<CreateYear />} />
       </Routes>
     </BrowserRouter>
   );

@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 
 import { Topic, TopicDocument } from './schemas/topic.schema';
 import { YearTopic, YearTopicDocument } from '../year-topic/schemas/year-topic.schema';
+import { Year, YearDocument } from '../year/schemas/year.schema';
 
 import { AddTopicInput } from './types/types';
 
@@ -14,6 +15,7 @@ export class TopicService {
   constructor(
     @InjectModel(Topic.name) private topicModel: Model<TopicDocument>,
     @InjectModel(YearTopic.name) private yearTopicModel: Model<YearTopicDocument>,
+    @InjectModel(Year.name) private yearModel: Model<YearDocument>
   ) { }
 
   // Add a new Topic to the database
@@ -38,6 +40,16 @@ export class TopicService {
     const yearTopics = this.yearTopicModel.find({ yearId }).exec();
     return this.topicModel.find({ _id: { $in: (await yearTopics).map(yt => yt.topicId) } }).exec();
   }
+
+  async getTopicsCurrentYear(): Promise<TopicDocument[]> {
+    const currentYear = await this.yearModel.findOne({ closed: false }).exec();
+    if (!currentYear) {
+      throw new Error('No hay un año abierto para obtener los tópicos');
+    }
+    const yearTopics = await this.yearTopicModel.find({ yearId: currentYear._id }).exec();
+    return this.topicModel.find({ _id: { $in: yearTopics.map(yt => yt.topicId) } }).exec();
+  }
+
 
   private normalizeName(name: string): string {
     return name

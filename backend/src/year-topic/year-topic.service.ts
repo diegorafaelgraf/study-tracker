@@ -10,8 +10,6 @@ import { Topic, TopicDocument } from '../topic/schemas/topic.schema';
 
 import { AddYearTopicInput } from './types/types';
 
-
-
 @Injectable()
 export class YearTopicService {
   constructor(
@@ -33,11 +31,6 @@ export class YearTopicService {
     const yearId = year._id.toString();
     return this.yearTopicModel.create({ ...data, yearId });
   }
-
-  // Get a Topics by its year
-  //async getTopicsByYear(yearId: string): Promise<YearTopicDocument | null> {
-  //return this.yearTopicModel.find({ yearId }).exec();
-  //}
 
   // Get a YearTopic by its ID
   async getYearTopicById(id: number): Promise<YearTopicDocument | null> {

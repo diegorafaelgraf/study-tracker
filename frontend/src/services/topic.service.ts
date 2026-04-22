@@ -5,6 +5,11 @@ export const getTopics = async () => {
   return data;
 };
 
+export const getTopicsCurrentYear = async () => {
+  const { data } = await api.get('/api/topics/by-current-year');
+  return data;
+};
+
 export const getTopicsByYear = async (yearId: string) => {
   const { data } = await api.get(`/api/topics/by-year/${yearId}`);
   return data;
