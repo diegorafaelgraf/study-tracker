@@ -3,10 +3,11 @@ import {
   Post,
   Body,
   Param,
-  ParseIntPipe,
   Get,
-  NotFoundException,
 } from '@nestjs/common';
+
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { PracticeService } from './practice.service';
 import { CreatePracticeDto } from './dto/practice.dto';
@@ -18,6 +19,7 @@ export class PracticeController {
     private readonly service: PracticeService,
   ) { }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async addPractice(@Body() dto: CreatePracticeDto) {
     const input: AddPracticeInput = {
@@ -29,6 +31,7 @@ export class PracticeController {
     return await this.service.create(input);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/by-year-topic/:yearTopicId')
   async getPracticesByYearTopic(@Param('yearTopicId') yearTopicId: string) {
     return await this.service.getPracticesByYearTopic(yearTopicId);

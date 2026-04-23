@@ -4,13 +4,14 @@ import {
   Body,
   Param,
   ParseIntPipe,
-  Get,
-  NotFoundException,
+  Get
 } from '@nestjs/common';
 
 import { YearTopicService } from './year-topic.service';
 import { CreateYearTopicDto } from './dto/year-topic.dto';
 import { AddYearTopicInput } from './types/types';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('api/year-topic')
 export class YearTopicController {
@@ -18,6 +19,7 @@ export class YearTopicController {
     private readonly service: YearTopicService,
   ) { }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async addYearTopic(@Body() dto: CreateYearTopicDto) {
     const input: AddYearTopicInput = {
@@ -28,9 +30,9 @@ export class YearTopicController {
     return await this.service.create(input);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getYearTopicById(@Param('id', ParseIntPipe) id: number) {
     return await this.service.getYearTopicById(id);
   }
-
 }
