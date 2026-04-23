@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export type YearDocument = HydratedDocument<Year>;
 
@@ -13,6 +13,9 @@ export class Year {
 
   @Prop({ required: true, default: false })
   closed: boolean = false;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  userId: Types.ObjectId = new Types.ObjectId();
 }
 
 export const YearSchema = SchemaFactory.createForClass(Year);
