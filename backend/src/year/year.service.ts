@@ -16,39 +16,40 @@ export class YearService {
   ) { }
 
   // Add a new Year to the database
-  async create(data: AddYearInput): Promise<YearDocument> {
+  async create(data: AddYearInput, userId: string): Promise<YearDocument> {
     const existingOpenYear = await this.yearModel.findOne({
-      status: 'open',
+      closed: false,
+      userId: userId
     });
     if (existingOpenYear) {
       throw new BadRequestException(
         'Ya existe un año abierto',
       );
     }
-    return this.yearModel.create({ ...data, closed: false });
+    return this.yearModel.create({ ...data, closed: false, userId: userId });
   }
 
   // Get all Years
-  async getYears(): Promise<YearDocument[]> {
-    return this.yearModel.find().exec();
+  async getYears(userId: string): Promise<YearDocument[]> {
+    return this.yearModel.find({ userId }).exec();
   }
 
   // Get a Year by its year
-  async getYearByYear(year: string): Promise<YearDocument | null> {
-    return this.yearModel.findOne({ year }).exec();
+  async getYearByYear(year: string, userId: string): Promise<YearDocument | null> {
+    return this.yearModel.findOne({ year, userId }).exec();
   }
-  async getOpenedYear() {
-    return this.yearModel.findOne({ closed: false });
+  async getOpenedYear(userId: string) {
+    return this.yearModel.findOne({ closed: false, userId });
   }
 
   // Get a Year by its ID
-  async getYearById(id: number): Promise<YearDocument | null> {
-    return this.yearModel.findById(id).exec();
+  async getYearById(id: number, userId: string): Promise<YearDocument | null> {
+    return this.yearModel.findOne({ _id: id, userId }).exec();
   }
 
   // Get all years by topic
-  async getYearsByTopic(topicId: string): Promise<YearDocument[]> {
-    const yearTopics = await this.yearTopicModel.find({ topicId }).exec();
-    return this.yearModel.find({ _id: { $in: yearTopics.map(yt => yt.yearId) } }).exec();
+  async getYearsByTopic(topicId: string, userId: string): Promise<YearDocument[]> {
+    const yearTopics = await this.yearTopicModel.find({ topicId, userId }).exec();
+    return this.yearModel.find({ _id: { $in: yearTopics.map(yt => yt.yearId) }, userId }).exec();
   }
 }
