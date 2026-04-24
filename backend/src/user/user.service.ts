@@ -28,4 +28,42 @@ export class UserService {
   async findByUsername(username: string) {
     return this.userModel.findOne({ username });
   }
+
+  async createUser(dto: {
+    username: string;
+    password: string;
+    role?: 'ADMIN' | 'USER';
+  }) {
+    const existing = await this.userModel.findOne({
+      username: dto.username,
+    });
+
+    if (existing) {
+      throw new Error('Usuario ya existe');
+    }
+
+    const hash = await bcrypt.hash(dto.password, 10);
+
+    return this.userModel.create({
+      username: dto.username,
+      password: hash,
+      role: dto.role || 'USER',
+    });
+  }
+
+  async changePassword(userId: string, oldPassword: string, newPassword: string) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) {
+      throw new Error('Contraseña actual incorrecta');
+    }
+
+    const hash = await bcrypt.hash(newPassword, 10);
+    user.password = hash;
+    return user.save();
+  }
 }
