@@ -19,21 +19,21 @@ export class YearTopicService {
   ) { }
 
   // Add a new YearTopic to the database
-  async create(data: AddYearTopicInput): Promise<YearTopicDocument> {
-    const year = await this.yearModel.findOne({ closed: false }).exec();
+  async create(data: AddYearTopicInput, userId: string): Promise<YearTopicDocument> {
+    const year = await this.yearModel.findOne({ closed: false, userId }).exec();
     if (!year) {
       throw new NotFoundException('No hay un año abierto para asociar el tópico');
     }
-    const topic = await this.topicModel.findById(data.topicId).exec();
+    const topic = await this.topicModel.findOne({ _id: data.topicId, userId }).exec();
     if (!topic) {
       throw new NotFoundException(`El tópico con ID "${data.topicId}" no existe`);
     }
     const yearId = year._id.toString();
-    return this.yearTopicModel.create({ ...data, yearId });
+    return this.yearTopicModel.create({ ...data, yearId, userId });
   }
 
   // Get a YearTopic by its ID
-  async getYearTopicById(id: number): Promise<YearTopicDocument | null> {
-    return this.yearTopicModel.findById(id).exec();
+  async getYearTopicById(id: number, userId: string): Promise<YearTopicDocument | null> {
+    return this.yearTopicModel.findOne({ _id: id, userId }).exec();
   }
 }

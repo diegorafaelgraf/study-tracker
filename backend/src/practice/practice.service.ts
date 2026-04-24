@@ -21,22 +21,22 @@ export class PracticeService {
   ) { }
 
   // Add a new YearTopic to the database
-  async create(data: AddPracticeInput): Promise<PracticeDocument> {
+  async create(data: AddPracticeInput, userId: string): Promise<PracticeDocument> {
 
-    const yearTopic = await this.yearTopicModel.findById(data.yearTopicId).exec();
+    const yearTopic = await this.yearTopicModel.findOne({ _id: data.yearTopicId, userId }).exec();
     if (!yearTopic) {
       throw new NotFoundException(`El YearTopic con ID "${data.yearTopicId}" no existe`);
     }
 
-    const year = await this.yearModel.findOne({ closed: false, _id: yearTopic.yearId }).exec();
+    const year = await this.yearModel.findOne({ closed: false, _id: yearTopic.yearId, userId }).exec();
     if (!year) {
       throw new NotFoundException('No hay un año abierto para cargar una práctica');
     }
 
-    return this.practiceModel.create(data);
+    return this.practiceModel.create({ ...data, userId });
   }
 
-  async getPracticesByYearTopic(yearTopicId: string): Promise<PracticeDocument[]> {
-    return this.practiceModel.find({ yearTopicId }).exec();
+  async getPracticesByYearTopic(yearTopicId: string, userId: string): Promise<PracticeDocument[]> {
+    return this.practiceModel.find({ yearTopicId, userId }).exec();
   }
 }

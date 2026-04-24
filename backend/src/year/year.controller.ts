@@ -22,25 +22,25 @@ export class YearController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getYears(@Req() req) {
-    return await this.service.getYears();
+  async getYears(@Req() req: any) {
+    return await this.service.getYears(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async addYear(@Body() dto: CreateYearDto) {
+  async addYear(@Body() dto: CreateYearDto, @Req() req: any) {
     const input: AddYearInput = {
       year: dto.year,
       totalDays: dto.totalDays
     };
 
-    return await this.service.create(input);
+    return await this.service.create(input, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('by-year/:year')
-  async getYearByYear(@Param('year') yearName: string) {
-    const year = await this.service.getYearByYear(yearName);
+  async getYearByYear(@Param('year') yearName: string, @Req() req: any) {
+    const year = await this.service.getYearByYear(yearName, req.user.userId);
     if (!year) {
       throw new NotFoundException(`Year with name \"${yearName}\" not found`);
     }
@@ -49,26 +49,26 @@ export class YearController {
 
   @UseGuards(JwtAuthGuard)
   @Get('by-id/:id')
-  async getYearById(@Param('id', ParseIntPipe) id: number) {
-    return await this.service.getYearById(id);
+  async getYearById(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+    return await this.service.getYearById(id, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('closed')
-  async getClosedYears() {
-    const years = await this.service.getYears();
+  async getClosedYears(@Req() req: any) {
+    const years = await this.service.getYears(req.user.userId);
     return years.filter(year => year.closed);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('opened')
-  async getOpenedYear() {
-    return await this.service.getOpenedYear();
+  async getOpenedYear(@Req() req: any) {
+    return await this.service.getOpenedYear(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('by-topic/:topicId')
-  async getYearsByTopic(@Param('topicId') topicId: string) {
-    return await this.service.getYearsByTopic(topicId);
+  async getYearsByTopic(@Param('topicId') topicId: string, @Req() req: any) {
+    return await this.service.getYearsByTopic(topicId, req.user.userId);
   }
 }

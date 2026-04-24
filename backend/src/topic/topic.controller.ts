@@ -8,7 +8,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, Req } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { TopicService } from './topic.service';
@@ -23,24 +23,24 @@ export class TopicController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async addTopic(@Body() dto: CreateTopicDto) {
+  async addTopic(@Body() dto: CreateTopicDto, @Req() req: any) {
     const input: AddTopicInput = {
       name: dto.name
     };
 
-    return await this.service.create(input);
+    return await this.service.create(input, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getTopics() {
-    return await this.service.getTopics();
+  async getTopics(@Req() req: any) {
+    return await this.service.getTopics(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('by-name/:name')
-  async getTopicByName(@Param('name') name: string) {
-    const topic = await this.service.getTopicByName(name);
+  async getTopicByName(@Param('name') name: string, @Req() req: any) {
+    const topic = await this.service.getTopicByName(name, req.user.userId);
     if (!topic) {
       throw new NotFoundException(`Topic with name \"${name}\" not found`);
     }
@@ -49,19 +49,19 @@ export class TopicController {
 
   @UseGuards(JwtAuthGuard)
   @Get('by-id/:id')
-  async getTopicById(@Param('id', ParseIntPipe) id: number) {
-    return await this.service.getTopicById(id);
+  async getTopicById(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+    return await this.service.getTopicById(id, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('by-year/:yearId')
-  async getTopicsByYear(@Param('yearId') yearId: string) {
-    return await this.service.getTopicsByYear(yearId);
+  async getTopicsByYear(@Param('yearId') yearId: string, @Req() req: any) {
+    return await this.service.getTopicsByYear(yearId, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('by-current-year')
-  async getTopicsCurrentYear() {
-    return await this.service.getTopicsCurrentYear();
+  async getTopicsCurrentYear(@Req() req: any) {
+    return await this.service.getTopicsCurrentYear(req.user.userId);
   }
 }

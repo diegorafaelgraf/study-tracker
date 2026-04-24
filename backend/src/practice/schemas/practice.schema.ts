@@ -8,6 +8,9 @@ export class Practice {
   @Prop({ type: Types.ObjectId, ref: 'YearTopic', required: true })
   yearTopicId: Types.ObjectId = new Types.ObjectId();
 
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  userId: Types.ObjectId = new Types.ObjectId();
+
   @Prop({ required: true, default: () => new Date() })
   date: Date = new Date();
 

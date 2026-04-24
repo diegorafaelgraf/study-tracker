@@ -11,6 +11,9 @@ export class YearTopic {
   @Prop({ type: Types.ObjectId, ref: 'Topic', required: true })
   topicId: Types.ObjectId = new Types.ObjectId();
 
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  userId: Types.ObjectId = new Types.ObjectId();
+
   @Prop({ required: true, default: 0 })
   goalMinutes: number = 0;
 }
