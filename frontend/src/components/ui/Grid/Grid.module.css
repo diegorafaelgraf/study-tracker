@@ -1,6 +1,7 @@
 .grid {
   display: grid;
-  gap: 1rem;
+  gap: 4rem;
+  margin-top: 1rem;
 }
 
 /* variantes */
@@ -14,5 +15,17 @@
 
 /* responsive automático */
 .auto {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* responsive para tablets y móviles */
+@media (max-width: 768px) {
+  .grid {
+    gap: 1rem;
+  }
+
+  .cols-2,
+  .cols-3 {
+    grid-template-columns: 1fr;
+  }
 }

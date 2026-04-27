@@ -1,3 +1,34 @@
 .container {
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+.container h1 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.container h2 {
+  color: #2c3e50;
+  margin: 1.5rem 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.container h3 {
+  color: #34495e;
+  margin: 1rem 0 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 }

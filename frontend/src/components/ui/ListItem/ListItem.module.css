@@ -1,10 +1,14 @@
 .item {
   padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
 }
 
 .item:hover {
-  background-color: #f5f5f5;
+  background-color: #f9fafb;
+  border-color: #3498db;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
 }
