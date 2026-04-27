@@ -1,0 +1,102 @@
+.header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  gap: 2rem;
+}
+
+.leftSection {
+  flex-shrink: 0;
+}
+
+.logo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.breadcrumbs {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.breadcrumbs a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breadcrumbs a:hover {
+  color: #3498db;
+}
+
+.breadcrumbs a.active {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.separator {
+  color: #7f8c8d;
+  margin: 0 0.3rem;
+}
+
+.rightSection {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.changePasswordBtn {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.changePasswordBtn:hover {
+  background-color: #229954;
+}
+
+.logoutBtn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.logoutBtn:hover {
+  background-color: #c0392b;
+}

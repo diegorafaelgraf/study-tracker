@@ -8,10 +8,21 @@ import { getTopics } from '../../services/topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import Card from '../../components/ui/Card/Card';
 import Grid from '../../components/ui/Grid/Grid';
+import { useAuth } from '../../context/auth.context';
+import AdminHome from '../Admin/AdminHome';
 
 export default function Home() {
 
   const navigate = useNavigate();
+  const { token } = useAuth();
+
+  // Extraer rol del token
+  const isAdmin = token ? JSON.parse(atob(token.split('.')[1])).role === 'ADMIN' : false;
+
+  // Si es admin, mostrar AdminHome
+  if (isAdmin) {
+    return <AdminHome />;
+  }
 
   const { data: closedYears } = useQuery({
     queryKey: ['closed-years'],
@@ -38,7 +49,6 @@ export default function Home() {
 
   return (
     <PageContainer>
-      <h1>Study Tracker</h1>
 
       <Grid>
 
