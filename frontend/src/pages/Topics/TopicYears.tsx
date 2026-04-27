@@ -6,8 +6,13 @@ import type { CSSProperties } from 'react';
 export default function TopicYears() {
   const { topicId } = useParams();
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ['years-by-topic', topicId],
+    queryKey: ['years-by-topic', topicId, userId],
     queryFn: () => getYearsByTopic(topicId!),
     enabled: !!topicId,
   });

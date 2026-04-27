@@ -9,8 +9,13 @@ import ListItem from '../../components/ui/ListItem/ListItem';
 export default function ClosedYears() {
   const navigate = useNavigate();
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ['closed-years'],
+    queryKey: ['closed-years', userId],
     queryFn: getClosedYears,
   });
 

@@ -15,15 +15,20 @@ export default function AddTopicToYear() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   // Obtener todos los tópicos del usuario
   const { data: allTopics, isLoading: loadingTopics } = useQuery({
-    queryKey: ['topics'],
+    queryKey: ['topics', userId],
     queryFn: getTopics,
   });
 
   // Obtener tópicos ya asociados al año
   const { data: yearTopics, isLoading: loadingYearTopics } = useQuery({
-    queryKey: ['topics-by-year', yearId],
+    queryKey: ['topics-by-year', yearId, userId],
     queryFn: () => getTopicsByYear(yearId!),
     enabled: !!yearId,
   });
@@ -37,7 +42,7 @@ export default function AddTopicToYear() {
     mutationFn: addTopicToYear,
     onSuccess: () => {
       setSuccess('Tópico agregado al año exitosamente ✅');
-      queryClient.invalidateQueries({ queryKey: ['topics-by-year', yearId] });
+      queryClient.invalidateQueries({ queryKey: ['topics-by-year', yearId, userId] });
       setTimeout(() => {
         navigate(`/current-year/${yearId}`);
       }, 2000);

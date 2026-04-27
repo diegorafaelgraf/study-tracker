@@ -10,8 +10,13 @@ export default function NewPractice() {
   const [minutes, setMinutes] = useState('');
   const [description, setDescription] = useState('');
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data: topics } = useQuery({
-    queryKey: ['topics'],
+    queryKey: ['topics', userId],
     queryFn: getTopicsCurrentYear,
   });
 

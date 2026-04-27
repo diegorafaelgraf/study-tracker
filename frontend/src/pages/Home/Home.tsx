@@ -16,6 +16,10 @@ export default function Home() {
   const navigate = useNavigate();
   const { token } = useAuth();
 
+  // Extraer userId del token
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   // Extraer rol del token
   const isAdmin = token ? JSON.parse(atob(token.split('.')[1])).role === 'ADMIN' : false;
 
@@ -25,27 +29,21 @@ export default function Home() {
   }
 
   const { data: closedYears } = useQuery({
-    queryKey: ['closed-years'],
+    queryKey: ['closed-years', userId],
     queryFn: getClosedYears,
   });
 
   const { data: currentYear } = useQuery({
-    queryKey: ['current-year'],
+    queryKey: ['current-year', userId],
     queryFn: getCurrentYear,
   });
 
   const { data: topics } = useQuery({
-    queryKey: ['topics'],
+    queryKey: ['topics', userId],
     queryFn: getTopics,
-  });
+  });  
 
-  const [hasOpenedYear, setHasOpenedYear] = useState(false);
-
-  useEffect(() => {
-    if (currentYear) {
-      setHasOpenedYear(true);
-    }
-  }, [currentYear]);
+  const hasOpenedYear = !!currentYear;
 
   return (
     <PageContainer>

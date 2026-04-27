@@ -9,8 +9,13 @@ export default function CreateYear() {
   const [year, setYear] = useState("");
   const presentYear = new Date().getFullYear();
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data: currentYear } = useQuery({
-    queryKey: ['current-year'],
+    queryKey: ['current-year', userId],
     queryFn: getCurrentYear,
   });
 

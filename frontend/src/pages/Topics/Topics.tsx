@@ -10,8 +10,13 @@ import styles from './Topics.module.css';
 export default function Topics() {
   const navigate = useNavigate();
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ['topics'],
+    queryKey: ['topics', userId],
     queryFn: getTopics,
   });
 

@@ -11,8 +11,13 @@ export default function YearTopics() {
   const { yearId } = useParams();
   const navigate = useNavigate();
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ['topics-by-year', yearId],
+    queryKey: ['topics-by-year', yearId, userId],
     queryFn: () => getTopicsByYear(yearId!),
     enabled: !!yearId,
   });

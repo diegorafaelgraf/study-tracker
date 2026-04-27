@@ -9,8 +9,13 @@ import ListItem from '../../components/ui/ListItem/ListItem';
 export default function CurrentYear() {
   const navigate = useNavigate();
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ['current-year'],
+    queryKey: ['current-year', userId],
     queryFn: getCurrentYear,
   });
 

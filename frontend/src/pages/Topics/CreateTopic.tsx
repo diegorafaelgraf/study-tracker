@@ -13,11 +13,16 @@ export default function CreateTopic() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Extraer userId del token
+  const { token } = useAuth();
+  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = payload?.sub;
+
   const mutation = useMutation({
     mutationFn: createTopic,
     onSuccess: () => {
       setSuccess('Tópico creado exitosamente ✅');
-      queryClient.invalidateQueries({ queryKey: ['topics'] });
+      queryClient.invalidateQueries({ queryKey: ['topics', userId] });
       setTimeout(() => {
         navigate('/topics');
       }, 2000);
@@ -45,7 +50,7 @@ export default function CreateTopic() {
 
     try {
       setLoading(true);
-      await mutation.mutateAsync({ name: name.trim() });
+      await mutation.mutateAsync({ name: name.trim(), userId });
     } catch (err) {
       // Error ya manejado por onError
     } finally {
