@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import ClosedYears from './pages/Years/ClosedYears';
 import YearTopics from './pages/Years/YearTopics';
+import ClosedYearTopics from './pages/Years/ClosedYearTopics';
+import AddTopicToYear from './pages/Years/AddTopicToYear';
 import Topics from './pages/Topics/Topics'
 import TopicYears from './pages/Topics/TopicYears';
 import CreateTopic from './pages/Topics/CreateTopic';
@@ -27,9 +29,10 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         {/* Closed Years Pages */}
         <Route path="/closed-years" element={<ProtectedRoute><ClosedYears /></ProtectedRoute>} />
-        <Route path="/closed-years/:yearId" element={<ProtectedRoute><YearTopics /></ProtectedRoute>} />
+        <Route path="/closed-years/:yearId" element={<ProtectedRoute><ClosedYearTopics /></ProtectedRoute>} />
         {/* Current Year Page */}
         <Route path="/current-year/:yearId" element={<ProtectedRoute><YearTopics /></ProtectedRoute>} />
+        <Route path="/years/:yearId/add-topic" element={<ProtectedRoute><AddTopicToYear /></ProtectedRoute>} />
         {/* Topics Pages */}
         <Route path="/topics" element={<ProtectedRoute><Topics /></ProtectedRoute>} />
         <Route path="/topics/:topicId" element={<ProtectedRoute><TopicYears /></ProtectedRoute>} />

@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getTopicsByYear } from '../../services/topic.service';
 
@@ -7,9 +7,8 @@ import List from '../../components/ui/List/List';
 import ListItem from '../../components/ui/ListItem/ListItem';
 import styles from './YearTopics.module.css';
 
-export default function YearTopics() {
+export default function ClosedYearTopics() {
   const { yearId } = useParams();
-  const navigate = useNavigate();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['topics-by-year', yearId],
@@ -24,12 +23,6 @@ export default function YearTopics() {
     <PageContainer>
       <div className={styles.header}>
         <h1>Tópicos del año</h1>
-        <button
-          onClick={() => navigate(`/years/${yearId}/add-topic`)}
-          className={styles.addBtn}
-        >
-          + Agregar Tópico
-        </button>
       </div>
 
       <List>
@@ -42,8 +35,7 @@ export default function YearTopics() {
 
       {data?.length === 0 && (
         <div className={styles.empty}>
-          <p>No tienes tópicos asociados a este año aún.</p>
-          <p>Haz clic en "Agregar Tópico" para empezar a trackear actividades.</p>
+          <p>Este año no tiene tópicos asociados.</p>
         </div>
       )}
     </PageContainer>
