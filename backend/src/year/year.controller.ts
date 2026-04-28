@@ -49,7 +49,7 @@ export class YearController {
 
   @UseGuards(JwtAuthGuard)
   @Get('by-id/:id')
-  async getYearById(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+  async getYearById(@Param('id') id: string, @Req() req: any) {
     return await this.service.getYearById(id, req.user.userId);
   }
 

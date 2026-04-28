@@ -43,7 +43,7 @@ export class YearService {
   }
 
   // Get a Year by its ID
-  async getYearById(id: number, userId: string): Promise<YearDocument | null> {
+  async getYearById(id: string, userId: string): Promise<YearDocument | null> {
     return this.yearModel.findOne({ _id: id, userId }).exec();
   }
 

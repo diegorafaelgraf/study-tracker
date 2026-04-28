@@ -49,7 +49,7 @@ export class TopicController {
 
   @UseGuards(JwtAuthGuard)
   @Get('by-id/:id')
-  async getTopicById(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+  async getTopicById(@Param('id') id: string, @Req() req: any) {
     return await this.service.getTopicById(id, req.user.userId);
   }
 

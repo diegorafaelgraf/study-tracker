@@ -108,9 +108,9 @@ describe('YearController', () => {
       const mockYear = { _id: '1', year: '2024', closed: false };
       mockYearService.getYearById.mockResolvedValue(mockYear);
 
-      const result = await controller.getYearById(1, req);
+      const result = await controller.getYearById('1', req);
 
-      expect(yearService.getYearById).toHaveBeenCalledWith(1, 'user1');
+      expect(yearService.getYearById).toHaveBeenCalledWith('1', 'user1');
       expect(result).toEqual(mockYear);
     });
   });
