@@ -6,6 +6,7 @@ import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import List from '../../components/ui/List/List';
 import ListItem from '../../components/ui/ListItem/ListItem';
 import styles from './YearTopics.module.css';
+import { useAuth } from '../../context/auth.context';
 
 export default function YearTopics() {
   const { yearId } = useParams();

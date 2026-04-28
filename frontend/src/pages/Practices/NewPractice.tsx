@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getTopicsCurrentYear } from '../../services/topic.service';
 import { createPractice } from '../../services/practice.service';
+import { useAuth } from '../../context/auth.context';
 
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 

@@ -5,6 +5,7 @@ import { getTopics, getTopicsByYear } from '../../services/topic.service';
 import { addTopicToYear } from '../../services/year-topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import styles from './AddTopicToYear.module.css';
+import { useAuth } from '../../context/auth.context';
 
 export default function AddTopicToYear() {
   const navigate = useNavigate();

@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createTopic } from '../../services/topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import styles from './CreateTopic.module.css';
+import { useAuth } from '../../context/auth.context';
 
 export default function CreateTopic() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ export default function CreateTopic() {
 
     try {
       setLoading(true);
-      await mutation.mutateAsync({ name: name.trim(), userId });
+      await mutation.mutateAsync({ name: name.trim() });
     } catch (err) {
       // Error ya manejado por onError
     } finally {
