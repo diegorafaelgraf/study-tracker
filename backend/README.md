@@ -246,6 +246,175 @@ Para detener la base de datos:
 docker-compose down
 ```
 
+## Testing
+
+### Configuración Jest
+
+El proyecto está configurado con Jest para testing unitario y e2e. La configuración incluye:
+- **Test Pattern**: `**/*.spec.ts`
+- **Coverage Directory**: `./coverage`
+- **Entorno**: Node.js
+- **Transformer**: `ts-jest`
+
+### Ejecutar Tests
+
+#### Test Básico
+Ejecuta una sola vez todos los tests:
+```bash
+npm test
+```
+
+#### Test en Modo Watch
+Ejecuta los tests en modo vigilancia. Se re-ejecutan automáticamente cuando hay cambios:
+```bash
+npm run test:watch
+```
+
+#### Test con Coverage
+Ejecuta los tests y genera un reporte de cobertura de código:
+```bash
+npm run test:cov
+```
+
+El reporte se guardará en el directorio `./coverage` con:
+- **coverage/lcov-report/index.html** - Reporte HTML interactivo
+- **coverage/lcov.info** - Formato LCOV
+- **coverage/coverage-final.json** - Datos en JSON
+
+#### Test Debug
+Ejecuta los tests en modo debug para depuración con Node inspector:
+```bash
+npm run test:debug
+```
+
+Luego abre `chrome://inspect` en Chrome para conectarte al debugger.
+
+#### Test E2E
+Ejecuta tests end-to-end usando configuración específica:
+```bash
+npm run test:e2e
+```
+
+Usa `test/jest-e2e.json` para la configuración de tests E2E.
+
+### Estructura de Tests
+
+Los tests están organizados por módulo, espejando la estructura de `src/`:
+
+```
+test/
+├── jest-e2e.json          # Configuración de tests E2E
+└── *.e2e-spec.ts          # Tests end-to-end
+```
+
+Tests unitarios se encuentran junto a los archivos fuente:
+```
+src/
+├── app.service.spec.ts
+├── practice/
+│   ├── practice.service.spec.ts
+│   └── practice.controller.spec.ts
+├── topic/
+│   ├── topic.service.spec.ts
+│   └── topic.controller.spec.ts
+├── year/
+│   ├── year.service.spec.ts
+│   └── year.controller.spec.ts
+└── year-topic/
+    ├── year-topic.service.spec.ts
+    └── year-topic.controller.spec.ts
+```
+
+### Generar Reportes de Cobertura
+
+#### HTML Report
+Después de ejecutar `npm run test:cov`, abre el reporte interactivo:
+```bash
+open coverage/lcov-report/index.html  # macOS
+xdg-open coverage/lcov-report/index.html  # Linux
+start coverage/lcov-report/index.html  # Windows
+```
+
+#### Ver Resumen de Cobertura en Terminal
+```bash
+npm run test:cov
+```
+
+El output mostrará:
+- Porcentaje de cobertura por archivo
+- Líneas no cubiertas
+- Ramas condicionales no cubiertas
+- Funciones no probadas
+
+#### Filtrar Tests por Patrón
+```bash
+npm test -- --testPathPattern=practice  # Solo tests de practice
+npm test -- --testNamePattern="should"  # Tests que coincidan con el nombre
+```
+
+#### Especificar Archivo de Test
+```bash
+npm test -- src/app.service.spec.ts
+```
+
+### Tips para Testing
+
+1. **Usar test:watch para desarrollo**:
+   ```bash
+   npm run test:watch
+   ```
+   Mantén esta ventana abierta mientras desarrollas para feedback inmediato.
+
+2. **Actualizar snapshots**:
+   ```bash
+   npm test -- -u
+   ```
+
+3. **Ejecutar tests en paralelo** (por defecto):
+   - Jest ejecuta tests en paralelo automáticamente
+   - Para ejecutar secuencialmente:
+   ```bash
+   npm test -- --runInBand
+   ```
+
+4. **Ver verbose output**:
+   ```bash
+   npm test -- --verbose
+   ```
+
+5. **Generar cobertura para un archivo específico**:
+   ```bash
+   npm run test:cov -- --collectCoverageFrom=src/practice/practice.service.ts
+   ```
+
+### Configuración de Cobertura
+
+En `package.json`, la sección `jest` define:
+```json
+{
+  "jest": {
+    "collectCoverageFrom": ["**/*.(t|j)s"],
+    "coverageDirectory": "../coverage",
+    "coveragePathIgnorePatterns": ["/node_modules/"],
+    "coverageReporters": ["text", "lcov", "json"]
+  }
+}
+```
+
+Puedes personalizar umbrales mínimos de cobertura agregando:
+```json
+{
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
+  }
+}
+```
+
 ## Tecnologías utilizadas
 
 - **NestJS** - Framework backend
