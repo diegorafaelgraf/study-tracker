@@ -10,11 +10,7 @@ export default function NewPractice() {
   const [topicId, setTopicId] = useState('');
   const [minutes, setMinutes] = useState('');
   const [description, setDescription] = useState('');
-
-  // Extraer userId del token
-  const { token } = useAuth();
-  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
-  const userId = payload?.sub;
+  const { userId } = useAuth();
 
   const { data: topics } = useQuery({
     queryKey: ['topics', userId],

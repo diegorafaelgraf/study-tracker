@@ -13,11 +13,7 @@ export default function CreateTopic() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  // Extraer userId del token
-  const { token } = useAuth();
-  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
-  const userId = payload?.sub;
+  const { userId } = useAuth();
 
   const mutation = useMutation({
     mutationFn: createTopic,

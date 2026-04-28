@@ -2,19 +2,17 @@ import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
+
 import { getCurrentYear } from '../../services/year.service';
 import { createYear } from '../../services/year.service';
+
 import { useAuth } from '../../context/auth.context';
 
 
 export default function CreateYear() {
   const [year, setYear] = useState("");
   const presentYear = new Date().getFullYear();
-
-  // Extraer userId del token
-  const { token } = useAuth();
-  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
-  const userId = payload?.sub;
+  const { userId } = useAuth();
 
   const { data: currentYear } = useQuery({
     queryKey: ['current-year', userId],

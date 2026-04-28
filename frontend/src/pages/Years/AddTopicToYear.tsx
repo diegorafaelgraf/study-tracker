@@ -6,6 +6,7 @@ import { addTopicToYear } from '../../services/year-topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import styles from './AddTopicToYear.module.css';
 import { useAuth } from '../../context/auth.context';
+import type { Topic } from '../../types/Topic';
 
 export default function AddTopicToYear() {
   const navigate = useNavigate();
@@ -15,11 +16,7 @@ export default function AddTopicToYear() {
   const [goalMinutes, setGoalMinutes] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  // Extraer userId del token
-  const { token } = useAuth();
-  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
-  const userId = payload?.sub;
+  const { userId } = useAuth();
 
   // Obtener todos los tópicos del usuario
   const { data: allTopics, isLoading: loadingTopics } = useQuery({
@@ -35,8 +32,8 @@ export default function AddTopicToYear() {
   });
 
   // Filtrar tópicos disponibles (que no estén ya en el año)
-  const availableTopics = allTopics?.filter(topic =>
-    !yearTopics?.some(yearTopic => yearTopic._id === topic._id)
+  const availableTopics = allTopics?.filter((topic: Topic) =>
+    !yearTopics?.some((yearTopic: Topic) => yearTopic._id === topic._id)
   ) || [];
 
   const mutation = useMutation({
@@ -106,7 +103,7 @@ export default function AddTopicToYear() {
               className={styles.select}
             >
               <option value="">-- Seleccionar tópico --</option>
-              {availableTopics.map((topic: any) => (
+              {availableTopics.map((topic: Topic) => (
                 <option key={topic._id} value={topic._id}>
                   {topic.name}
                 </option>

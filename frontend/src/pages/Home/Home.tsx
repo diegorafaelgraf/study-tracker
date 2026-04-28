@@ -13,14 +13,9 @@ import AdminHome from '../Admin/AdminHome';
 export default function Home() {
 
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { userId, role } = useAuth();
 
-  // Extraer userId del token
-  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
-  const userId = payload?.sub;
-
-  // Extraer rol del token
-  const isAdmin = token ? JSON.parse(atob(token.split('.')[1])).role === 'ADMIN' : false;
+  const isAdmin = role === 'ADMIN';
 
   // Si es admin, mostrar AdminHome
   if (isAdmin) {

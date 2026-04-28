@@ -4,6 +4,22 @@ type AuthContextType = {
   token: string | null;
   login: (token: string) => void;
   logout: () => void;
+  userId: string | undefined;
+  role: string | undefined;
+};
+
+type JwtPayload = {
+  sub: string;
+  exp: number;
+  role: string;
+};
+
+const parseJwt = (token: string): JwtPayload | null => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return null;
+  }
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -23,11 +39,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null);
   };
 
+  const payload = token ? parseJwt(token) : null;
+  const userId = payload?.sub;
+  const role = payload?.role;
+
   return (
-    <AuthContext.Provider value={{ token, login: handleLogin, logout }}>
+    <AuthContext.Provider value={{ token, login: handleLogin, logout, userId, role }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext)!;
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};

@@ -10,11 +10,7 @@ import { useAuth } from '../../context/auth.context';
 
 export default function ClosedYearTopics() {
   const { yearId } = useParams();
-
-  // Extraer userId del token
-  const { token } = useAuth();
-  const payload = token ? JSON.parse(atob(token.split('.')[1])) : null;
-  const userId = payload?.sub;
+  const { userId } = useAuth();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['topics-by-year', yearId, userId],
