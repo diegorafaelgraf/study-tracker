@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 
 import { getClosedYears, getCurrentYear } from '../../services/year.service';
 import { getTopics } from '../../services/topic.service';
@@ -41,7 +40,7 @@ export default function Home() {
   const { data: topics } = useQuery({
     queryKey: ['topics', userId],
     queryFn: getTopics,
-  });  
+  });
 
   const hasOpenedYear = !!currentYear;
 
