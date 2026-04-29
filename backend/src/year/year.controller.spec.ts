@@ -15,6 +15,7 @@ describe('YearController', () => {
     getYearById: jest.fn(),
     getOpenedYear: jest.fn(),
     getYearsByTopic: jest.fn(),
+    closeYear: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -180,6 +181,19 @@ describe('YearController', () => {
 
       expect(yearService.getYearsByTopic).toHaveBeenCalledWith('topic1', 'user1');
       expect(result).toEqual(mockYears);
+    });
+  });
+
+  describe('closeYear', () => {
+    it('should close a year', async () => {
+      const req = { user: { userId: 'user1' } };
+      const mockYear = { _id: '1', year: '2024', closed: true };
+      mockYearService.closeYear.mockResolvedValue(mockYear);
+
+      const result = await controller.closeYear('1', req);
+
+      expect(yearService.closeYear).toHaveBeenCalledWith('1', 'user1');
+      expect(result).toEqual(mockYear);
     });
   });
 });

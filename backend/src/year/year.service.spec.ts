@@ -3,7 +3,7 @@ import { YearService } from './year.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Year } from './schemas/year.schema';
 import { YearTopic } from '../year-topic/schemas/year-topic.schema';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 describe('YearService', () => {
   let service: YearService;
@@ -164,6 +164,33 @@ describe('YearService', () => {
       const result = await service.getYearsByTopic('topic1', 'user1');
 
       expect(result).toEqual(mockYears);
+    });
+  });
+
+  describe('closeYear', () => {
+    it('should close an open year', async () => {
+      const mockYear = { _id: '1', year: '2024', closed: false, userId: 'user1', save: jest.fn() };
+      mockYearModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockYear) });
+      mockYear.save.mockResolvedValue({ ...mockYear, closed: true });
+
+      const result = await service.closeYear('1', 'user1');
+
+      expect(mockYear.closed).toBe(true);
+      expect(mockYear.save).toHaveBeenCalled();
+      expect(result.closed).toBe(true);
+    });
+
+    it('should throw NotFoundException when year not found', async () => {
+      mockYearModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+
+      await expect(service.closeYear('1', 'user1')).rejects.toThrow(NotFoundException);
+    });
+
+    it('should throw BadRequestException when year is already closed', async () => {
+      const mockYear = { _id: '1', year: '2024', closed: true, userId: 'user1' };
+      mockYearModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockYear) });
+
+      await expect(service.closeYear('1', 'user1')).rejects.toThrow(BadRequestException);
     });
   });
 });

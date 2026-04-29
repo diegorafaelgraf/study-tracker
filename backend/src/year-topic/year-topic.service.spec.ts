@@ -120,9 +120,9 @@ describe('YearTopicService', () => {
       }
     });
 
-    it('should convert year id to string when creating year-topic', async () => {
+    it('should include the year id when creating year-topic', async () => {
       const input = { topicId: 'topic1', goalMinutes: 100 };
-      const mockYear = { _id: { toString: jest.fn().mockReturnValue('year-123') }, closed: false, userId: 'user1' };
+      const mockYear = { _id: 'year-123', closed: false, userId: 'user1' };
       const mockTopic = { _id: 'topic1', name: 'Piano', userId: 'user1' };
 
       mockYearModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockYear) });
