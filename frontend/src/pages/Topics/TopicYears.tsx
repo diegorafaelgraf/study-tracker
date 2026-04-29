@@ -2,12 +2,14 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getYearsByTopic } from '../../services/year.service';
 import type { CSSProperties } from 'react';
+import { useAuth } from '../../context/auth.context';
 
 export default function TopicYears() {
   const { topicId } = useParams();
+  const { userId } = useAuth();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['years-by-topic', topicId],
+    queryKey: ['years-by-topic', topicId, userId],
     queryFn: () => getYearsByTopic(topicId!),
     enabled: !!topicId,
   });

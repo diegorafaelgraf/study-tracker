@@ -23,6 +23,11 @@ export const getYearsByTopic = async (topicId: string) => {
 export const createYear = async (payload: {
   year: string;
 }) => {
-  const { data } = await api.post('/years', payload);
+  const { data } = await api.post('/api/years', payload);
+  return data;
+};
+
+export const closeYear = async (yearId: string) => {
+  const { data } = await api.patch(`/api/years/${yearId}/close`);
   return data;
 };

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import { Topic, TopicDocument } from './schemas/topic.schema';
 import { YearTopic, YearTopicDocument } from '../year-topic/schemas/year-topic.schema';
@@ -32,12 +32,13 @@ export class TopicService {
     return this.topicModel.findOne({ name, userId }).exec();
   }
 
-  async getTopicById(id: number, userId: string): Promise<TopicDocument | null> {
+  async getTopicById(id: string, userId: string): Promise<TopicDocument | null> {
     return this.topicModel.findOne({ _id: id, userId }).exec();
   }
 
   async getTopicsByYear(yearId: string, userId: string): Promise<TopicDocument[]> {
-    const yearTopics = this.yearTopicModel.find({ yearId, userId }).exec();
+    const yearObjectId = new Types.ObjectId(yearId);
+    const yearTopics = this.yearTopicModel.find({ yearId: yearObjectId, userId }).exec();
     return this.topicModel.find({ _id: { $in: (await yearTopics).map(yt => yt.topicId) }, userId }).exec();
   }
 

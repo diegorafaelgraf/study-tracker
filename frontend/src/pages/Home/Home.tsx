@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 
 import { getClosedYears, getCurrentYear } from '../../services/year.service';
 import { getTopics } from '../../services/topic.service';
@@ -14,10 +13,9 @@ import AdminHome from '../Admin/AdminHome';
 export default function Home() {
 
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { userId, role } = useAuth();
 
-  // Extraer rol del token
-  const isAdmin = token ? JSON.parse(atob(token.split('.')[1])).role === 'ADMIN' : false;
+  const isAdmin = role === 'ADMIN';
 
   // Si es admin, mostrar AdminHome
   if (isAdmin) {
@@ -25,27 +23,21 @@ export default function Home() {
   }
 
   const { data: closedYears } = useQuery({
-    queryKey: ['closed-years'],
+    queryKey: ['closed-years', userId],
     queryFn: getClosedYears,
   });
 
   const { data: currentYear } = useQuery({
-    queryKey: ['current-year'],
+    queryKey: ['current-year', userId],
     queryFn: getCurrentYear,
   });
 
   const { data: topics } = useQuery({
-    queryKey: ['topics'],
+    queryKey: ['topics', userId],
     queryFn: getTopics,
   });
 
-  const [hasOpenedYear, setHasOpenedYear] = useState(false);
-
-  useEffect(() => {
-    if (currentYear) {
-      setHasOpenedYear(true);
-    }
-  }, [currentYear]);
+  const hasOpenedYear = !!currentYear;
 
   return (
     <PageContainer>
@@ -80,18 +72,14 @@ export default function Home() {
 
       <h3 style={{ marginTop: '3rem' }}>Administración</h3>
 
-      <Grid columns={3}>
-        <Card onClick={() => navigate('/admin/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined}>
+      <Grid columns={2}>
+        <Card onClick={() => navigate('/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined}>
           <h3>Agregar Año</h3>
         </Card>
 
-        <Card onClick={() => navigate('/admin/topics')}>
+        <Card onClick={() => navigate('/topics')}>
           <h3>Agregar Tópico</h3>
-        </Card>
-
-        <Card onClick={() => navigate('/admin/close-year')}>
-          <h3>Cerrar Año Actual</h3>
-        </Card>
+        </Card>        
       </Grid>
     </PageContainer>
   );

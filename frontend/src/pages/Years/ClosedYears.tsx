@@ -5,12 +5,14 @@ import { getClosedYears } from '../../services/year.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import List from '../../components/ui/List/List';
 import ListItem from '../../components/ui/ListItem/ListItem';
+import { useAuth } from '../../context/auth.context';
 
 export default function ClosedYears() {
   const navigate = useNavigate();
+  const { userId } = useAuth();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['closed-years'],
+    queryKey: ['closed-years', userId],
     queryFn: getClosedYears,
   });
 

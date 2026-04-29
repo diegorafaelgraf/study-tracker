@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
@@ -43,7 +43,7 @@ export class YearService {
   }
 
   // Get a Year by its ID
-  async getYearById(id: number, userId: string): Promise<YearDocument | null> {
+  async getYearById(id: string, userId: string): Promise<YearDocument | null> {
     return this.yearModel.findOne({ _id: id, userId }).exec();
   }
 
@@ -51,5 +51,18 @@ export class YearService {
   async getYearsByTopic(topicId: string, userId: string): Promise<YearDocument[]> {
     const yearTopics = await this.yearTopicModel.find({ topicId, userId }).exec();
     return this.yearModel.find({ _id: { $in: yearTopics.map(yt => yt.yearId) }, userId }).exec();
+  }
+
+  // Close a year
+  async closeYear(id: string, userId: string): Promise<YearDocument> {
+    const year = await this.yearModel.findOne({ _id: id, userId }).exec();
+    if (!year) {
+      throw new NotFoundException('Año no encontrado');
+    }
+    if (year.closed) {
+      throw new BadRequestException('El año ya está cerrado');
+    }
+    year.closed = true;
+    return year.save();
   }
 }

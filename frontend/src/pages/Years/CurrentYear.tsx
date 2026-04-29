@@ -6,11 +6,14 @@ import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import List from '../../components/ui/List/List';
 import ListItem from '../../components/ui/ListItem/ListItem';
 
+import { useAuth } from '../../context/auth.context';
+
 export default function CurrentYear() {
   const navigate = useNavigate();
+  const { userId } = useAuth();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['current-year'],
+    queryKey: ['current-year', userId],
     queryFn: getCurrentYear,
   });
 

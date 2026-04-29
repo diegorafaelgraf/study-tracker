@@ -28,12 +28,12 @@ export class YearTopicService {
     if (!topic) {
       throw new NotFoundException(`El tópico con ID "${data.topicId}" no existe`);
     }
-    const yearId = year._id.toString();
+    const yearId = year._id;
     return this.yearTopicModel.create({ ...data, yearId, userId });
   }
 
   // Get a YearTopic by its ID
-  async getYearTopicById(id: number, userId: string): Promise<YearTopicDocument | null> {
+  async getYearTopicById(id: string, userId: string): Promise<YearTopicDocument | null> {
     return this.yearTopicModel.findOne({ _id: id, userId }).exec();
   }
 }
