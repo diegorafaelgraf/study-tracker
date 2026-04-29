@@ -26,3 +26,8 @@ export const createYear = async (payload: {
   const { data } = await api.post('/api/years', payload);
   return data;
 };
+
+export const closeYear = async (yearId: string) => {
+  const { data } = await api.patch(`/api/years/${yearId}/close`);
+  return data;
+};

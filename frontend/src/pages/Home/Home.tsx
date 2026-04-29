@@ -72,18 +72,14 @@ export default function Home() {
 
       <h3 style={{ marginTop: '3rem' }}>Administración</h3>
 
-      <Grid columns={3}>
+      <Grid columns={2}>
         <Card onClick={() => navigate('/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined}>
           <h3>Agregar Año</h3>
         </Card>
 
         <Card onClick={() => navigate('/topics')}>
           <h3>Agregar Tópico</h3>
-        </Card>
-
-        <Card onClick={() => navigate('/close-year')}>
-          <h3>Cerrar Año Actual</h3>
-        </Card>
+        </Card>        
       </Grid>
     </PageContainer>
   );
