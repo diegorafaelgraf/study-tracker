@@ -136,25 +136,25 @@ describe('TopicService', () => {
 
   describe('getTopicById', () => {
     it('should find topic by id and userId', async () => {
-      const mockTopic = { _id: '1', name: 'Music', userId: 'user1' };
+      const mockTopic = { _id: '507f1f77bcf86cd799439011', name: 'Music', userId: 'user1' };
       mockTopicModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockTopic) });
 
-      const result = await service.getTopicById(1, 'user1');
+      const result = await service.getTopicById('507f1f77bcf86cd799439011', 'user1');
 
       expect(result).toEqual(mockTopic);
-      expect(mockTopicModel.findOne).toHaveBeenCalledWith({ _id: 1, userId: 'user1' });
+      expect(mockTopicModel.findOne).toHaveBeenCalledWith({ _id: '507f1f77bcf86cd799439011', userId: 'user1' });
     });
   });
 
   describe('getTopicsByYear', () => {
     it('should get topics for a specific year', async () => {
-      const yearTopics = [{ yearId: 'year1', topicId: 'topic1', userId: 'user1' }];
+      const yearTopics = [{ yearId: '507f1f77bcf86cd799439011', topicId: 'topic1', userId: 'user1' }];
       const mockTopics = [{ _id: 'topic1', name: 'Music', userId: 'user1' }];
 
       mockYearTopicModel.find.mockReturnValue({ exec: jest.fn().mockResolvedValue(yearTopics) });
       mockTopicModel.find.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockTopics) });
 
-      const result = await service.getTopicsByYear('year1', 'user1');
+      const result = await service.getTopicsByYear('507f1f77bcf86cd799439011', 'user1');
 
       expect(result).toEqual(mockTopics);
     });
