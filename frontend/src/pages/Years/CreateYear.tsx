@@ -39,7 +39,7 @@ export default function CreateYear() {
     }
 
     // 🚨 Validación frontend
-    if (closed && currentYear) {
+    if (currentYear) {
       alert('Ya existe un año abierto');
       return;
     }
