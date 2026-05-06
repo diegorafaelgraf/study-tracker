@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getYearsByTopic } from '../../services/year.service';
-import type { CSSProperties } from 'react';
+import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import { useAuth } from '../../context/auth.context';
 
 export default function TopicYears() {
@@ -18,9 +18,7 @@ export default function TopicYears() {
   if (error) return <p>Error cargando Años</p>;
 
   return (
-    <div style={styles.container}>
-      <h1>Años del tópico</h1>
-
+    <PageContainer title="Años del tópico" showBackButton={true}>
       <div style={styles.list}>
         {data?.map((year: any) => (
           <div key={year._id} style={styles.item}>
@@ -28,14 +26,11 @@ export default function TopicYears() {
           </div>
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }
 
 const styles: { [key: string]: CSSProperties } = {
-  container: {
-    padding: '2rem',
-  },
   list: {
     marginTop: '1rem',
     display: 'flex',

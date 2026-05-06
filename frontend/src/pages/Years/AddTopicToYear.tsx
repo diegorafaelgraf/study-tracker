@@ -78,16 +78,15 @@ export default function AddTopicToYear() {
 
   if (loadingTopics || loadingYearTopics) {
     return (
-      <PageContainer>
+      <PageContainer title="Cargando..." showBackButton={true}>
         <p>Cargando...</p>
       </PageContainer>
     );
   }
 
   return (
-    <PageContainer>
+    <PageContainer title="Agregar Tópico al Año" showBackButton={true}>
       <div className={styles.container}>
-        <h1>Agregar Tópico al Año</h1>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles.error}>{error}</div>}

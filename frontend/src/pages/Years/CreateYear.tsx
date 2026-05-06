@@ -50,8 +50,7 @@ export default function CreateYear() {
   };
 
   return (
-    <PageContainer>
-      <h1>Crear Año</h1>
+    <PageContainer title="Crear Año" showBackButton={true}>
 
       <form onSubmit={handleSubmit} style={styles.form}>
 

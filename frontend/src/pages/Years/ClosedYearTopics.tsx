@@ -22,11 +22,8 @@ export default function ClosedYearTopics() {
   if (error) return <p>Error cargando tópicos</p>;
 
   return (
-    <PageContainer>
-      <div className={styles.header}>
-        <h1>Tópicos del año</h1>
-      </div>
-
+    <PageContainer title="Tópicos del año" showBackButton={true}>
+      
       <List>
         {data?.map((topic: any) => (
           <ListItem key={topic._id}>

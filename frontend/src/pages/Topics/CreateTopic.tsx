@@ -56,9 +56,8 @@ export default function CreateTopic() {
   };
 
   return (
-    <PageContainer>
+    <PageContainer title="Crear Nuevo Tópico" showBackButton={true}>
       <div className={styles.container}>
-        <h1>Crear Nuevo Tópico</h1>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles.error}>{error}</div>}

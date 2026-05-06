@@ -21,8 +21,7 @@ export default function CurrentYear() {
   if (error) return <p>Error cargando Tópicos año vigente</p>;
 
   return (
-    <PageContainer>
-      <h1>Año Vigente</h1>
+    <PageContainer title="Año Vigente" showBackButton={true}>
 
       <List>
         {data?.map((year: any) => (

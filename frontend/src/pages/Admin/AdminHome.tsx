@@ -8,8 +8,7 @@ export default function AdminHome() {
   const navigate = useNavigate();
 
   return (
-    <PageContainer>
-      <h1>Panel de Administración</h1>
+    <PageContainer title="Panel de Administración" showBackButton={true}>
 
       <Grid>
         <Card onClick={() => navigate('/admin/users')}>
