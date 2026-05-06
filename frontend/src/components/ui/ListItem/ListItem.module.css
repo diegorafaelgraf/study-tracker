@@ -8,7 +8,7 @@
 }
 
 .item:hover {
-  background-color: #f9fafb;
-  border-color: #3498db;
+  background-color: #ccddee;
+  border-color: #4fabe9;
   box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
 }
