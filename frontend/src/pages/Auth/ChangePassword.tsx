@@ -57,9 +57,8 @@ export default function ChangePassword() {
   };
 
   return (
-    <PageContainer>
+    <PageContainer title="Cambiar Contraseña" showBackButton={true}>
       <div className={styles.container}>
-        <h1>Cambiar Contraseña</h1>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles.error}>{error}</div>}

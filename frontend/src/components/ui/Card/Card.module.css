@@ -18,8 +18,8 @@
 }
 
 .card:hover {
-  background-color: #f9fafb;
-  border-color: #3498db;
+  background-color: #ccddee;
+  border-color: #4fabe9;
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
   transform: translateY(-4px);
 }
@@ -27,13 +27,22 @@
 .card h2,
 .card h3 {
   color: #2c3e50;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  font-size: 1.50rem;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease;
+}
+
+.card:hover h2,
+.card:hover h3 {
+  color: #34495e;
 }
 
 .card p {
-  color: #7f8c8d;
+  color: #138a08;
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .tooltip {

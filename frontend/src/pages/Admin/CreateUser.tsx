@@ -49,9 +49,8 @@ export default function CreateUser() {
   };
 
   return (
-    <PageContainer>
+    <PageContainer title="Crear Nuevo Usuario" showBackButton={true}>
       <div className={styles.container}>
-        <h1>Crear Nuevo Usuario</h1>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles.error}>{error}</div>}

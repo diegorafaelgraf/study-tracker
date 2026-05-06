@@ -7,7 +7,9 @@ import { getTopics } from '../../services/topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import Card from '../../components/ui/Card/Card';
 import Grid from '../../components/ui/Grid/Grid';
+
 import { useAuth } from '../../context/auth.context';
+
 import AdminHome from '../Admin/AdminHome';
 
 export default function Home() {
@@ -17,7 +19,7 @@ export default function Home() {
 
   const isAdmin = role === 'ADMIN';
 
-  // Si es admin, mostrar AdminHome
+  // If the user is an admin, we show them the admin home page instead of the regular home page
   if (isAdmin) {
     return <AdminHome />;
   }
@@ -41,45 +43,18 @@ export default function Home() {
 
   return (
     <PageContainer>
-
       <Grid>
-
-        {/* Card 1 */}
-        <Card onClick={() => navigate('/closed-years')}>
-          <h2>Años cerrados</h2>
-          <p>{closedYears?.length || 0} años</p>
-        </Card>
-
-        {/* Card 2 */}
-        <Card onClick={() => navigate(`/current-year/${currentYear._id}`)}>
-          <h2>Año vigente</h2>
-          <p>{currentYear?.year || 'No definido'}</p>
-        </Card>
-
-        {/* Card 3 */}
-        <Card onClick={() => navigate('/topics')}>
-          <h2>Tópicos</h2>
-          <p>{topics?.length || 0} tópicos</p>
-        </Card>
-
-        {/* Card 4 */}
-        <Card onClick={() => navigate('/practices/new')}>
-          <h2>Registrar práctica</h2>
-          <p>Ir al formulario</p>
-        </Card>
-
+        <Card onClick={() => navigate('/closed-years')} title="Años cerrados" subtitle={`${closedYears?.length || 0} años`} />
+        <Card onClick={() => navigate(`/current-year/${currentYear._id}`)} title="Año vigente" subtitle={currentYear?.year || 'No definido'} />
+        <Card onClick={() => navigate('/topics')} title="Tópicos" subtitle={`${topics?.length || 0} tópicos`} />
+        <Card onClick={() => navigate('/practices/new')} title="Registrar práctica" subtitle="Ir al formulario" />
       </Grid>
 
       <h3 style={{ marginTop: '3rem' }}>Administración</h3>
 
       <Grid columns={2}>
-        <Card onClick={() => navigate('/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined}>
-          <h3>Agregar Año</h3>
-        </Card>
-
-        <Card onClick={() => navigate('/topics')}>
-          <h3>Agregar Tópico</h3>
-        </Card>        
+        <Card onClick={() => navigate('/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined} title="Agregar Año" subtitle="Crear nuevo año" />
+        <Card onClick={() => navigate('/topics')} title="Agregar Tópico" subtitle="Crear nuevo tópico" />
       </Grid>
     </PageContainer>
   );

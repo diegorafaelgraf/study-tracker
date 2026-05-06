@@ -20,9 +20,7 @@ export default function ClosedYears() {
   if (error) return <p>Error cargando años</p>;
 
   return (
-    <PageContainer>
-      <h1>Años cerrados</h1>
-
+    <PageContainer title="Años cerrados" subtitle="Click en el año para ver los tópicos" showBackButton={true}>
       <List>
         {data?.map((year: any) => (
           <ListItem

@@ -45,12 +45,10 @@ export default function YearTopics() {
   if (error) return <p>Error cargando tópicos</p>;
 
   return (
-    <PageContainer>
-      <div className={styles.header}>
-        <h1>Tópicos del año</h1>
+    <PageContainer title="Tópicos del año" showBackButton={true}>      
         <div className={styles.headerActions}>
           <button
-            onClick={() => navigate(`/years/${yearId}/add-topic`)}
+            onClick={() => navigate(`/current-year/${yearId}/add-topic`)}
             className={styles.addBtn}
           >
             + Agregar Tópico

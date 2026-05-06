@@ -42,8 +42,7 @@ export default function NewPractice() {
   };
 
   return (
-    <PageContainer>
-      <h1>Registrar práctica</h1>
+    <PageContainer title="Registrar práctica" showBackButton={true}>
 
       <form onSubmit={handleSubmit} style={styles.form}>
 

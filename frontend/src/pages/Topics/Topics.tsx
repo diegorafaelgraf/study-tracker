@@ -21,9 +21,8 @@ export default function Topics() {
   if (error) return <p>Error cargando Tópicos</p>;
 
   return (
-    <PageContainer>
+    <PageContainer title="Tópicos" showBackButton={true}>
       <div className={styles.header}>
-        <h1>Tópicos</h1>
         <button
           onClick={() => navigate('/topics/create')}
           className={styles.createBtn}
