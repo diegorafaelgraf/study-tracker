@@ -61,7 +61,7 @@ export default function YearTopics() {
             {closeYearMutation.isPending ? 'Cerrando...' : 'Cerrar Año'}
           </button>
         </div>
-      </div>
+      
 
       <List>
         {data?.map((topic: any) => (
