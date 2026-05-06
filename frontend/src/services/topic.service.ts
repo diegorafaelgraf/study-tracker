@@ -10,6 +10,11 @@ export const getTopicsCurrentYear = async () => {
   return data;
 };
 
+export const getTopicById = async (topicId: string) => {
+  const { data } = await api.get(`/api/topics/by-id/${topicId}`);
+  return data;
+};
+
 export const getTopicsByYear = async (yearId: string) => {
   const { data } = await api.get(`/api/topics/by-year/${yearId}`);
   return data;

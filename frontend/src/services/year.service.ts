@@ -15,6 +15,11 @@ export const getCurrentYear = async () => {
   return data;
 };
 
+export const getYearById = async (yearId: string) => {
+  const { data } = await api.get(`/api/years/by-id/${yearId}`);
+  return data;
+};
+
 export const getYearsByTopic = async (topicId: string) => {
   const { data } = await api.get(`/api/years/by-topic/${topicId}`);
   return data;
