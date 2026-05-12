@@ -32,7 +32,7 @@ function App() {
         <Route path="/closed-years/:yearId" element={<ProtectedRoute><ClosedYearTopics /></ProtectedRoute>} />
         {/* Current Year Page */}
         <Route path="/current-year/:yearId" element={<ProtectedRoute><YearTopics /></ProtectedRoute>} />
-        <Route path="/years/:yearId/add-topic" element={<ProtectedRoute><AddTopicToYear /></ProtectedRoute>} />
+        <Route path="/current-year/:yearId/add-topic" element={<ProtectedRoute><AddTopicToYear /></ProtectedRoute>} />
         {/* Topics Pages */}
         <Route path="/topics" element={<ProtectedRoute><Topics /></ProtectedRoute>} />
         <Route path="/topics/:topicId" element={<ProtectedRoute><TopicYears /></ProtectedRoute>} />

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common/exceptions';
 
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import { YearTopic, YearTopicDocument } from './schemas/year-topic.schema';
 import { Year, YearDocument } from '../year/schemas/year.schema';
@@ -20,20 +20,25 @@ export class YearTopicService {
 
   // Add a new YearTopic to the database
   async create(data: AddYearTopicInput, userId: string): Promise<YearTopicDocument> {
-    const year = await this.yearModel.findOne({ closed: false, userId }).exec();
+    const year = await this.yearModel.findOne({ closed: false, userId: new Types.ObjectId(userId) }).exec();
     if (!year) {
       throw new NotFoundException('No hay un año abierto para asociar el tópico');
     }
-    const topic = await this.topicModel.findOne({ _id: data.topicId, userId }).exec();
+    const topic = await this.topicModel.findOne({ _id: new Types.ObjectId(data.topicId), userId: new Types.ObjectId(userId) }).exec();
     if (!topic) {
       throw new NotFoundException(`El tópico con ID "${data.topicId}" no existe`);
     }
     const yearId = year._id;
-    return this.yearTopicModel.create({ ...data, yearId, userId });
+    return this.yearTopicModel.create({ ...data, topicId: new Types.ObjectId(data.topicId), yearId: new Types.ObjectId(yearId), userId: new Types.ObjectId(userId) });
+  }
+
+  // Get all YearTopics for a user
+  async getYearTopics(userId: string): Promise<YearTopicDocument[]> {
+    return this.yearTopicModel.find({ userId: new Types.ObjectId(userId) }).exec();
   }
 
   // Get a YearTopic by its ID
   async getYearTopicById(id: string, userId: string): Promise<YearTopicDocument | null> {
-    return this.yearTopicModel.findOne({ _id: id, userId }).exec();
+    return this.yearTopicModel.findOne({ _id: new Types.ObjectId(id), userId: new Types.ObjectId(userId) }).exec();
   }
 }
