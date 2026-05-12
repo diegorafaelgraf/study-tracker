@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
+
 import { getTopicsCurrentYear } from '../../services/topic.service';
+import { getCurrentYear } from '../../services/year.service';
 import { createPractice } from '../../services/practice.service';
+
 import { useAuth } from '../../context/auth.context';
 
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 
+
 export default function NewPractice() {
-  const [topicId, setTopicId] = useState('');
+  const [yearTopicId, setYearTopicId] = useState('');
   const [minutes, setMinutes] = useState('');
-  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
   const { userId } = useAuth();
 
   const { data: topics } = useQuery({
@@ -17,27 +21,32 @@ export default function NewPractice() {
     queryFn: getTopicsCurrentYear,
   });
 
+  const { data: currentYear } = useQuery({
+    queryKey: ['currentYear', userId],
+    queryFn: getCurrentYear,
+  });
+
   const mutation = useMutation({
     mutationFn: createPractice,
     onSuccess: () => {
       alert('Práctica registrada ✅');
       setMinutes('');
-      setDescription('');
+      setDate('');
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!topicId || !minutes) {
+    if (!yearTopicId || !minutes || !date) {
       alert('Completa los campos obligatorios');
       return;
     }
 
     mutation.mutate({
-      topicId,
-      minutes: Number(minutes),
-      description,
+      yearTopicId,
+      durationMinutes: Number(minutes),
+      date: new Date(date).toISOString()
     });
   };
 
@@ -48,13 +57,13 @@ export default function NewPractice() {
 
         {/* TOPIC */}
         <select
-          value={topicId}
-          onChange={(e) => setTopicId(e.target.value)}
+          value={yearTopicId}
+          onChange={(e) => setYearTopicId(e.target.value)}
           style={styles.input}
         >
           <option value="">Seleccionar tópico</option>
           {topics?.map((t: any) => (
-            <option key={t._id} value={t._id}>
+            <option key={t.yearTopicId} value={t.yearTopicId}>
               {t.name}
             </option>
           ))}
@@ -69,11 +78,14 @@ export default function NewPractice() {
           style={styles.input}
         />
 
-        {/* DESCRIPTION */}
-        <textarea
-          placeholder="Descripción (opcional)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+        {/* DATE */}
+        <input
+          type="date"
+          min={`${currentYear?.year}-01-01`}
+          max={`${currentYear?.year}-12-31`}
+          placeholder="Fecha"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
           style={styles.input}
         />
 

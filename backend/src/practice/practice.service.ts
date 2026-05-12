@@ -2,15 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common/exceptions';
 
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import { YearTopic, YearTopicDocument } from '../year-topic/schemas/year-topic.schema';
 import { Year, YearDocument } from '../year/schemas/year.schema';
 import { Practice, PracticeDocument } from './schemas/practice.schema';
 
 import { AddPracticeInput } from './types/types';
-
-
 
 @Injectable()
 export class PracticeService {
@@ -23,20 +21,20 @@ export class PracticeService {
   // Add a new YearTopic to the database
   async create(data: AddPracticeInput, userId: string): Promise<PracticeDocument> {
 
-    const yearTopic = await this.yearTopicModel.findOne({ _id: data.yearTopicId, userId }).exec();
+    const yearTopic = await this.yearTopicModel.findOne({ _id: new Types.ObjectId(data.yearTopicId), userId: new Types.ObjectId(userId) }).exec();
     if (!yearTopic) {
       throw new NotFoundException(`El YearTopic con ID "${data.yearTopicId}" no existe`);
     }
 
-    const year = await this.yearModel.findOne({ closed: false, _id: yearTopic.yearId, userId }).exec();
+    const year = await this.yearModel.findOne({ closed: false, _id: new Types.ObjectId(yearTopic.yearId), userId: new Types.ObjectId(userId) }).exec();
     if (!year) {
       throw new NotFoundException('No hay un año abierto para cargar una práctica');
     }
 
-    return this.practiceModel.create({ ...data, userId });
+    return this.practiceModel.create({ ...data, yearTopicId: new Types.ObjectId(data.yearTopicId), userId: new Types.ObjectId(userId) });
   }
 
   async getPracticesByYearTopic(yearTopicId: string, userId: string): Promise<PracticeDocument[]> {
-    return this.practiceModel.find({ yearTopicId, userId }).exec();
+    return this.practiceModel.find({ yearTopicId: new Types.ObjectId(yearTopicId), userId: new Types.ObjectId(userId) }).exec();
   }
 }
