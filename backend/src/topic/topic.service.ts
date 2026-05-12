@@ -21,34 +21,67 @@ export class TopicService {
   // Add a new Topic to the database
   async create(data: AddTopicInput, userId: string): Promise<TopicDocument> {
     const nameNormalized = this.normalizeName(data.name);
-    return this.topicModel.create({ ...data, nameNormalized, userId });
+    return this.topicModel.create({ ...data, nameNormalized, userId: new Types.ObjectId(userId) });
   }
 
   async getTopics(userId: string): Promise<TopicDocument[]> {
-    return this.topicModel.find({ userId }).exec();
+    return this.topicModel.find({ userId: new Types.ObjectId(userId) }).exec();
   }
 
   async getTopicByName(name: string, userId: string): Promise<TopicDocument | null> {
-    return this.topicModel.findOne({ name, userId }).exec();
+    return this.topicModel.findOne({ name, userId: new Types.ObjectId(userId) }).exec();
   }
 
   async getTopicById(id: string, userId: string): Promise<TopicDocument | null> {
-    return this.topicModel.findOne({ _id: id, userId }).exec();
+    return this.topicModel.findOne({ _id: new Types.ObjectId(id), userId: new Types.ObjectId(userId) }).exec();
   }
 
   async getTopicsByYear(yearId: string, userId: string): Promise<TopicDocument[]> {
-    const yearObjectId = new Types.ObjectId(yearId);
-    const yearTopics = this.yearTopicModel.find({ yearId: yearObjectId, userId }).exec();
-    return this.topicModel.find({ _id: { $in: (await yearTopics).map(yt => yt.topicId) }, userId }).exec();
+    const yearTopics = this.yearTopicModel.find({ yearId: new Types.ObjectId(yearId), userId: new Types.ObjectId(userId) }).exec();
+    return this.topicModel.find({ _id: { $in: (await yearTopics).map(yt => yt.topicId) }, userId: new Types.ObjectId(userId) }).exec();
   }
 
   async getTopicsCurrentYear(userId: string): Promise<TopicDocument[]> {
-    const currentYear = await this.yearModel.findOne({ closed: false, userId }).exec();
+    const currentYear = await this.yearModel.findOne({ closed: false, userId: new Types.ObjectId(userId) }).exec();
     if (!currentYear) {
       throw new Error('No hay un año abierto para obtener los tópicos');
     }
-    const yearTopics = await this.yearTopicModel.find({ yearId: currentYear._id, userId }).exec();
-    return this.topicModel.find({ _id: { $in: yearTopics.map(yt => yt.topicId) }, userId }).exec();
+
+    return this.yearTopicModel.aggregate([
+      {
+        $match: {
+          yearId: currentYear._id,
+          userId: new Types.ObjectId(userId),
+        },
+      },
+      {
+        $lookup: {
+          from: 'topics',
+          localField: 'topicId',
+          foreignField: '_id',
+          as: 'topic',
+        },
+      },
+      {
+        $unwind: '$topic',
+      },
+      {
+        $project: {
+          yearTopicId: '$_id',
+          topic: 1,
+        },
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [
+              '$topic',
+              { yearTopicId: '$yearTopicId' },
+            ],
+          },
+        },
+      },
+    ]);
   }
 
 

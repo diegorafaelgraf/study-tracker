@@ -6,13 +6,13 @@ export type YearTopicDocument = HydratedDocument<YearTopic>;
 @Schema({ timestamps: true })
 export class YearTopic {
   @Prop({ type: Types.ObjectId, ref: 'Year', required: true })
-  yearId: Types.ObjectId = new Types.ObjectId();
+  yearId?: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Topic', required: true })
-  topicId: Types.ObjectId = new Types.ObjectId();
+  topicId?: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  userId: Types.ObjectId = new Types.ObjectId();
+  userId?: Types.ObjectId;
 
   @Prop({ required: true, default: 0 })
   goalMinutes: number = 0;
