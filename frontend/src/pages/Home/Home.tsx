@@ -48,13 +48,7 @@ export default function Home() {
         <Card onClick={() => navigate(`/current-year/${currentYear._id}`)} title="Año vigente" subtitle={currentYear?.year || 'No definido'} />
         <Card onClick={() => navigate('/topics')} title="Tópicos" subtitle={`${topics?.length || 0} tópicos`} />
         <Card onClick={() => navigate('/practices/new')} title="Registrar práctica" subtitle="Ir al formulario" />
-      </Grid>
-
-      <h3 style={{ marginTop: '3rem' }}>Administración</h3>
-
-      <Grid columns={2}>
         <Card onClick={() => navigate('/years')} disabled={hasOpenedYear} tooltip={hasOpenedYear ? "No se puede agregar un año si hay uno abierto" : undefined} title="Agregar Año" subtitle="Crear nuevo año" />
-        <Card onClick={() => navigate('/topics')} title="Agregar Tópico" subtitle="Crear nuevo tópico" />
       </Grid>
     </PageContainer>
   );
