@@ -27,6 +27,7 @@ export const getYearsByTopic = async (topicId: string) => {
 
 export const createYear = async (payload: {
   year: string;
+  totalDays: number;
 }) => {
   const { data } = await api.post('/api/years', payload);
   return data;

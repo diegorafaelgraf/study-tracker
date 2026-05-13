@@ -11,6 +11,7 @@ import { useAuth } from '../../context/auth.context';
 
 export default function CreateYear() {
   const [year, setYear] = useState("");
+  const [totalDays, setTotalDays] = useState("");
   const presentYear = new Date().getFullYear();
   const { userId } = useAuth();
 
@@ -24,6 +25,7 @@ export default function CreateYear() {
     onSuccess: () => {
       alert('Año creado ✅');
       setYear("");
+      setTotalDays("");
     },
     onError: (err: any) => {
       alert(err?.response?.data?.message || 'Error creando año');
@@ -45,7 +47,8 @@ export default function CreateYear() {
     }
 
     mutation.mutate({
-      year
+      year,
+      totalDays: totalDays ? parseInt(totalDays) : 0,
     });
   };
 
@@ -60,6 +63,14 @@ export default function CreateYear() {
           placeholder={`${presentYear}`}
           value={year}
           onChange={(e) => setYear(e.target.value)}
+          style={styles.input}
+        />
+
+        <input
+          type="number"
+          placeholder="Cantidad de días"
+          value={totalDays}
+          onChange={(e) => setTotalDays(e.target.value)}
           style={styles.input}
         />
 
