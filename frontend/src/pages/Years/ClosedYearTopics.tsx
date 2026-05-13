@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getTopicsByYear } from '../../services/topic.service';
 
@@ -11,7 +11,7 @@ import { useAuth } from '../../context/auth.context';
 export default function ClosedYearTopics() {
   const { yearId } = useParams();
   const { userId } = useAuth();
-
+  const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ['topics-by-year', yearId, userId],
     queryFn: () => getTopicsByYear(yearId!),
@@ -23,10 +23,10 @@ export default function ClosedYearTopics() {
 
   return (
     <PageContainer title="Tópicos del año" showBackButton={true}>
-      
+
       <List>
         {data?.map((topic: any) => (
-          <ListItem key={topic._id}>
+          <ListItem key={topic.yearTopicId} onClick={() => navigate(`/year-topic/${topic.yearTopicId}`)}>
             {topic.name}
           </ListItem>
         ))}

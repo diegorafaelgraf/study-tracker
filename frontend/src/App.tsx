@@ -14,6 +14,7 @@ import ChangePassword from './pages/Auth/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoutes';
 import AdminRoute from './components/AdminRoutes';
 import CreateUser from './pages/Admin/CreateUser';
+import YearTopicStats from './pages/YearTopics/YearTopicStats';
 // import Logout from './pages/Auth/Logout';
 
 function App() {
@@ -43,11 +44,12 @@ function App() {
         <Route path="/years" element={<ProtectedRoute><CreateYear /></ProtectedRoute>} />
         {/* Change Password Page */}
         <Route path="/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
+        {/* Year Topic Stats Page */}
+        <Route path="/year-topic/:yearTopicId" element={<ProtectedRoute><YearTopicStats /></ProtectedRoute>} />
 
         {/* ADMIN PAGES */}
         {/* User Pages */}
         <Route path="/admin/users" element={<AdminRoute><CreateUser /></AdminRoute>} />
-
       </Routes>
     </BrowserRouter>
   );
