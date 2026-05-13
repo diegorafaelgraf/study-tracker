@@ -37,8 +37,41 @@ export class TopicService {
   }
 
   async getTopicsByYear(yearId: string, userId: string): Promise<TopicDocument[]> {
-    const yearTopics = this.yearTopicModel.find({ yearId: new Types.ObjectId(yearId), userId: new Types.ObjectId(userId) }).exec();
-    return this.topicModel.find({ _id: { $in: (await yearTopics).map(yt => yt.topicId) }, userId: new Types.ObjectId(userId) }).exec();
+    return this.yearTopicModel.aggregate([
+      {
+        $match: {
+          yearId: new Types.ObjectId(yearId),
+          userId: new Types.ObjectId(userId),
+        },
+      },
+      {
+        $lookup: {
+          from: 'topics',
+          localField: 'topicId',
+          foreignField: '_id',
+          as: 'topic',
+        },
+      },
+      {
+        $unwind: '$topic',
+      },
+      {
+        $project: {
+          yearTopicId: '$_id',
+          topic: 1,
+        },
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [
+              '$topic',
+              { yearTopicId: '$yearTopicId' },
+            ],
+          },
+        },
+      },
+    ]);
   }
 
   async getTopicsCurrentYear(userId: string): Promise<TopicDocument[]> {
