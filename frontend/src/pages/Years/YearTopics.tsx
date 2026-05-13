@@ -45,27 +45,27 @@ export default function YearTopics() {
   if (error) return <p>Error cargando tópicos</p>;
 
   return (
-    <PageContainer title="Tópicos del año" showBackButton={true}>      
-        <div className={styles.headerActions}>
-          <button
-            onClick={() => navigate(`/current-year/${yearId}/add-topic`)}
-            className={styles.addBtn}
-          >
-            + Agregar Tópico
-          </button>
-          <button
-            onClick={handleCloseYear}
-            disabled={closeYearMutation.isPending}
-            className={styles.closeBtn}
-          >
-            {closeYearMutation.isPending ? 'Cerrando...' : 'Cerrar Año'}
-          </button>
-        </div>
-      
+    <PageContainer title="Tópicos del año" showBackButton={true}>
+      <div className={styles.headerActions}>
+        <button
+          onClick={() => navigate(`/current-year/${yearId}/add-topic`)}
+          className={styles.addBtn}
+        >
+          + Agregar Tópico
+        </button>
+        <button
+          onClick={handleCloseYear}
+          disabled={closeYearMutation.isPending}
+          className={styles.closeBtn}
+        >
+          {closeYearMutation.isPending ? 'Cerrando...' : 'Cerrar Año'}
+        </button>
+      </div>
+
 
       <List>
         {data?.map((topic: any) => (
-          <ListItem key={topic._id}>
+          <ListItem key={topic.yearTopicId} onClick={() => navigate(`/year-topic/${topic.yearTopicId}`)}>
             {topic.name}
           </ListItem>
         ))}

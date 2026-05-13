@@ -41,4 +41,10 @@ export class YearTopicController {
   async getYearTopicById(@Param('id') id: string, @Req() req: any) {
     return await this.service.getYearTopicById(id, req.user.userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/stats')
+  async getYearTopicStats(@Param('id') id: string, @Req() req: any) {
+    return await this.service.getYearTopicStats(id, req.user.userId);
+  }
 }
