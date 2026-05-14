@@ -54,101 +54,6 @@ export default function Header() {
     enabled: !!topicId,
   });
 
-  // Generate breadcrumbs based on the current path
-  const getBreadcrumbs = () => {
-    const currentPath = location.pathname;
-
-    // Mapeo de rutas a breadcrumbs amigables (sin IDs)
-    const routeLabels: { [key: string]: { label: string; path: string }[] } = {
-      '/': [{ label: 'Inicio', path: '/' }],
-      '/closed-years': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Años cerrados', path: '/closed-years' }
-      ],      
-      '/topics': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Tópicos', path: '/topics' }
-      ],
-      '/topics/create': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Tópicos', path: '/topics' },
-        { label: 'Crear tópico', path: '/topics/create' }
-      ],
-      '/practices/new': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Nueva práctica', path: '/practices/new' }
-      ],
-      '/years': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Crear año', path: '/years' }
-      ],
-      '/change-password': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Cambiar contraseña', path: '/change-password' }
-      ],
-      '/admin/users': [
-        { label: 'Inicio', path: '/' },
-        { label: 'Crear usuario', path: '/admin/users' }
-      ]
-    };
-
-    // Look for the most specific route match in routeLabels
-    const sortedRoutes = Object.keys(routeLabels).sort((a, b) => b.length - a.length);
-
-    for (const route of sortedRoutes) {
-      if (currentPath.startsWith(route)) {        
-        // if it is an exact match, return the breadcrumb, otherwise continue checking for more specific routes
-        if (route === currentPath) {
-          return routeLabels[route];
-        }
-      }
-    }
-
-    // For add-topic routes, show the year name in the breadcrumb
-    if (currentPath.includes('/add-topic')) {
-      const yearName = yearData?.year || 'Año';
-      return [
-        { label: 'Inicio', path: '/' },
-        { label: yearName, path: `/current-year/${yearId}` },
-        { label: 'Agregar tópico', path: currentPath }
-      ];
-    }
-
-    // For current-year routes, show the year name in the breadcrumb
-    if (currentPath.includes('/current-year')) {
-      const yearName = yearData?.year || 'Año';
-      return [
-        { label: 'Inicio', path: '/' },
-        { label: yearName, path: currentPath }
-      ];
-    }
-
-    // For closed-years routes, show the year name in the breadcrumb
-    if (currentPath.includes('/closed-years/')) {
-      const yearName = yearData?.year || 'Tópicos del año';
-      return [
-        { label: 'Inicio', path: '/' },
-        { label: 'Años cerrados', path: '/closed-years' },
-        { label: yearName, path: currentPath }
-      ];
-    }
-
-    // For topic detail routes, show the topic name in the breadcrumb
-    if (currentPath.includes('/topics/') && !currentPath.includes('/create')) {
-      const topicName = topicData?.name || 'Años del tópico';
-      return [
-        { label: 'Inicio', path: '/' },
-        { label: 'Tópicos', path: '/topics' },
-        { label: topicName, path: currentPath }
-      ];
-    }
-
-    // Fallback: basic breadcrumb with just "Inicio"
-    return [{ label: 'Inicio', path: '/' }];
-  };
-
-  const breadcrumbs = getBreadcrumbs();
-
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -166,22 +71,8 @@ export default function Header() {
           </h1>
         </div>
 
-        <nav className={styles.breadcrumbs}>
-          {breadcrumbs.map((crumb, index) => (
-            <span key={index}>
-              <a
-                href={crumb.path}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(crumb.path);
-                }}
-                className={index === breadcrumbs.length - 1 ? styles.active : ''}
-              >
-                {crumb.label}
-              </a>
-              {index < breadcrumbs.length - 1 && <span className={styles.separator}> / </span>}
-            </span>
-          ))}
+        <nav>
+          // TODO: Add menu items here if needed, like links to other pages or user profile
         </nav>
 
         <div className={styles.rightSection}>

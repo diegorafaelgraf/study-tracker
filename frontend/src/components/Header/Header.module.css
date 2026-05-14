@@ -35,40 +35,10 @@
   padding-right: 25px;
 }
 
-.breadcrumbs {
-  flex: 1;
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  min-width: 0;
-  margin-left: 0.5rem;
-}
-
-.breadcrumbs a {
-  color: #ecf0f1;
-  text-decoration: none;
-  font-size: 1rem;
-  line-height: 1;
-  transition: 0.2s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .separator {
   color: #7f8c8d;
   margin: 0 0.3rem;
   line-height: 1;
-}
-
-.breadcrumbs a:hover {
-  color: #5dade2;
-  transform: scale(1.05);
-}
-
-.breadcrumbs a.active {
-  color: #5dade2;
-  font-weight: 600;
 }
 
 .separator {
