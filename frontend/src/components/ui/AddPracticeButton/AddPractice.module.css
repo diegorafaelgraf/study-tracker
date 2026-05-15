@@ -1,0 +1,28 @@
+.AddPracticeButton {
+  background-color: #f0f4ff;
+  color: #5b7aff;
+  border: 2px solid #d0deff;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.AddPracticeButton:hover {
+  background-color: #e8e8e8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.AddPracticeButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
