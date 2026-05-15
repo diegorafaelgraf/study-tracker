@@ -24,11 +24,11 @@ export class YearTopicService {
   async create(data: AddYearTopicInput, userId: string): Promise<YearTopicDocument> {
     const year = await this.yearModel.findOne({ closed: false, userId: new Types.ObjectId(userId) }).exec();
     if (!year) {
-      throw new NotFoundException('No hay un año abierto para asociar el tópico');
+      throw new NotFoundException('No hay un año abierto para asociar el área');
     }
     const topic = await this.topicModel.findOne({ _id: new Types.ObjectId(data.topicId), userId: new Types.ObjectId(userId) }).exec();
     if (!topic) {
-      throw new NotFoundException(`El tópico con ID "${data.topicId}" no existe`);
+      throw new NotFoundException(`El área con ID "${data.topicId}" no existe`);
     }
     const yearId = year._id;
     return this.yearTopicModel.create({ ...data, topicId: new Types.ObjectId(data.topicId), yearId: new Types.ObjectId(yearId), userId: new Types.ObjectId(userId) });
@@ -49,7 +49,7 @@ export class YearTopicService {
     const yearTopic = await this.getYearTopicById(id, userId);
     const year = await this.yearModel.findOne({ _id: new Types.ObjectId(yearTopic?.yearId), userId: new Types.ObjectId(userId) }).exec();
     if (!yearTopic) {
-      throw new NotFoundException(`El tópico con ID "${id}" no existe`);
+      throw new NotFoundException(`El área con ID "${id}" no existe`);
     }
     // Logic to calculate and return the stats for the YearTopic
     const practices = await this.practiceModel.find({ yearTopicId: new Types.ObjectId(id), userId: new Types.ObjectId(userId) }).exec();

@@ -29,7 +29,7 @@ export default function NewPractice() {
   const mutation = useMutation({
     mutationFn: createPractice,
     onSuccess: () => {
-      alert('Práctica registrada ✅');
+      alert('Minutos de estudio registrados ✅');
       setMinutes('');
       setDate('');
     },
@@ -51,7 +51,7 @@ export default function NewPractice() {
   };
 
   return (
-    <PageContainer title="Registrar práctica" showBackButton={true}>
+    <PageContainer title="Registrar minutos de estudio" showBackButton={true}>
 
       <form onSubmit={handleSubmit} style={styles.form}>
 
@@ -61,7 +61,7 @@ export default function NewPractice() {
           onChange={(e) => setYearTopicId(e.target.value)}
           style={styles.input}
         >
-          <option value="">Seleccionar tópico</option>
+          <option value="">Seleccionar área</option>
           {topics?.map((t: any) => (
             <option key={t.yearTopicId} value={t.yearTopicId}>
               {t.name}

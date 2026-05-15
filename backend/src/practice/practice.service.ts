@@ -28,7 +28,7 @@ export class PracticeService {
 
     const year = await this.yearModel.findOne({ closed: false, _id: new Types.ObjectId(yearTopic.yearId), userId: new Types.ObjectId(userId) }).exec();
     if (!year) {
-      throw new NotFoundException('No hay un año abierto para cargar una práctica');
+      throw new NotFoundException('No hay un año abierto para cargar minutos de estudio');
     }
 
     return this.practiceModel.create({ ...data, yearTopicId: new Types.ObjectId(data.yearTopicId), userId: new Types.ObjectId(userId) });

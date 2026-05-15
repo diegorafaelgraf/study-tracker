@@ -18,11 +18,11 @@ export default function ClosedYearTopics() {
     enabled: !!yearId,
   });
 
-  if (isLoading) return <p>Cargando tópicos...</p>;
-  if (error) return <p>Error cargando tópicos</p>;
+  if (isLoading) return <p>Cargando áreas...</p>;
+  if (error) return <p>Error cargando áreas</p>;
 
   return (
-    <PageContainer title="Tópicos del año" showBackButton={true}>
+    <PageContainer title="Áreas del año" showBackButton={true}>
 
       <List>
         {data?.map((topic: any) => (
@@ -34,7 +34,7 @@ export default function ClosedYearTopics() {
 
       {data?.length === 0 && (
         <div className={styles.empty}>
-          <p>Este año no tiene tópicos asociados.</p>
+          <p>Este año no tiene áreas asociadas.</p>
         </div>
       )}
     </PageContainer>

@@ -18,14 +18,14 @@ export default function CreateTopic() {
   const mutation = useMutation({
     mutationFn: createTopic,
     onSuccess: () => {
-      setSuccess('Tópico creado exitosamente ✅');
+      setSuccess('Área creada exitosamente ✅');
       queryClient.invalidateQueries({ queryKey: ['topics', userId] });
       setTimeout(() => {
         navigate('/topics');
       }, 2000);
     },
     onError: (err: any) => {
-      setError(err.response?.data?.message || 'Error creando tópico');
+      setError(err.response?.data?.message || 'Error creando área');
     },
   });
 
@@ -36,7 +36,7 @@ export default function CreateTopic() {
 
     // Validaciones
     if (!name.trim()) {
-      setError('El nombre del tópico es requerido');
+      setError('El nombre del área es requerido');
       return;
     }
 
@@ -49,14 +49,14 @@ export default function CreateTopic() {
       setLoading(true);
       await mutation.mutateAsync({ name: name.trim() });
     } catch (err) {
-      // Error ya manejado por onError
+      // Error handled in onError of the mutation
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <PageContainer title="Crear Nuevo Tópico" showBackButton={true}>
+    <PageContainer title="Crear Nueva Área" showBackButton={true}>
       <div className={styles.container}>
 
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -64,7 +64,7 @@ export default function CreateTopic() {
           {success && <div className={styles.success}>{success}</div>}
 
           <div className={styles.formGroup}>
-            <label htmlFor="name">Nombre del Tópico</label>
+            <label htmlFor="name">Nombre del Área</label>
             <input
               id="name"
               type="text"
@@ -82,7 +82,7 @@ export default function CreateTopic() {
 
           <div className={styles.buttons}>
             <button type="submit" disabled={loading} className={styles.submitBtn}>
-              {loading ? 'Creando...' : 'Crear Tópico'}
+              {loading ? 'Creando...' : 'Crear Área'}
             </button>
             <button
               type="button"

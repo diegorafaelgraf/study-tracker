@@ -18,20 +18,20 @@ export default function AddTopicToYear() {
   const [success, setSuccess] = useState('');
   const { userId } = useAuth();
 
-  // Obtener todos los tópicos del usuario
+  // Obtenning all areas of the user to show in the dropdown
   const { data: allTopics, isLoading: loadingTopics } = useQuery({
     queryKey: ['topics', userId],
     queryFn: getTopics,
   });
 
-  // Obtener tópicos ya asociados al año
+  // Obtenning the areas that are already in the year to filter them out from the dropdown
   const { data: yearTopics, isLoading: loadingYearTopics } = useQuery({
     queryKey: ['topics-by-year', yearId, userId],
     queryFn: () => getTopicsByYear(yearId!),
     enabled: !!yearId,
   });
 
-  // Filtrar tópicos disponibles (que no estén ya en el año)
+  // Filtering out the areas that are already in the year from the dropdown options
   const availableTopics = allTopics?.filter((topic: Topic) =>
     !yearTopics?.some((yearTopic: Topic) => yearTopic._id === topic._id)
   ) || [];
@@ -39,14 +39,14 @@ export default function AddTopicToYear() {
   const mutation = useMutation({
     mutationFn: addTopicToYear,
     onSuccess: () => {
-      setSuccess('Tópico agregado al año exitosamente ✅');
+      setSuccess('Área agregada al año exitosamente ✅');
       queryClient.invalidateQueries({ queryKey: ['topics-by-year', yearId, userId] });
       setTimeout(() => {
         navigate(`/current-year/${yearId}`);
       }, 2000);
     },
     onError: (err: any) => {
-      setError(err.response?.data?.message || 'Error agregando tópico al año');
+      setError(err.response?.data?.message || 'Error agregando área al año');
     },
   });
 
@@ -56,7 +56,7 @@ export default function AddTopicToYear() {
     setSuccess('');
 
     if (!selectedTopicId) {
-      setError('Debes seleccionar un tópico');
+      setError('Debes seleccionar un área');
       return;
     }
 
@@ -72,7 +72,7 @@ export default function AddTopicToYear() {
         goalMinutes: minutes,
       });
     } catch (err) {
-      // Error ya manejado por onError
+      // Error handling is done in onError of the mutation
     }
   };
 
@@ -85,7 +85,7 @@ export default function AddTopicToYear() {
   }
 
   return (
-    <PageContainer title="Agregar Tópico al Año" showBackButton={true}>
+    <PageContainer title="Agregar Área al Año" showBackButton={true}>
       <div className={styles.container}>
 
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -93,7 +93,7 @@ export default function AddTopicToYear() {
           {success && <div className={styles.success}>{success}</div>}
 
           <div className={styles.formGroup}>
-            <label htmlFor="topic">Seleccionar Tópico</label>
+            <label htmlFor="topic">Seleccionar Área</label>
             <select
               id="topic"
               value={selectedTopicId}
@@ -101,7 +101,7 @@ export default function AddTopicToYear() {
               required
               className={styles.select}
             >
-              <option value="">-- Seleccionar tópico --</option>
+              <option value="">-- Seleccionar área --</option>
               {availableTopics.map((topic: Topic) => (
                 <option key={topic._id} value={topic._id}>
                   {topic.name}
@@ -110,7 +110,7 @@ export default function AddTopicToYear() {
             </select>
             {availableTopics.length === 0 && (
               <small className={styles.hint}>
-                No hay tópicos disponibles. Crea uno nuevo primero.
+                No hay áreas disponibles. Crea una nueva primero.
               </small>
             )}
           </div>
@@ -128,7 +128,7 @@ export default function AddTopicToYear() {
               className={styles.input}
             />
             <small className={styles.hint}>
-              Cantidad total de minutos que planeas dedicar a este tópico durante el año
+              Cantidad total de minutos que planeas dedicar a esta área durante el año
             </small>
           </div>
 
@@ -138,7 +138,7 @@ export default function AddTopicToYear() {
               disabled={mutation.isPending || availableTopics.length === 0}
               className={styles.submitBtn}
             >
-              {mutation.isPending ? 'Agregando...' : 'Agregar Tópico'}
+              {mutation.isPending ? 'Agregando...' : 'Agregar Área'}
             </button>
             <button
               type="button"

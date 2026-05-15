@@ -17,8 +17,8 @@ export default function CurrentYear() {
     queryFn: getCurrentYear,
   });
 
-  if (isLoading) return <p>Cargando Tópicos año vigente...</p>;
-  if (error) return <p>Error cargando Tópicos año vigente</p>;
+  if (isLoading) return <p>Cargando áreas del año vigente...</p>;
+  if (error) return <p>Error cargando áreas del año vigente</p>;
 
   return (
     <PageContainer title="Año Vigente" showBackButton={true}>

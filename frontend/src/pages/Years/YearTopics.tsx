@@ -34,24 +34,24 @@ export default function YearTopics() {
 
   const handleCloseYear = () => {
     const confirmed = window.confirm(
-      '¿Estás seguro de que quieres cerrar este año?\n\nUna vez cerrado, no podrás volver a abrirlo ni agregar más tópicos o prácticas.'
+      '¿Estás seguro de que quieres cerrar este año?\n\nUna vez cerrado, no podrás volver a abrirlo ni agregar más áreas o minutos de estudio.'
     );
     if (confirmed && yearId) {
       closeYearMutation.mutate(yearId);
     }
   };
 
-  if (isLoading) return <p>Cargando tópicos...</p>;
-  if (error) return <p>Error cargando tópicos</p>;
+  if (isLoading) return <p>Cargando áreas...</p>;
+  if (error) return <p>Error cargando áreas</p>;
 
   return (
-    <PageContainer title="Tópicos del año" showBackButton={true}>
+    <PageContainer title="Áreas del año" showBackButton={true}>
       <div className={styles.headerActions}>
         <button
           onClick={() => navigate(`/current-year/${yearId}/add-topic`)}
           className={styles.addBtn}
         >
-          + Agregar Tópico
+          + Agregar Área
         </button>
         <button
           onClick={handleCloseYear}
@@ -73,8 +73,8 @@ export default function YearTopics() {
 
       {data?.length === 0 && (
         <div className={styles.empty}>
-          <p>No tienes tópicos asociados a este año aún.</p>
-          <p>Haz clic en "Agregar Tópico" para empezar a trackear actividades.</p>
+          <p>No tienes áreas asociadas a este año aún.</p>
+          <p>Haz clic en "Agregar Área" para empezar a trackear actividades.</p>
         </div>
       )}
     </PageContainer>

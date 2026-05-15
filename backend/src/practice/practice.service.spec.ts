@@ -89,7 +89,7 @@ describe('PracticeService', () => {
       mockYearModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
 
       await expect(service.create(input, 'user1')).rejects.toThrow(
-        'No hay un año abierto para cargar una práctica',
+        'No hay un año abierto para cargar minutos de estudio',
       );
     });
 
