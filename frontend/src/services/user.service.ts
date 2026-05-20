@@ -8,3 +8,11 @@ export const createUser = async (payload: {
   const { data } = await api.post('/api/users', payload);
   return data;
 };
+
+export const changePassword = async (payload: {
+  oldPassword: string;
+  newPassword: string;
+}) => {
+  const { data } = await api.post(`/api/users/change-password`, payload);
+  return data;
+};
