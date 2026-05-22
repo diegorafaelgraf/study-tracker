@@ -1,6 +1,5 @@
 import styles from './NoAreas.module.css';
-
-export default function NoAreas() {
+const NoAreas = () => {
 
   return (
     <div className={styles.container}>
@@ -16,3 +15,5 @@ export default function NoAreas() {
     </div>
   );
 }
+
+export default NoAreas;
