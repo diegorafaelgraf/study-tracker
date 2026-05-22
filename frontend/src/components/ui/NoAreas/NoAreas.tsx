@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styles from './NoAreas.module.css';
 
 export default function NoAreas() {
