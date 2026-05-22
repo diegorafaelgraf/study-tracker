@@ -5,7 +5,7 @@
 }
 
 .card {
-  padding: 1rem 1rem;
+  padding: 1rem;
   border: 1px solid #b5b1fc;
   border-radius: 10px;
   cursor: pointer;
@@ -14,7 +14,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 .card:hover {
@@ -24,25 +25,38 @@
   transform: translateY(-4px);
 }
 
-.card h2,
-.card h3 {
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cardHeader h2 {
   color: #2c3e50;
-  margin-bottom: 0.75rem;
+  margin: 0;
   font-weight: 700;
-  font-size: 1.50rem;
+  font-size: 1.5rem;
   letter-spacing: 0.3px;
   transition: color 0.3s ease;
 }
 
-.card:hover h2,
-.card:hover h3 {
+.card:hover .cardHeader h2 {
   color: #34495e;
 }
 
-.card p {
+.subtitle {
   color: #138a08;
   margin: 0;
   font-size: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .tooltip {
