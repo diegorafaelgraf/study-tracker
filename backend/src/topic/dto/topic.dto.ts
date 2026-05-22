@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class CreateTopicDto {
@@ -6,4 +6,8 @@ export class CreateTopicDto {
   @IsString()
   @IsNotEmpty({ message: 'El Nombre del Área no puede estar vacio' })
   name: string = '';
+
+  @IsOptional()
+  @IsString()
+  icon?: string;
 }

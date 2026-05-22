@@ -77,7 +77,7 @@ export class TopicService {
   async getTopicsCurrentYear(userId: string): Promise<TopicDocument[]> {
     const currentYear = await this.yearModel.findOne({ closed: false, userId: new Types.ObjectId(userId) }).exec();
     if (!currentYear) {
-      throw new Error('No hay un año abierto para obtener los tópicos');
+      throw new Error('No hay un año abierto para obtener las áreas');
     }
 
     return this.yearTopicModel.aggregate([
@@ -99,9 +99,26 @@ export class TopicService {
         $unwind: '$topic',
       },
       {
+        $lookup: {
+          from: 'practices',
+          localField: '_id',
+          foreignField: 'yearTopicId',
+          as: 'practices',
+        },
+      },
+      {
+        $addFields: {
+          practicedMinutes: {
+            $sum: '$practices.durationMinutes',
+          },
+        },
+      },
+      {
         $project: {
           yearTopicId: '$_id',
           topic: 1,
+          goalMinutes: 1,
+          practicedMinutes: 1,
         },
       },
       {
@@ -109,7 +126,11 @@ export class TopicService {
           newRoot: {
             $mergeObjects: [
               '$topic',
-              { yearTopicId: '$yearTopicId' },
+              {
+                yearTopicId: '$yearTopicId',
+                goalMinutes: '$goalMinutes',
+                practicedMinutes: '$practicedMinutes',
+              },
             ],
           },
         },

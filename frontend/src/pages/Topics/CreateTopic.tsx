@@ -5,6 +5,7 @@ import { createTopic } from '../../services/topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import styles from './CreateTopic.module.css';
 import { useAuth } from '../../context/auth.context';
+import { topicIcons } from '../../constants/topicIcons';
 
 export default function CreateTopic() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function CreateTopic() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [selectedIcon, setSelectedIcon] = useState('BookOpen');
   const { userId } = useAuth();
 
   const mutation = useMutation({
@@ -47,7 +49,7 @@ export default function CreateTopic() {
 
     try {
       setLoading(true);
-      await mutation.mutateAsync({ name: name.trim() });
+      await mutation.mutateAsync({ name: name.trim(), icon: selectedIcon });
     } catch (err) {
       // Error handled in onError of the mutation
     } finally {
@@ -78,6 +80,23 @@ export default function CreateTopic() {
             <small className={styles.hint}>
               Ingresa el nombre de la actividad o materia que quieres trackear
             </small>
+          </div>
+
+          <div className={styles.iconGrid}>
+            {topicIcons.map(({ name, icon: Icon }) => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => setSelectedIcon(name)}
+                className={
+                  selectedIcon === name
+                    ? styles.selectedIconButton
+                    : styles.iconButton
+                }
+              >
+                <Icon size={24} />
+              </button>
+            ))}
           </div>
 
           <div className={styles.buttons}>
