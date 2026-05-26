@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+
 import { User, UserDocument, UserRole } from './schemas/user.schema';
-import { Model } from 'mongoose';
+import { Year, YearDocument } from '../year/schemas/year.schema';
+
+import { Model, Types } from 'mongoose';
+
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -9,6 +13,8 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
+    @InjectModel(Year.name)
+    private yearModel: Model<YearDocument>,
   ) { }
 
   async createAdminIfNotExists() {
@@ -39,16 +45,43 @@ export class UserService {
     });
 
     if (existing) {
-      throw new Error('Usuario ya existe');
+      throw new ConflictException(`El usuario ${dto.username} ya existe`);
     }
 
     const hash = await bcrypt.hash(dto.password, 10);
 
-    return this.userModel.create({
-      username: dto.username,
-      password: hash,
-      role: dto.role || 'USER',
-    });
+    let user: any = null;
+
+    try {
+      user = await this.userModel.create({
+        username: dto.username,
+        password: hash,
+        role: dto.role || 'USER',
+      });
+
+      const currentYear = new Date().getFullYear();
+
+      const totalDays =
+        new Date(currentYear, 1, 29).getMonth() === 1
+          ? 366
+          : 365;
+
+      await this.yearModel.create({
+        userId: user._id,
+        year: currentYear,
+        totalDays,
+        closed: false,
+      });
+
+      return user;
+    } catch (error) {
+      // manual rollback in case of error creating the year after creating the user
+      if (user?._id) {
+        await this.userModel.deleteOne({ _id: user._id });
+      }
+
+      throw error;
+    }
   }
 
   async changePassword(userId: string, oldPassword: string, newPassword: string) {
