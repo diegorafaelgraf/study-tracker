@@ -6,7 +6,6 @@ import Home from './pages/Home/Home';
 import ClosedYears from './pages/Years/ClosedYears';
 import YearTopics from './pages/Years/YearTopics';
 import ClosedYearTopics from './pages/Years/ClosedYearTopics';
-import AddTopicToYear from './pages/Years/AddTopicToYear';
 import Topics from './pages/Topics/Topics'
 import TopicYears from './pages/Topics/TopicYears';
 import Login from './pages/Auth/Login';
@@ -25,7 +24,6 @@ function App() {
           <Route path="/closed-years" element={<ProtectedRoute><ClosedYears /></ProtectedRoute>} />
           <Route path="/closed-years/:yearId" element={<ProtectedRoute><ClosedYearTopics /></ProtectedRoute>} />
           <Route path="/current-year/:yearId" element={<ProtectedRoute><YearTopics /></ProtectedRoute>} />
-          <Route path="/current-year/:yearId/add-topic" element={<ProtectedRoute><AddTopicToYear /></ProtectedRoute>} />
           <Route path="/topics" element={<ProtectedRoute><Topics /></ProtectedRoute>} />
           <Route path="/topics/:topicId" element={<ProtectedRoute><TopicYears /></ProtectedRoute>} />
           <Route path="/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
