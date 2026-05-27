@@ -1,5 +1,12 @@
 import styles from './NoAreas.module.css';
-const NoAreas = () => {
+
+interface NoAreasProps {
+  onClick: () => void;
+}
+
+
+
+const NoAreas = ({ onClick }: NoAreasProps) => {
 
   return (
     <div className={styles.container}>
@@ -7,11 +14,9 @@ const NoAreas = () => {
       <p>
         Para comenzar a registrar tus prácticas, primero debes asignar al menos un área de estudio al año vigente.
       </p>
-      {/* 
-      //TODO: Implementar la funcionalidad para asignar un area de estudio al año vigente vía modal.
-      <button className={styles.submitBtn} onClick={() => navigate('/year-topics/assign')}>
+      <button className={styles.submitBtn} onClick={onClick}>
         Asignar área
-      </button> */}
+      </button>
     </div>
   );
 }
