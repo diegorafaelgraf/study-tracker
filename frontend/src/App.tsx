@@ -9,7 +9,6 @@ import ClosedYearTopics from './pages/Years/ClosedYearTopics';
 import AddTopicToYear from './pages/Years/AddTopicToYear';
 import Topics from './pages/Topics/Topics'
 import TopicYears from './pages/Topics/TopicYears';
-import CreateTopic from './pages/Topics/CreateTopic';
 import Login from './pages/Auth/Login';
 import ChangePassword from './pages/Auth/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoutes';
@@ -29,7 +28,6 @@ function App() {
           <Route path="/current-year/:yearId/add-topic" element={<ProtectedRoute><AddTopicToYear /></ProtectedRoute>} />
           <Route path="/topics" element={<ProtectedRoute><Topics /></ProtectedRoute>} />
           <Route path="/topics/:topicId" element={<ProtectedRoute><TopicYears /></ProtectedRoute>} />
-          <Route path="/topics/create" element={<ProtectedRoute><CreateTopic /></ProtectedRoute>} />
           <Route path="/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
           <Route path="/year-topic/:yearTopicId" element={<ProtectedRoute><YearTopicStats /></ProtectedRoute>} />
         </Routes>
