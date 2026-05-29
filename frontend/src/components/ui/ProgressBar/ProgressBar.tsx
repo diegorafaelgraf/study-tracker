@@ -7,12 +7,15 @@ interface ProgressBarProps {
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   return (
-    <div className="progress-bar-container">
-      <div
-        className="progress-bar-fill"
-        style={{ width: `${Math.min(progress, 100)}%` }}
-      ></div>
-    </div>
+    <>
+      {progress.toFixed(2)} %
+      <div className="progress-bar-container">
+        <div
+          className="progress-bar-fill"
+          style={{ width: `${Math.min(progress, 100)}%` }}
+        ></div>
+      </div>
+    </>
   );
 };
 
