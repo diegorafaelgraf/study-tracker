@@ -9,7 +9,7 @@ export default function ProtectedRoute({
 }: {
   children: JSX.Element;
 }) {
-  const { token } = useAuth();
+  const { token, role } = useAuth();
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -17,7 +17,7 @@ export default function ProtectedRoute({
 
   return (
     <>
-      <Header />
+      <Header role={role} />
       {children}
     </>
   );

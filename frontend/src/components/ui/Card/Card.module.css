@@ -5,7 +5,7 @@
 }
 
 .card {
-  padding: 1rem 1rem;
+  padding: 1rem;
   border: 1px solid #b5b1fc;
   border-radius: 10px;
   cursor: pointer;
@@ -14,7 +14,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 .card:hover {
@@ -24,25 +25,79 @@
   transform: translateY(-4px);
 }
 
-.card h2,
-.card h3 {
+.highlight {
+  background: #eef4ff;
+  border-color: #90b7ff;
+}
+
+.highlight:hover {
+  background-color: #d7e6ff;
+  border-color: #6f9eff;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeaderTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cardIcon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  background-color: #eef4ff;
+  color: #5b75ff;
+  flex-shrink: 0;
+}
+
+.cardIcon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.cardHeader h2 {
   color: #2c3e50;
-  margin-bottom: 0.75rem;
+  margin: 0;
   font-weight: 700;
-  font-size: 1.50rem;
+  font-size: 2rem;
   letter-spacing: 0.3px;
   transition: color 0.3s ease;
+  margin-bottom: 0.5rem;
 }
 
-.card:hover h2,
-.card:hover h3 {
+.card:hover .cardHeader h2 {
   color: #34495e;
+  font-size: 2rem;
 }
 
-.card p {
-  color: #138a08;
+.subtitle {
+  color: #293ac0;
   margin: 0;
   font-size: 1rem;
+  padding-bottom: 0.2rem;
+}
+
+.message {
+  color: #48494d;
+  margin: 0;
+  font-size: 1rem;
+  padding-bottom: 0.2rem;
+}
+
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
 }
 
 .tooltip {

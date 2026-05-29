@@ -1,6 +1,6 @@
 # Study Tracker - Backend
 
-API REST desarrollada con NestJS para gestionar sesiones de práctica y estudio.
+API REST desarrollada con NestJS para gestionar sesiones estudio.
 
 ## Requisitos Previos
 
@@ -151,10 +151,10 @@ http://localhost:4000
 
 ### Año-Tema (Year-Topic)
 
-Relaciona temas específicos con años académicos y establece metas de práctica.
+Relaciona temas específicos con años académicos y establece metas de estudio.
 
 #### POST `/api/year-topic`
-- **Descripción**: Asociar un tema a un año con meta de minutos de práctica
+- **Descripción**: Asociar un tema a un año con meta de minutos de estudio
 - **Body**:
   ```json
   {
@@ -172,12 +172,12 @@ Relaciona temas específicos con años académicos y establece metas de práctic
 
 ---
 
-### Sesiones de Práctica (Practice)
+### Sesiones de Estudio (Study)
 
-Registra las sesiones individuales de práctica.
+Registra las sesiones individuales de estudio.
 
 #### POST `/api/practice`
-- **Descripción**: Registrar una nueva sesión de práctica
+- **Descripción**: Registrar una nueva sesión de estudio
 - **Body**:
   ```json
   {
@@ -189,7 +189,7 @@ Registra las sesiones individuales de práctica.
 - **Respuesta**: `{ id, yearTopicId, date, durationMinutes, createdAt }`
 
 #### GET `/api/practice/:id`
-- **Descripción**: Obtener una sesión de práctica por ID
+- **Descripción**: Obtener una sesión de estudio por ID
 - **Parámetros**:
   - `id` (number): ID de la sesión
 - **Respuesta**: Objeto con los datos de la sesión
@@ -208,7 +208,7 @@ src/
 ├── common/                     # Código compartido
 │   └── filters/
 │       └── mongo-exception.filter.ts
-├── practice/                  # Módulo de prácticas
+├── practice/                  # Módulo de estudio
 │   ├── practice.controller.ts
 │   ├── practice.service.ts
 │   ├── practice.module.ts

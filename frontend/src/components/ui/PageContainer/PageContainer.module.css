@@ -6,17 +6,43 @@
 }
 
 .container h1 {
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+  font-size: clamp(2rem, 4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.1;
+
+  background: linear-gradient(135deg,
+      #0f172a 0%,
+      #334155 40%,
+      #64748b 100%);
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+
   position: relative;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #34495e;
+  display: inline-block;
+
+  margin-bottom: 2rem;
+  padding-bottom: 0.8rem;
+}
+
+.container h1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 70px;
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(90deg,
+      #3b82f6,
+      #8b5cf6);
+
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.35);
 }
 
 .container p {

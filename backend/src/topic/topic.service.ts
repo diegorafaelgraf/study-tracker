@@ -77,7 +77,7 @@ export class TopicService {
   async getTopicsCurrentYear(userId: string): Promise<TopicDocument[]> {
     const currentYear = await this.yearModel.findOne({ closed: false, userId: new Types.ObjectId(userId) }).exec();
     if (!currentYear) {
-      throw new Error('No hay un año abierto para obtener los tópicos');
+      throw new Error('No hay un año abierto para obtener las áreas');
     }
 
     return this.yearTopicModel.aggregate([
@@ -99,9 +99,81 @@ export class TopicService {
         $unwind: '$topic',
       },
       {
+        $lookup: {
+          from: 'practices',
+          localField: '_id',
+          foreignField: 'yearTopicId',
+          as: 'practices',
+        },
+      },
+      // practicedMinutes
+      {
+        $addFields: {
+          practicedMinutes: {
+            $sum: '$practices.durationMinutes',
+          },
+        },
+      },
+
+      // remainingMinutes
+      {
+        $addFields: {
+          remainingMinutes: {
+            $subtract: ['$goalMinutes', '$practicedMinutes'],
+          },
+        },
+      },
+
+      // daysRemaining
+      {
+        $addFields: {
+          daysRemaining: {
+            $floor: {
+              $subtract: [
+                currentYear.totalDays,
+                {
+                  $divide: [
+                    {
+                      $subtract: [
+                        '$$NOW',
+                        new Date(`${currentYear.year}-01-01`),
+                      ],
+                    },
+                    1000 * 60 * 60 * 24,
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+
+      // minutesPerDay
+      {
+        $addFields: {
+          minutesPerDay: {
+            $cond: [
+              { $gt: ['$daysRemaining', 0] },
+              {
+                $divide: [
+                  '$remainingMinutes',
+                  '$daysRemaining',
+                ],
+              },
+              0,
+            ],
+          },
+        },
+      },
+      {
         $project: {
           yearTopicId: '$_id',
           topic: 1,
+          goalMinutes: 1,
+          practicedMinutes: 1,
+          remainingMinutes: 1,
+          minutesPerDay: 1,
+          daysRemaining: 1,
         },
       },
       {
@@ -109,7 +181,14 @@ export class TopicService {
           newRoot: {
             $mergeObjects: [
               '$topic',
-              { yearTopicId: '$yearTopicId' },
+              {
+                yearTopicId: '$yearTopicId',
+                goalMinutes: '$goalMinutes',
+                practicedMinutes: '$practicedMinutes',
+                remainingMinutes: '$remainingMinutes',
+                minutesPerDay: '$minutesPerDay',
+                daysRemaining: '$daysRemaining',
+              },
             ],
           },
         },

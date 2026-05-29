@@ -17,17 +17,17 @@ export default function Topics() {
     queryFn: getTopics,
   });
 
-  if (isLoading) return <p>Cargando Tópicos...</p>;
-  if (error) return <p>Error cargando Tópicos</p>;
+  if (isLoading) return <p>Cargando Áreas...</p>;
+  if (error) return <p>Error cargando Áreas</p>;
 
   return (
-    <PageContainer title="Tópicos" showBackButton={true}>
+    <PageContainer title="Áreas" showBackButton={true}>
       <div className={styles.header}>
         <button
           onClick={() => navigate('/topics/create')}
           className={styles.createBtn}
         >
-          + Crear Tópico
+          + Crear Área
         </button>
       </div>
 
@@ -44,8 +44,8 @@ export default function Topics() {
 
       {data?.length === 0 && (
         <div className={styles.empty}>
-          <p>No tienes tópicos creados aún.</p>
-          <p>Haz clic en "Crear Tópico" para empezar a trackear tus actividades.</p>
+          <p>No tienes áreas creadas aún.</p>
+          <p>Haz clic en "Crear Área" para empezar a trackear tus actividades.</p>
         </div>
       )}
     </PageContainer>

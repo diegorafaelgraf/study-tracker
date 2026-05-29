@@ -6,13 +6,16 @@ export type TopicDocument = HydratedDocument<Topic>;
 @Schema({ timestamps: true })
 export class Topic {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  userId: Types.ObjectId = new Types.ObjectId();
+  userId?: Types.ObjectId;
 
   @Prop({ required: true })
-  name: string = '';
+  name?: string;
 
   @Prop({ required: true })
-  nameNormalized: string = '';
+  nameNormalized?: string;
+
+  @Prop({ required: true, default: 'BookOpen' })
+  icon?: string;
 }
 
 export const TopicSchema = SchemaFactory.createForClass(Topic);
