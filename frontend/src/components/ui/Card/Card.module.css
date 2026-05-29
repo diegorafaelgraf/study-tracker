@@ -25,6 +25,16 @@
   transform: translateY(-4px);
 }
 
+.highlight {
+  background: #eef4ff;
+  border-color: #90b7ff;
+}
+
+.highlight:hover {
+  background-color: #d7e6ff;
+  border-color: #6f9eff;
+}
+
 .cardHeader {
   display: flex;
   align-items: center;

@@ -10,9 +10,10 @@ type Props = {
   tooltip?: string;
   button?: React.ReactNode;
   onClick?: () => void;
+  highlight?: boolean;
 };
 
-export default function Card({ children, title, subtitle, message, disabled, tooltip, button, onClick }: Props) {
+export default function Card({ children, title, subtitle, message, disabled, tooltip, button, onClick, highlight }: Props) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -23,7 +24,7 @@ export default function Card({ children, title, subtitle, message, disabled, too
       onClick={onClick}
     >
       <div
-        className={styles.card}
+        className={`${styles.card}${highlight ? ` ${styles.highlight}` : ''}`}
         style={{
           opacity: disabled ? 0.5 : 1,
           cursor: disabled ? 'not-allowed' : 'pointer',
