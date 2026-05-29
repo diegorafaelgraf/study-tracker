@@ -20,7 +20,7 @@ export const getTopicsByYear = async (yearId: string) => {
   return data;
 };
 
-export const createTopic = async (topicData: { name: string }) => {
+export const createTopic = async (topicData: { name: string, icon: string }) => {
   const { data } = await api.post('/api/topics', topicData);
   return data;
 };

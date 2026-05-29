@@ -179,7 +179,7 @@ describe('TopicService', () => {
       mockYearModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
 
       await expect(service.getTopicsCurrentYear('user1')).rejects.toThrow(
-        'No hay un año abierto para obtener los tópicos',
+        'No hay un año abierto para obtener las áreas',
       );
     });
   });

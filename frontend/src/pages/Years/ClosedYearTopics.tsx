@@ -5,7 +5,6 @@ import { getTopicsByYear } from '../../services/topic.service';
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import List from '../../components/ui/List/List';
 import ListItem from '../../components/ui/ListItem/ListItem';
-import styles from './YearTopics.module.css';
 import { useAuth } from '../../context/auth.context';
 
 export default function ClosedYearTopics() {
@@ -18,11 +17,11 @@ export default function ClosedYearTopics() {
     enabled: !!yearId,
   });
 
-  if (isLoading) return <p>Cargando tópicos...</p>;
-  if (error) return <p>Error cargando tópicos</p>;
+  if (isLoading) return <p>Cargando áreas...</p>;
+  if (error) return <p>Error cargando áreas</p>;
 
   return (
-    <PageContainer title="Tópicos del año" showBackButton={true}>
+    <PageContainer title="Áreas del año" showBackButton={true}>
 
       <List>
         {data?.map((topic: any) => (
@@ -33,8 +32,8 @@ export default function ClosedYearTopics() {
       </List>
 
       {data?.length === 0 && (
-        <div className={styles.empty}>
-          <p>Este año no tiene tópicos asociados.</p>
+        <div>
+          <p>Este año no tiene áreas asociadas.</p>
         </div>
       )}
     </PageContainer>

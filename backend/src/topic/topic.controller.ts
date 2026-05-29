@@ -3,7 +3,6 @@ import {
   Post,
   Body,
   Param,
-  ParseIntPipe,
   Get,
   NotFoundException,
 } from '@nestjs/common';
@@ -25,7 +24,8 @@ export class TopicController {
   @Post()
   async addTopic(@Body() dto: CreateTopicDto, @Req() req: any) {
     const input: AddTopicInput = {
-      name: dto.name
+      name: dto.name,
+      icon: dto.icon
     };
 
     return await this.service.create(input, req.user.userId);

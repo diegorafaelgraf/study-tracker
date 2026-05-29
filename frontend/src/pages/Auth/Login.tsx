@@ -32,7 +32,7 @@ export default function Login() {
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Practice and Study Tracker</h1>
+          <h1 className={styles.title}>Study Tracker</h1>
           <p className={styles.subtitle}>Inicia sesión para continuar</p>
 
           <form onSubmit={handleSubmit} className={styles.form}>
