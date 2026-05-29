@@ -5,13 +5,14 @@ type Props = {
   children?: React.ReactNode;
   title?: string;
   subtitle?: string;
+  message?: React.ReactNode;
   disabled?: boolean;
   tooltip?: string;
   button?: React.ReactNode;
   onClick?: () => void;
 };
 
-export default function Card({ children, title, subtitle, disabled, tooltip, button, onClick }: Props) {
+export default function Card({ children, title, subtitle, message, disabled, tooltip, button, onClick }: Props) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -30,10 +31,14 @@ export default function Card({ children, title, subtitle, disabled, tooltip, but
         }}
       >
         <div className={styles.cardHeader}>
-          <h2>{title}</h2>
+          <div>
+            <h2>{title}</h2>
+            <div className={styles.subtitle}>{subtitle}</div>
+          </div>
           {button}
         </div>
-        <p className={styles.subtitle}>{subtitle}</p>
+
+        <div className={styles.message}>{message}</div>
         <div className={styles.cardContent}>{children}</div>
       </div>
       {showTooltip && tooltip && (
