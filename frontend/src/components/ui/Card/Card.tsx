@@ -11,9 +11,10 @@ type Props = {
   button?: React.ReactNode;
   onClick?: () => void;
   highlight?: boolean;
+  icon?: React.ReactNode;
 };
 
-export default function Card({ children, title, subtitle, message, disabled, tooltip, button, onClick, highlight }: Props) {
+export default function Card({ children, title, subtitle, message, disabled, tooltip, button, onClick, highlight, icon }: Props) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -32,9 +33,12 @@ export default function Card({ children, title, subtitle, message, disabled, too
         }}
       >
         <div className={styles.cardHeader}>
-          <div>
-            <h2>{title}</h2>
-            <div className={styles.subtitle}>{subtitle}</div>
+          <div className={styles.cardHeaderTitle}>
+            {icon && <div className={styles.cardIcon}>{icon}</div>}
+            <div>
+              <h2>{title}</h2>
+              <div className={styles.subtitle}>{subtitle}</div>
+            </div>
           </div>
           {button}
         </div>
