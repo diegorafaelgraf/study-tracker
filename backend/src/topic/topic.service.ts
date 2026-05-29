@@ -106,10 +106,62 @@ export class TopicService {
           as: 'practices',
         },
       },
+      // practicedMinutes
       {
         $addFields: {
           practicedMinutes: {
             $sum: '$practices.durationMinutes',
+          },
+        },
+      },
+
+      // remainingMinutes
+      {
+        $addFields: {
+          remainingMinutes: {
+            $subtract: ['$goalMinutes', '$practicedMinutes'],
+          },
+        },
+      },
+
+      // daysRemaining
+      {
+        $addFields: {
+          daysRemaining: {
+            $floor: {
+              $subtract: [
+                currentYear.totalDays,
+                {
+                  $divide: [
+                    {
+                      $subtract: [
+                        '$$NOW',
+                        new Date(`${currentYear.year}-01-01`),
+                      ],
+                    },
+                    1000 * 60 * 60 * 24,
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+
+      // minutesPerDay
+      {
+        $addFields: {
+          minutesPerDay: {
+            $cond: [
+              { $gt: ['$daysRemaining', 0] },
+              {
+                $divide: [
+                  '$remainingMinutes',
+                  '$daysRemaining',
+                ],
+              },
+              0,
+            ],
           },
         },
       },
@@ -119,6 +171,9 @@ export class TopicService {
           topic: 1,
           goalMinutes: 1,
           practicedMinutes: 1,
+          remainingMinutes: 1,
+          minutesPerDay: 1,
+          daysRemaining: 1,
         },
       },
       {
@@ -130,6 +185,9 @@ export class TopicService {
                 yearTopicId: '$yearTopicId',
                 goalMinutes: '$goalMinutes',
                 practicedMinutes: '$practicedMinutes',
+                remainingMinutes: '$remainingMinutes',
+                minutesPerDay: '$minutesPerDay',
+                daysRemaining: '$daysRemaining',
               },
             ],
           },
