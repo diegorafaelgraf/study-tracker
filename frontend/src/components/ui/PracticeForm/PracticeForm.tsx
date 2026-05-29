@@ -98,6 +98,8 @@ export default function PracticeForm({ onSuccess }: PracticeFormProps) {
           <label htmlFor="name">Minutos practicados</label>
           <input
             type="number"
+            step="1"
+            min="0"
             placeholder="Minutos"
             value={minutes}
             onChange={(e) => setMinutes(e.target.value)}
