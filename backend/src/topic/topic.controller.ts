@@ -3,7 +3,6 @@ import {
   Post,
   Body,
   Param,
-  ParseIntPipe,
   Get,
   NotFoundException,
 } from '@nestjs/common';
