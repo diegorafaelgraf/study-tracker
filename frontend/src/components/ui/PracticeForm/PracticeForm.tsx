@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from 'sonner';
@@ -15,11 +15,12 @@ import styles from './PracticeForm.module.css';
 
 interface PracticeFormProps {
   onSuccess: () => void;
+  yearTopicId?: string;
 }
 
-export default function PracticeForm({ onSuccess }: PracticeFormProps) {
+export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopicId }: PracticeFormProps) {
   // Form state
-  const [yearTopicId, setYearTopicId] = useState('');
+  const [yearTopicId, setYearTopicId] = useState(selectedYearTopicId || '');
   const [minutes, setMinutes] = useState('');
   const [date, setDate] = useState('');
   const { userId } = useAuth();
@@ -34,6 +35,15 @@ export default function PracticeForm({ onSuccess }: PracticeFormProps) {
     queryKey: ['currentYear', userId],
     queryFn: getCurrentYear,
   });
+
+  const selectedTopic = topics?.find((t: any) => t.yearTopicId === selectedYearTopicId);
+
+  // Sync the selected yearTopicId prop with local state if it changes
+  useEffect(() => {
+    if (selectedYearTopicId) {
+      setYearTopicId(selectedYearTopicId);
+    }
+  }, [selectedYearTopicId]);
 
   // Mutation
   const mutation = useMutation({
@@ -79,19 +89,25 @@ export default function PracticeForm({ onSuccess }: PracticeFormProps) {
 
         <div className={styles.formGroup}>
           <label htmlFor="name">Nombre del Área</label>
-          <select
-            value={yearTopicId}
-            onChange={(e) => setYearTopicId(e.target.value)}
-            className={styles.input}
-            disabled={mutation.isPending}
-          >
-            <option value="">Seleccionar área</option>
-            {topics?.map((t: any) => (
-              <option key={t.yearTopicId} value={t.yearTopicId}>
-                {t.name}
-              </option>
-            ))}
-          </select>
+          {selectedYearTopicId ? (
+            <div className={styles.readOnlyField}>
+              {selectedTopic?.name || 'Área seleccionada'}
+            </div>
+          ) : (
+            <select
+              value={yearTopicId}
+              onChange={(e) => setYearTopicId(e.target.value)}
+              className={styles.input}
+              disabled={mutation.isPending}
+            >
+              <option value="">Seleccionar área</option>
+              {topics?.map((t: any) => (
+                <option key={t.yearTopicId} value={t.yearTopicId}>
+                  {t.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
 
         <div className={styles.formGroup}>
