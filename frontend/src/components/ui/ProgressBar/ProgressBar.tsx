@@ -8,7 +8,10 @@ interface ProgressBarProps {
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   return (
     <>
-      {progress.toFixed(2)} %
+      <div className="progress-label">
+        Progresaste un {' '}
+        <b>{progress.toFixed(2)} %</b>
+      </div>
       <div className="progress-bar-container">
         <div
           className="progress-bar-fill"

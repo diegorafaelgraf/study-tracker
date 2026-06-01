@@ -12,7 +12,7 @@ const NoAreas = ({ onClick }: NoAreasProps) => {
     <div className={styles.container}>
       <h1>No tienes ningún área de estudio asignada.</h1>
       <p>
-        Para comenzar a registrar tus prácticas, primero debes asignar al menos un área de estudio al año vigente.
+        Para comenzar a registrar tus minutos de estudio, primero debes asignar al menos un área de estudio al año vigente.
       </p>
       <button className={styles.submitBtn} onClick={onClick}>
         Asignar área

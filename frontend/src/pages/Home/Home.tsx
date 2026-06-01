@@ -124,12 +124,11 @@ export default function Home() {
               <Card
                 key={topic._id}
                 title={topic.name}
-                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos`}
+                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos de estudio`}
                 message={
                   <>
-                    Para cumplir el objetivo anual, tenés que estudiar{' '}
-                    <b>{topic.minutesPerDay.toFixed(0)}</b>
-                    {' '}minutos diarios
+                    Minutos diarios necesarios para cumplir objetivo: {' '}
+                    <b style={{ color: '#17640e', fontWeight: 'bold', fontSize: '1.25rem' }}>{topic.minutesPerDay.toFixed(0)}</b>
                   </>
                 }
                 icon={IconComponent ? <IconComponent /> : undefined}
@@ -143,7 +142,7 @@ export default function Home() {
             key="assign-area-card"
             title="Asignar área"
             subtitle="Agregar una nueva área al año vigente"
-            message="Haz clic para asignar un área al año y comenzar a registrar prácticas."
+            message="Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
             onClick={openAssignAreaModal}
             highlight
           >
