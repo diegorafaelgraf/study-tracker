@@ -48,18 +48,8 @@ export default function Header({ role = 'USER' }: HeaderProps) {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               <li>
-                <button onClick={() => navigate('/years')} className={styles.navLink}>
-                  Años
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigate('/topics')} className={styles.navLink}>
-                  Temas
-                </button>
-              </li>
-              <li>
                 <button onClick={() => navigate('/closed-years')} className={styles.navLink}>
-                  Años Cerrados
+                  Ver años anteriores
                 </button>
               </li>
             </ul>

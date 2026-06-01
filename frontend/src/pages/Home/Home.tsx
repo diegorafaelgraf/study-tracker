@@ -114,7 +114,7 @@ export default function Home() {
   return (
     <PageContainer title={`Año vigente: ${currentYear?.year || 'No existe año vigente'}`} showBackButton={false}>
       {topics && topics.length > 0 ? (
-        <Grid columns={3}>
+        <Grid columns={2}>
           {topics.map((topic: any) => {
             const progress = topic.goalMinutes > 0 ? (topic.practicedMinutes / topic.goalMinutes) * 100 : 0;
             const topicIcon = topicIcons.find((item) => item.name === topic.icon)?.icon;
@@ -134,7 +134,7 @@ export default function Home() {
                 icon={IconComponent ? <IconComponent /> : undefined}
                 button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} />}
               >
-                <ProgressBar progress={progress} />
+                <ProgressBar progress={progress} text="Progresaste un" />
               </Card>
             );
           })}
