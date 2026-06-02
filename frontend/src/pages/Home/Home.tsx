@@ -43,6 +43,8 @@ export default function Home() {
 
   const [isCloseYearModalOpen, setIsCloseYearModalOpen] = useState(false);
 
+  const hideTooltip = isPracticeModalOpen || isAssignAreaModalOpen || isCreateAreaModalOpen || isCloseYearModalOpen;
+
   const queryClient = useQueryClient();
 
   const isAdmin = role === 'ADMIN';
@@ -124,6 +126,8 @@ export default function Home() {
               <Card
                 key={topic._id}
                 title={topic.name}
+                hideTooltip={hideTooltip}
+                tooltip='Ver estadísticas extendidas'
                 subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos de estudio`}
                 message={
                   <>
@@ -132,7 +136,7 @@ export default function Home() {
                   </>
                 }
                 icon={IconComponent ? <IconComponent /> : undefined}
-                button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} />}
+                button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip='Registrar minutos de estudio' />}
               >
                 <ProgressBar progress={progress} text="Progresaste un" />
               </Card>
@@ -144,6 +148,7 @@ export default function Home() {
             subtitle="Agregar una nueva área al año vigente"
             message="Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
             onClick={openAssignAreaModal}
+            hideTooltip={hideTooltip}
             highlight
           >
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
