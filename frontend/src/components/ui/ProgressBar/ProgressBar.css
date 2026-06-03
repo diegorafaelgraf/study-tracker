@@ -4,11 +4,18 @@
   background-color: #bf1c1c;
   border-radius: 5px;
   overflow: hidden;
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 .progress-bar-fill {
   height: 100%;
   background: linear-gradient(to right, #4caf50, #8bc34a);
   transition: width 0.3s ease;
+}
+
+.progress-label {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  margin-bottom: 0.1rem;
+  margin-top: 0.4rem;
 }

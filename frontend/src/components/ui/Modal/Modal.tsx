@@ -5,10 +5,15 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  modalToClose?: () => void; // Nueva prop para cerrar otro modal
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, modalToClose }) => {
   if (!isOpen) return null;
+
+  if (modalToClose) {
+    modalToClose();
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose}>

@@ -19,6 +19,7 @@ import NoAreas from '../../components/ui/NoAreas/NoAreas';
 import LoadingScreen from '../../components/ui/LoadingScreen/LoadingScreen';
 import AssignAreaForm from '../../components/ui/AssignAreaForm/AssignAreaForm';
 import CreateTopicForm from '../../components/ui/QuickCreateTopicForm/CreateTopicForm';
+import YearTopicStats from '../../components/ui/YearTopicStats/YearTopicStats'
 
 import { useAuth } from '../../context/auth.context';
 
@@ -30,9 +31,10 @@ export default function Home() {
   const { userId, role } = useAuth();
 
   const [isPracticeModalOpen, setIsPracticeModalOpen] = useState(false);
-  const [selectedPracticeYearTopicId, setSelectedPracticeYearTopicId] = useState('');
+  const [selectedYearTopicId, setSelectedYearTopicId] = useState('');
+  const [selectedTopicName, setSelectedTopicName] = useState('');
   const openPracticeModal = (yearTopicId?: string) => {
-    setSelectedPracticeYearTopicId(yearTopicId ?? '');
+    setSelectedYearTopicId(yearTopicId ?? '');
     setIsPracticeModalOpen(true);
   };
 
@@ -42,6 +44,15 @@ export default function Home() {
   const [isCreateAreaModalOpen, setIsCreateAreaModalOpen] = useState(false);
 
   const [isCloseYearModalOpen, setIsCloseYearModalOpen] = useState(false);
+
+  const [isStatsAreaModalOpen, setIsStatsAreaModalOpen] = useState(false);
+  const openStatsModal = (yearTopicId?: string, topicName?: string) => {
+    setSelectedYearTopicId(yearTopicId ?? '');
+    setSelectedTopicName(topicName ?? '');
+    setIsStatsAreaModalOpen(true);
+  };
+
+  const hideTooltip = isPracticeModalOpen || isAssignAreaModalOpen || isCreateAreaModalOpen || isCloseYearModalOpen;
 
   const queryClient = useQueryClient();
 
@@ -114,9 +125,9 @@ export default function Home() {
   return (
     <PageContainer title={`Año vigente: ${currentYear?.year || 'No existe año vigente'}`} showBackButton={false}>
       {topics && topics.length > 0 ? (
-        <Grid columns={3}>
+        <Grid columns={2}>
           {topics.map((topic: any) => {
-            const progress = topic.goalMinutes > 0 ? (topic.practicedMinutes / topic.goalMinutes) * 100 : 0;
+            const progress = topic.progressPercentage;
             const topicIcon = topicIcons.find((item) => item.name === topic.icon)?.icon;
             const IconComponent = topicIcon ? topicIcon : undefined;
 
@@ -124,18 +135,20 @@ export default function Home() {
               <Card
                 key={topic._id}
                 title={topic.name}
-                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos`}
+                hideTooltip={hideTooltip}
+                tooltip='Ver estadísticas extendidas'
+                onClick={() => openStatsModal(topic.yearTopicId, topic.name)}
+                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos de estudio`}
                 message={
                   <>
-                    Para cumplir el objetivo anual, tenés que estudiar{' '}
-                    <b>{topic.minutesPerDay.toFixed(0)}</b>
-                    {' '}minutos diarios
+                    Minutos diarios necesarios para cumplir objetivo: {' '}
+                    <b style={{ color: '#17640e', fontWeight: 'bold', fontSize: '1.25rem' }}>{topic.minutesPerDay.toFixed(0)}</b>
                   </>
                 }
                 icon={IconComponent ? <IconComponent /> : undefined}
-                button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} />}
+                button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip='Registrar minutos de estudio' />}
               >
-                <ProgressBar progress={progress} />
+                <ProgressBar progress={progress} text="Progresaste un" />
               </Card>
             );
           })}
@@ -143,8 +156,9 @@ export default function Home() {
             key="assign-area-card"
             title="Asignar área"
             subtitle="Agregar una nueva área al año vigente"
-            message="Haz clic para asignar un área al año y comenzar a registrar prácticas."
+            message="Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
             onClick={openAssignAreaModal}
+            hideTooltip={hideTooltip}
             highlight
           >
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
@@ -156,9 +170,9 @@ export default function Home() {
         <NoAreas onClick={openAssignAreaModal} />
       )}
 
-      <Modal isOpen={isPracticeModalOpen} onClose={() => setIsPracticeModalOpen(false)}>
+      <Modal isOpen={isPracticeModalOpen} onClose={() => setIsPracticeModalOpen(false)} modalToClose={() => setIsStatsAreaModalOpen(false)}>
         <PracticeForm
-          yearTopicId={selectedPracticeYearTopicId}
+          yearTopicId={selectedYearTopicId}
           onSuccess={() => setIsPracticeModalOpen(false)}
         />
       </Modal>
@@ -173,6 +187,10 @@ export default function Home() {
 
       <Modal isOpen={isCreateAreaModalOpen} onClose={handleCloseCreateAreaModal}>
         <CreateTopicForm onSuccess={handleCloseCreateAreaModal} />
+      </Modal>
+
+      <Modal isOpen={isStatsAreaModalOpen} onClose={() => { setIsStatsAreaModalOpen(false) }}>
+        <YearTopicStats yearTopicId={selectedYearTopicId} topicName={selectedTopicName} />
       </Modal>
 
       <CloseYearModal isOpen={isCloseYearModalOpen} onCloseYear={handleCloseYear} onRemindLater={() => setIsCloseYearModalOpen(false)}>

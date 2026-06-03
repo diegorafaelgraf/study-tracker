@@ -12,16 +12,29 @@ type Props = {
   onClick?: () => void;
   highlight?: boolean;
   icon?: React.ReactNode;
+  hideTooltip?: boolean;
 };
 
-export default function Card({ children, title, subtitle, message, disabled, tooltip, button, onClick, highlight, icon }: Props) {
+export default function Card({
+  children,
+  title,
+  subtitle,
+  message,
+  disabled,
+  tooltip,
+  button,
+  onClick,
+  highlight,
+  icon,
+  hideTooltip
+}: Props) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <div
       className={styles.cardContainer}
       onMouseEnter={() => tooltip && setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
+      onMouseLeave={() => tooltip && setShowTooltip(false)}
       onClick={onClick}
     >
       <div
@@ -40,13 +53,24 @@ export default function Card({ children, title, subtitle, message, disabled, too
               <div className={styles.subtitle}>{subtitle}</div>
             </div>
           </div>
-          {button}
+          <div onMouseOver={(e) => {
+            e.stopPropagation();
+            if (tooltip) setShowTooltip(false);
+          }}
+            onMouseLeave={(e) => {
+              e.stopPropagation();
+              if (!hideTooltip && tooltip) {
+                setShowTooltip(true);
+              }
+            }}>
+            {button}
+          </div>
         </div>
 
         <div className={styles.message}>{message}</div>
         <div className={styles.cardContent}>{children}</div>
       </div>
-      {showTooltip && tooltip && (
+      {!hideTooltip && showTooltip && tooltip && (
         <div className={styles.tooltip}>
           {tooltip}
         </div>

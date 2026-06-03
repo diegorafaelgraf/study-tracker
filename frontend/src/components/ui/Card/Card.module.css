@@ -68,7 +68,7 @@
   color: #2c3e50;
   margin: 0;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 1.75rem;
   letter-spacing: 0.3px;
   transition: color 0.3s ease;
   margin-bottom: 0.5rem;
@@ -76,20 +76,20 @@
 
 .card:hover .cardHeader h2 {
   color: #34495e;
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 .subtitle {
   color: #293ac0;
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.85rem;
   padding-bottom: 0.2rem;
 }
 
 .message {
   color: #48494d;
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding-bottom: 0.2rem;
 }
 

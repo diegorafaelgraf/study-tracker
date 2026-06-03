@@ -49,12 +49,12 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
   const mutation = useMutation({
     mutationFn: createPractice,
     onSuccess: () => {
-      toast.success('Práctica registrada exitosamente ✅');
+      toast.success('Minutos de estudios registrados exitosamente ✅');
       queryClient.invalidateQueries({ queryKey: ['topics-current-year', userId] });
       onSuccess();
     },
     onError: (err: any) => {
-      toast.error(err.message || 'Error registrando práctica');
+      toast.error(err.message || 'Error registrando minutos de estudios');
     }
   });
 
@@ -84,7 +84,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
   // Render form
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Registrar Práctica</h1>
+      <h1 className={styles.title}>Registrar minutos de estudio</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
 
         <div className={styles.formGroup}>
@@ -125,7 +125,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="name">Fecha de práctica</label>
+          <label htmlFor="name">Fecha de estudio</label>
           <input
             type="date"
             min={`${currentYear?.year}-01-01`}

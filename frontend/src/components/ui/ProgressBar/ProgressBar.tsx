@@ -3,12 +3,16 @@ import './ProgressBar.css';
 
 interface ProgressBarProps {
   progress: number; // 0 to 100
+  text: string;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({ progress, text }) => {
   return (
     <>
-      {progress.toFixed(2)} %
+      <div className="progress-label">
+        {text + ' '}
+        <b>{progress.toFixed(2)} %</b>
+      </div>
       <div className="progress-bar-container">
         <div
           className="progress-bar-fill"

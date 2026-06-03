@@ -30,7 +30,7 @@ export function CloseYearModal({
         ¿Querés cerrarlo?.
         <br />
         <br />
-        <b>Recordá que una vez cerrado no podrás agregar mas prácticas.</b>
+        <b>Recordá que una vez cerrado no podrás agregar mas minutos de estudio.</b>
       </p>
 
       <div className={styles.actions}>

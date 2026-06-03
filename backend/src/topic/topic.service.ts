@@ -165,6 +165,29 @@ export class TopicService {
           },
         },
       },
+
+      // progressPercentage
+      {
+        $addFields: {
+          progressPercentage: {
+            $cond: [
+              { $gt: ['$goalMinutes', 0] },
+              {
+                $multiply: [
+                  {
+                    $divide: [
+                      '$practicedMinutes',
+                      '$goalMinutes',
+                    ],
+                  },
+                  100,
+                ],
+              },
+              0,
+            ],
+          },
+        },
+      },
       {
         $project: {
           yearTopicId: '$_id',
@@ -174,6 +197,7 @@ export class TopicService {
           remainingMinutes: 1,
           minutesPerDay: 1,
           daysRemaining: 1,
+          progressPercentage: 1
         },
       },
       {
@@ -188,6 +212,7 @@ export class TopicService {
                 remainingMinutes: '$remainingMinutes',
                 minutesPerDay: '$minutesPerDay',
                 daysRemaining: '$daysRemaining',
+                progressPercentage: '$progressPercentage',
               },
             ],
           },
