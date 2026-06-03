@@ -19,6 +19,7 @@ import NoAreas from '../../components/ui/NoAreas/NoAreas';
 import LoadingScreen from '../../components/ui/LoadingScreen/LoadingScreen';
 import AssignAreaForm from '../../components/ui/AssignAreaForm/AssignAreaForm';
 import CreateTopicForm from '../../components/ui/QuickCreateTopicForm/CreateTopicForm';
+import YearTopicStats from '../../components/ui/YearTopicStats/YearTopicStats'
 
 import { useAuth } from '../../context/auth.context';
 
@@ -30,9 +31,10 @@ export default function Home() {
   const { userId, role } = useAuth();
 
   const [isPracticeModalOpen, setIsPracticeModalOpen] = useState(false);
-  const [selectedPracticeYearTopicId, setSelectedPracticeYearTopicId] = useState('');
+  const [selectedYearTopicId, setSelectedYearTopicId] = useState('');
+  const [selectedTopicName, setSelectedTopicName] = useState('');
   const openPracticeModal = (yearTopicId?: string) => {
-    setSelectedPracticeYearTopicId(yearTopicId ?? '');
+    setSelectedYearTopicId(yearTopicId ?? '');
     setIsPracticeModalOpen(true);
   };
 
@@ -42,6 +44,13 @@ export default function Home() {
   const [isCreateAreaModalOpen, setIsCreateAreaModalOpen] = useState(false);
 
   const [isCloseYearModalOpen, setIsCloseYearModalOpen] = useState(false);
+
+  const [isStatsAreaModalOpen, setIsStatsAreaModalOpen] = useState(false);
+  const openStatsModal = (yearTopicId?: string, topicName?: string) => {
+    setSelectedYearTopicId(yearTopicId ?? '');
+    setSelectedTopicName(topicName ?? '');
+    setIsStatsAreaModalOpen(true);
+  };
 
   const hideTooltip = isPracticeModalOpen || isAssignAreaModalOpen || isCreateAreaModalOpen || isCloseYearModalOpen;
 
@@ -118,7 +127,7 @@ export default function Home() {
       {topics && topics.length > 0 ? (
         <Grid columns={2}>
           {topics.map((topic: any) => {
-            const progress = topic.goalMinutes > 0 ? (topic.practicedMinutes / topic.goalMinutes) * 100 : 0;
+            const progress = topic.progressPercentage;
             const topicIcon = topicIcons.find((item) => item.name === topic.icon)?.icon;
             const IconComponent = topicIcon ? topicIcon : undefined;
 
@@ -128,6 +137,7 @@ export default function Home() {
                 title={topic.name}
                 hideTooltip={hideTooltip}
                 tooltip='Ver estadísticas extendidas'
+                onClick={() => openStatsModal(topic.yearTopicId, topic.name)}
                 subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos de estudio`}
                 message={
                   <>
@@ -160,9 +170,9 @@ export default function Home() {
         <NoAreas onClick={openAssignAreaModal} />
       )}
 
-      <Modal isOpen={isPracticeModalOpen} onClose={() => setIsPracticeModalOpen(false)}>
+      <Modal isOpen={isPracticeModalOpen} onClose={() => setIsPracticeModalOpen(false)} modalToClose={() => setIsStatsAreaModalOpen(false)}>
         <PracticeForm
-          yearTopicId={selectedPracticeYearTopicId}
+          yearTopicId={selectedYearTopicId}
           onSuccess={() => setIsPracticeModalOpen(false)}
         />
       </Modal>
@@ -177,6 +187,10 @@ export default function Home() {
 
       <Modal isOpen={isCreateAreaModalOpen} onClose={handleCloseCreateAreaModal}>
         <CreateTopicForm onSuccess={handleCloseCreateAreaModal} />
+      </Modal>
+
+      <Modal isOpen={isStatsAreaModalOpen} onClose={() => { setIsStatsAreaModalOpen(false) }}>
+        <YearTopicStats yearTopicId={selectedYearTopicId} topicName={selectedTopicName} />
       </Modal>
 
       <CloseYearModal isOpen={isCloseYearModalOpen} onCloseYear={handleCloseYear} onRemindLater={() => setIsCloseYearModalOpen(false)}>

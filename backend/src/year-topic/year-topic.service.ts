@@ -66,6 +66,9 @@ export class YearTopicService {
         : 0;
     const daysRemaining = year ? year.totalDays - daysTranscurred : 0;
     const neededDailyMinutes = daysRemaining > 0 ? annualRemainingMinutes / daysRemaining : 0;
+    const progressPercentage = yearTopic.goalMinutes > 0 ? annualPracticedMinutes / yearTopic.goalMinutes * 100 : 0;
+    const expectedProgressPercentage = year ? ((yearTopic.goalMinutes / year.totalDays) * daysTranscurred) / yearTopic.goalMinutes * 100 : 0
+    const planCompletionPercentage = year ? annualPracticedMinutes / ((yearTopic.goalMinutes / year.totalDays) * daysTranscurred) * 100 : 0
 
     return {
       annualGoalMinutes,
@@ -74,7 +77,10 @@ export class YearTopicService {
       annualRemainingMinutes,
       daysTranscurred,
       daysRemaining,
-      neededDailyMinutes
+      neededDailyMinutes,
+      progressPercentage,
+      expectedProgressPercentage,
+      planCompletionPercentage
     };
   }
 }
