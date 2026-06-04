@@ -11,6 +11,8 @@ import Login from './pages/Auth/Login';
 import ProtectedRoute from './components/ProtectedRoutes';
 import YearTopicStats from './pages/YearTopics/YearTopicStats';
 
+import './i18n.ts';
+
 function App() {
   return (
     <>
