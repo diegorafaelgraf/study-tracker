@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import './i18n';
+
 import { Toaster } from 'sonner';
 
 import Home from './pages/Home/Home';
