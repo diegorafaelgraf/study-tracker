@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 type AuthContextType = {
   token: string | null;
@@ -38,6 +38,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('token');
     setToken(null);
   };
+
+  // If token is expired, log out the user
+  useEffect(() => {
+    if (!token) return;
+    const payload = parseJwt(token);
+    if (!payload) {
+      logout();
+      return;
+    }
+    // `exp` is in seconds, convert to milliseconds
+    const isExpired = payload.exp * 1000 < Date.now();
+    if (isExpired) {
+      logout();
+    }
+  }, [token]);
 
   const payload = token ? parseJwt(token) : null;
   const userId = payload?.sub;
