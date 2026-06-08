@@ -10,7 +10,7 @@ import ChangePasswordForm from '../../components/ui/ChangePasswordForm/ChangePas
 import LanguageSelector from '../ui/LanguageSelector/LanguageSelector';
 
 interface HeaderProps {
-  role?: 'USER' | 'ADMIN';
+  role?: 'USER' | 'ADMIN' | undefined;
 }
 
 export default function Header({ role = 'USER' }: HeaderProps) {
