@@ -8,9 +8,10 @@ import ClosedYearTopics from './pages/Years/ClosedYearTopics';
 import Topics from './pages/Topics/Topics'
 import TopicYears from './pages/Topics/TopicYears';
 import Login from './pages/Auth/Login';
-import ChangePassword from './pages/Auth/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoutes';
 import YearTopicStats from './pages/YearTopics/YearTopicStats';
+
+import './i18n.ts';
 
 function App() {
   return (
@@ -24,7 +25,6 @@ function App() {
           <Route path="/closed-years/:yearId" element={<ProtectedRoute><ClosedYearTopics /></ProtectedRoute>} />
           <Route path="/topics" element={<ProtectedRoute><Topics /></ProtectedRoute>} />
           <Route path="/topics/:topicId" element={<ProtectedRoute><TopicYears /></ProtectedRoute>} />
-          <Route path="/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
           <Route path="/year-topic/:yearTopicId" element={<ProtectedRoute><YearTopicStats /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
 
@@ -26,6 +27,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
   const queryClient = useQueryClient();
   const [selectedTopicId, setSelectedTopicId] = useState('');
   const [goalMinutes, setGoalMinutes] = useState('');
+  const { t } = useTranslation();
 
   // Queries
   // Obtenning all areas of the user to show in the dropdown
@@ -48,14 +50,14 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
   const mutation = useMutation({
     mutationFn: addTopicToYear,
     onSuccess: () => {
-      toast.success('Área asignada exitosamente ✅');
+      toast.success(t('assign-area.successful-assigned-area'));
       queryClient.invalidateQueries({ queryKey: ['topics-current-year', userId] });
       queryClient.invalidateQueries({ queryKey: ['topics-by-year', userId] });
       onSuccess();
     },
     onError: (err: unknown) => {
       const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error.response?.data?.message || 'Error agregando área al año');
+      toast.error(error.response?.data?.message || t('assign-area.assigned-area-error'));
     },
   });
 
@@ -71,16 +73,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!selectedTopicId) {
-      toast.error('Debes seleccionar un área');
-      return;
-    }
-
     const minutes = parseInt(goalMinutes);
-    if (!goalMinutes || minutes <= 0) {
-      toast.error('Los minutos objetivo deben ser un número mayor a 0');
-      return;
-    }
 
     mutation.mutate({
       topicId: selectedTopicId,
@@ -99,10 +92,10 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
   // Render form
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Asignar Área al Año</h1>
+      <h1 className={styles.title}>{t('assign-area.assign-area')}</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
-          <label htmlFor="topic">Seleccionar Área</label>
+          <label htmlFor="topic">{t('assign-area.select-area')}</label>
           <select
             id="topic"
             value={selectedTopicId}
@@ -111,7 +104,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
             disabled={hasNoTopics}
             className={styles.select}
           >
-            <option value="">-- Seleccionar área --</option>
+            <option value="">-- {t('assign-area.select-area')} --</option>
             {availableTopics.map((topic: Topic) => (
               <option key={topic._id} value={topic._id}>
                 {topic.name}
@@ -120,24 +113,24 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
           </select>
           {hasNoTopics ? (
             <div className={styles.emptyState}>
-              <p>Todavía no tenés tópicos creados.</p>
+              <p>{t('assign-area.have-not-created-area')}</p>
               <button
                 type="button"
                 onClick={handleCrearTopicClick}
                 className={styles.linkBtn}
               >
-                Crear tópico
+                {t('assign-area.create-area')}
               </button>
             </div>
           ) : (
             <small className={styles.hint}>
-              Cantidad total de minutos que planeas dedicar a esta área durante el año
+              {t('assign-area.area-to-assign')}
             </small>
           )}
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="goalMinutes">Minutos Objetivo por Año</label>
+          <label htmlFor="goalMinutes">{t('assign-area.year-goal-minutes')}</label>
           <input
             id="goalMinutes"
             type="number"
@@ -149,7 +142,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
             className={styles.input}
           />
           <small className={styles.hint}>
-            Cantidad total de minutos que planeas dedicar a esta área durante el año
+            {t('assign-area.total-year-goal-minutes')}
           </small>
         </div>
 
@@ -159,7 +152,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
             disabled={mutation.isPending || hasNoTopics}
             className={styles.submitBtn}
           >
-            {mutation.isPending ? 'Agregando...' : 'Agregar Área'}
+            {mutation.isPending ? t('assign-area.assigning') : t('assign-area.assign-area')}
           </button>
           <button
             type="button"
@@ -167,7 +160,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
             className={styles.cancelBtn}
             onClick={handleCancel}
           >
-            Cancelar
+            {t('assign-area.cancel')}
           </button>
         </div>
       </form>

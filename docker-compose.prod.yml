@@ -7,9 +7,8 @@ services:
       target: production
     ports:
       - "5000:3000"
-    environment:
-      NODE_ENV: production
-      MONGO_URI: mongodb://mongo:27017/study-tracker
+    env_file:
+      - ./backend/.env.production
     depends_on:
       - mongo
     restart: unless-stopped

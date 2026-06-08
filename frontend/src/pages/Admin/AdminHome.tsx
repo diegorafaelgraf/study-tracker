@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import PageContainer from '../../components/ui/PageContainer/PageContainer';
 import Card from '../../components/ui/Card/Card';
@@ -9,15 +10,16 @@ import UserForm from '../../components/ui/UserForm/UserForm';
 export default function AdminHome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
+  const { t } = useTranslation();
 
   return (
-    <PageContainer title="Panel de Administración">
+    <PageContainer title={t('admin.panel-admin')}>
       <Grid>
-        <Card onClick={() => openModal()} title='Alta de Usuarios' subtitle='Registrar usuarios del sistema'>
+        <Card onClick={() => openModal()} title={t('admin.alta-usuarios')} subtitle={t('admin.registrar-usuarios')}>
         </Card>
       </Grid>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <UserForm title="Agregar Usuario" onSuccess={() => setIsModalOpen(false)} />
+        <UserForm title={t('admin.agregar-usuario')} onSuccess={() => setIsModalOpen(false)} />
       </Modal>
     </PageContainer>
   );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
 
@@ -16,36 +17,32 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { t } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: changePassword,
     onSuccess: () => {
-      toast.success('Contraseña cambiada exitosamente ✅');
+      toast.success(t('change-pass.pass-changed'));
       setOldPassword('');
       setNewPassword('');
       setConfirmPassword('');
       onSuccess?.();
     },
     onError: (err: any) => {
-      toast.error(err.response?.data?.message || 'Error cambiando contraseña ❌');
+      toast.error(err.response?.data?.message || t('change-pass.changed-pass-error'));
     },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!oldPassword || !newPassword || !confirmPassword) {
-      toast.error('Todos los campos son requeridos');
-      return;
-    }
-
     if (newPassword !== confirmPassword) {
-      toast.error('Las contraseñas no coinciden');
+      toast.error(t('change-pass.pass-do-not-match'));
       return;
     }
 
     if (newPassword.length < 6) {
-      toast.error('La contraseña debe tener al menos 6 caracteres');
+      toast.error(t('change-pass.pass-long-error'));
       return;
     }
     await mutation.mutateAsync({ oldPassword, newPassword });
@@ -55,11 +52,11 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
     <form onSubmit={handleSubmit} className={styles.form}>
       {title && <h1>{title}</h1>}
       <div className={styles.formGroup}>
-        <label htmlFor="oldPassword">Contraseña Actual</label>
+        <label htmlFor="oldPassword">{t('change-pass.current-pass')}</label>
         <input
           id="oldPassword"
           type="password"
-          placeholder="Ingresa tu contraseña actual"
+          placeholder=""
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
           required
@@ -67,11 +64,11 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="newPassword">Nueva Contraseña</label>
+        <label htmlFor="newPassword">{t('change-pass.new-pass')}</label>
         <input
           id="newPassword"
           type="password"
-          placeholder="Ingresa tu nueva contraseña"
+          placeholder={t('change-pass.enter-current-pass')}
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
@@ -79,11 +76,11 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="confirmPassword">Confirmar Nueva Contraseña</label>
+        <label htmlFor="confirmPassword">{t('change-pass.new-pass-confirm')}</label>
         <input
           id="confirmPassword"
           type="password"
-          placeholder="Confirma tu nueva contraseña"
+          placeholder={t('change-pass.new-pass-confirmation')}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
@@ -91,11 +88,11 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
       </div>
 
       <button type="submit" className={styles.submitBtn}>
-        Cambiar Contraseña
+        {t('change-pass.change-pass')}
       </button>
 
       <button type="button" className={styles.cancelBtn} onClick={() => onSuccess?.()}>
-        Cancelar
+        {t('change-pass.cancel')}
       </button>
     </form>
   );

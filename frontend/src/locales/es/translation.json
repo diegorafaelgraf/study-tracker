@@ -1,0 +1,84 @@
+{
+  "common": {
+    "study-tracker": "Study Tracker",
+    "view-previous-years": "Ver años anteriores",
+    "change-password": "Cambiar contraseña",
+    "logout": "Salir",
+    "cargando": "Cargando..."
+  },
+  "auth": {
+    "invalid-credentials": "Credenciales inválidas. Intenta nuevamente.",
+    "log-in-to-continue": "Inicia sesión para continuar",
+    "user": "Usuario",
+    "pass": "Contraseña",
+    "logging-in": "Ingresando...",
+    "log-in": "Ingresar",
+    "enter-pass": "Ingresa tu contraseña",
+    "enter-user": "Ingresa tu usuario"
+  },
+  "admin": {
+    "panel-admin": "Panel de Administración",
+    "alta-usuarios": "Alta de Usuarios",
+    "registrar-usuarios": "Registrar usuarios del sistema",
+    "agregar-usuario": "Agregar Usuario"
+  },
+  "dashboard": {
+    "successful-closed-year": "Año cerrado exitosamente ✅",
+    "closing-year-error": "Error cerrando el año: ",
+    "unknown-error": "Error desconocido ❌",
+    "current-year": "Año vigente:",
+    "current-year-not-exist": "No existe año vigente",
+    "view-detailed-statistics": "Ver estadísticas extendidas",
+    "minutes-of-study": "minutos de estudio",
+    "needed-minutes": "Minutos diarios necesarios para cumplir objetivo:",
+    "track-study-time": "Registrar minutos de estudio",
+    "your-progress-is": "Tu progreso es de un",
+    "assign-area": "Asignar Área",
+    "assign-area-current-year": "Agregar una nueva área al año vigente",
+    "click-here-to-assign-area": "Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
+  },
+  "assign-area": {
+    "successful-assigned-area": "Area asignada exitosamente ✅",
+    "assigned-area-error": "Error agregando área al año ❌",
+    "must-select-area-error": "Debes seleccionar un área",
+    "select-area": "Seleccionar área",
+    "have-not-created-areas": "Todavía no tenés áreas creadas.",
+    "create-area": "Crear área",
+    "total-year-goal-minutes": "Cantidad total de minutos que planeas dedicar a esta área durante el año",
+    "year-goal-minutes": "Minutos Objetivo por Año",
+    "assigning": "Agregando",
+    "cancel": "Cancelar",
+    "assign-area": "Asignar Área",
+    "area-to-assign": "Área a asignar"
+  },
+  "change-pass": {
+    "pass-changed": "Contraseña cambiada exitosamente ✅",
+    "changed-pass-error": "Error cambiando contraseña ❌",
+    "pass-do-not-match": "Las contraseñas no coinciden",
+    "pass-long-error": "La contraseña debe tener al menos 6 caracteres",
+    "enter-current-pass": "Ingresa tu contraseña actual",
+    "new-pass": "Nueva Contraseña",
+    "new-pass-confirm": "Confirmar Nueva Contraseña",
+    "new-pass-confirmation": "Confirmar tu nueva contraseña",
+    "change-pass": "Cambiar Contraseña",
+    "cancel": "Cancelar",
+    "current-pass": "Contraseña Actual"
+  },
+  "close-year": {
+    "past-year": "Año vencido",
+    "past-year-detected-message": "Detectamos que el año abierto no coincide con el año actual. ¿Querés cerrarlo?.",
+    "past-year-close-warning": "Recordá que una vez cerrado no podrás agregar mas minutos de estudio.",
+    "remember-later": "Recordármelo más tarde",
+    "close-year": "Cerrar año"
+  },
+  "no-areas": {
+    "no-assigned-area": "No tienes ningún área de estudio asignada.",
+    "assign-area-first": "Para comenzar a registrar tus minutos de estudio, primero debes asignar al menos un área de estudio al año vigente.",
+    "assign-area": "Asignar Área"
+  },
+  "practice": {
+    "practice-created-successfully": "Minutos de estudios registrados exitosamente ✅",
+    "practice-creating-error": "Error registrando minutos de estudios ❌",
+    "practice-complete-required-fields": "Completa los campos obligatorios"
+  }
+}

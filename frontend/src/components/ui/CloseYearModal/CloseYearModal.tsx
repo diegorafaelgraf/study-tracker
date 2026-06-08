@@ -1,5 +1,7 @@
 import ReactModal from 'react-modal';
 
+import { useTranslation } from 'react-i18next';
+
 import styles from './CloseYearModal.module.css';
 
 ReactModal.setAppElement('#root');
@@ -10,12 +12,10 @@ type Props = {
   onRemindLater: () => void;
 }
 
-export function CloseYearModal({
-  isOpen,
-  onCloseYear,
-  onRemindLater,
-}: Props) {
+export function CloseYearModal({ isOpen, onCloseYear, onRemindLater }: Props) {
   if (!isOpen) return null;
+  const { t } = useTranslation();
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -23,23 +23,22 @@ export function CloseYearModal({
       className={styles.modal}
       overlayClassName={styles.overlay}
     >
-      <h2>Año anterior detectado</h2>
+      <h2>{t('close-year.past-year')}</h2>
 
       <p>
-        Detectamos que el año abierto no coincide con el año actual.
-        ¿Querés cerrarlo?.
+        {t('close-year.past-year-detected-message')}
         <br />
         <br />
-        <b>Recordá que una vez cerrado no podrás agregar mas minutos de estudio.</b>
+        <b>{t('close-year.past-year-close-warning')}</b>
       </p>
 
       <div className={styles.actions}>
         <button onClick={onRemindLater} className={styles.submitBtn}>
-          Recordármelo más tarde
+          {t('close-year.remember-later')}
         </button>
 
         <button onClick={onCloseYear} className={styles.cancelBtn}>
-          Cerrar año
+          {t('close-year.close-year')}
         </button>
       </div>
     </ReactModal>

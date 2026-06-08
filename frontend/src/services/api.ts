@@ -19,5 +19,27 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Global response interceptor to handle 401 errors - if we get a 401, it means the token is invalid or expired, 
+// so we should remove it and redirect to login.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error?.response?.status;
+    const requestUrl = error?.config?.url;
+
+    if (status === 401) {
+      const isLoginRequest = requestUrl?.includes('/auth/login');
+      if (!isLoginRequest) {
+        localStorage.removeItem('token');
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 
 export default api;

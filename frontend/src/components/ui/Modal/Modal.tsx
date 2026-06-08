@@ -5,7 +5,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  modalToClose?: () => void; // Nueva prop para cerrar otro modal
+  modalToClose?: () => void; // New prop to close other modal
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, modalToClose }) => {
