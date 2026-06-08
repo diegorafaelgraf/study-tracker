@@ -5,13 +5,13 @@ type AuthContextType = {
   login: (token: string) => void;
   logout: () => void;
   userId: string | undefined;
-  role: string | undefined;
+  role: 'USER' | 'ADMIN' | undefined;
 };
 
 type JwtPayload = {
   sub: string;
   exp: number;
-  role: string;
+  role: 'USER' | 'ADMIN';
 };
 
 const parseJwt = (token: string): JwtPayload | null => {
