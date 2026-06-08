@@ -26,8 +26,6 @@ export default function LanguageSelector() {
       </button>
 
       <span className={!isES ? `${styles.label} ${styles.labelActive}` : styles.label}>EN</span>
-
-      <span className={styles.visuallyHidden}>Idioma actual {isES ? 'español' : 'english'}</span>
     </div>
   );
 }

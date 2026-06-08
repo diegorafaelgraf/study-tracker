@@ -34,7 +34,7 @@ export default function Header({ role = 'USER' }: HeaderProps) {
         <div className={styles.leftSection}>
           <h1 className={styles.logo}>
             {role === 'USER' && (
-              <button onClick={handleHome} className={styles.homeIconBtn} aria-label="Home">
+              <button onClick={handleHome} className={styles.homeIconBtn}>
                 <span className={styles.homeIcon} aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 10L12 3l9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z" />

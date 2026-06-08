@@ -15,6 +15,7 @@ type Props = {
 export function CloseYearModal({ isOpen, onCloseYear, onRemindLater }: Props) {
   if (!isOpen) return null;
   const { t } = useTranslation();
+
   return (
     <ReactModal
       isOpen={isOpen}
