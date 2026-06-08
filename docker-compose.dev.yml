@@ -8,9 +8,8 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    environment:
-      NODE_ENV: development
-      MONGO_URI: mongodb://mongo:27017/study-tracker-backend-dev
+    env_file:
+      - ./backend/.env.development
     restart: unless-stopped
     depends_on:
       - mongo
