@@ -1,21 +1,22 @@
 import styles from './NoAreas.module.css';
 
+import { useTranslation } from 'react-i18next';
+
 interface NoAreasProps {
   onClick: () => void;
 }
 
-
-
 const NoAreas = ({ onClick }: NoAreasProps) => {
+  const { t } = useTranslation();
 
   return (
     <div className={styles.container}>
-      <h1>No tienes ningún área de estudio asignada.</h1>
+      <h1>{t('no-areas.no-assigned-area')}</h1>
       <p>
-        Para comenzar a registrar tus minutos de estudio, primero debes asignar al menos un área de estudio al año vigente.
+        {t('no-areas.assign-area-first')}
       </p>
       <button className={styles.submitBtn} onClick={onClick}>
-        Asignar área
+        {t('no-areas.assign-area')}
       </button>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
 
@@ -58,6 +59,8 @@ export default function Home() {
 
   const isAdmin = role === 'ADMIN';
 
+  const { t } = useTranslation();
+
   // If the user is an admin, we show them the admin home page instead of the regular home page
   if (isAdmin) {
     return <AdminHome />;
@@ -80,10 +83,10 @@ export default function Home() {
     mutationFn: closeYear,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['current-year', userId] });
-      toast.success('Año cerrado exitosamente ✅');
+      toast.success(t('dashboard.successful-closed-year'));
     },
     onError: (err: any) => {
-      alert('Error cerrando el año: ' + err.response?.data?.message || 'Error desconocido');
+      toast.error(t('dashboard.closing-year-error') + err.response?.data?.message || t('dashboard.unknown-error'));
     },
   });
 
@@ -123,7 +126,7 @@ export default function Home() {
 
   // Render home page
   return (
-    <PageContainer title={`Año vigente: ${currentYear?.year || 'No existe año vigente'}`} showBackButton={false}>
+    <PageContainer title={`${t('dashboard.current-year')} ${currentYear?.year || t('dashboard.current-year-not-exist')}`} showBackButton={false}>
       {topics && topics.length > 0 ? (
         <Grid columns={2}>
           {topics.map((topic: any) => {
@@ -136,27 +139,27 @@ export default function Home() {
                 key={topic._id}
                 title={topic.name}
                 hideTooltip={hideTooltip}
-                tooltip='Ver estadísticas extendidas'
+                tooltip={t('dashboard.view-detailed-statistics')}
                 onClick={() => openStatsModal(topic.yearTopicId, topic.name)}
-                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} minutos de estudio`}
+                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} ${t('dashboard.minutes-of-study')}`}
                 message={
                   <>
-                    Minutos diarios necesarios para cumplir objetivo: {' '}
+                    {t('dashboard.needed-minutes')} {' '}
                     <b style={{ color: '#17640e', fontWeight: 'bold', fontSize: '1.25rem' }}>{topic.minutesPerDay.toFixed(0)}</b>
                   </>
                 }
                 icon={IconComponent ? <IconComponent /> : undefined}
-                button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip='Registrar minutos de estudio' />}
+                button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip={t('dashboard.track-study-time')} />}
               >
-                <ProgressBar progress={progress} text="Progresaste un" />
+                <ProgressBar progress={progress} text={t('dashboard.your-progress-is')} />
               </Card>
             );
           })}
           <Card
             key="assign-area-card"
-            title="Asignar área"
-            subtitle="Agregar una nueva área al año vigente"
-            message="Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
+            title={t('dashboard.assign-area')}
+            subtitle={t('dashboard.assign-area-current-year')}
+            message={t('dashboard.click-here-to-assign-area')}
             onClick={openAssignAreaModal}
             hideTooltip={hideTooltip}
             highlight

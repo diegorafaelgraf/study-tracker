@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { login } from '../../services/auth.service';
-import { useAuth } from '../../context/auth.context.tsx';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { login } from '../../services/auth.service';
+
+import { useAuth } from '../../context/auth.context.tsx';
+
 import styles from './Login.module.css';
 
 export default function Login() {
@@ -11,6 +15,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { login: saveToken } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +27,7 @@ export default function Login() {
       saveToken(data.access_token);
       navigate('/');
     } catch {
-      setError('Credenciales inválidas. Intenta de nuevo.');
+      setError(t('auth.invalid-credentials'));
     } finally {
       setLoading(false);
     }
@@ -32,18 +37,18 @@ export default function Login() {
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Study Tracker</h1>
-          <p className={styles.subtitle}>Inicia sesión para continuar</p>
+          <h1 className={styles.title}>{t('common.study-tracker')}</h1>
+          <p className={styles.subtitle}>{t('auth.log-in-to-continue')}</p>
 
           <form onSubmit={handleSubmit} className={styles.form}>
             {error && <div className={styles.error}>{error}</div>}
 
             <div className={styles.formGroup}>
-              <label htmlFor="username">Usuario</label>
+              <label htmlFor="username">{t('auth.user')}</label>
               <input
                 id="username"
                 type="text"
-                placeholder="Ingresa tu usuario"
+                placeholder={t('auth.enter-user')}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={loading}
@@ -52,11 +57,11 @@ export default function Login() {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="password">Contraseña</label>
+              <label htmlFor="password">{t('auth.pass')}</label>
               <input
                 id="password"
                 type="password"
-                placeholder="Ingresa tu contraseña"
+                placeholder={t('auth.enter-pass')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
@@ -65,7 +70,7 @@ export default function Login() {
             </div>
 
             <button type="submit" disabled={loading} className={styles.submitBtn}>
-              {loading ? 'Ingresando...' : 'Ingresar'}
+              {loading ? t('auth.loggin-in') : t('auth.log-in')}
             </button>
           </form>
         </div>
