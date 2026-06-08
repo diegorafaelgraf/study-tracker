@@ -6,7 +6,7 @@ services:
       context: ./backend
       target: production
     ports:
-      - "5000:3000"
+      - "5000:4000"
     env_file:
       - ./backend/.env.production
     depends_on:
@@ -18,7 +18,7 @@ services:
       context: ./frontend
       target: production
     ports:
-      - "8080:80"
+      - "4173:80"
     depends_on:
       - backend
     restart: unless-stopped
