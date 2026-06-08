@@ -6,7 +6,7 @@ services:
       context: ./backend
       target: production
     ports:
-      - "5000:4000"
+      - "4000:4000"
     env_file:
       - ./backend/.env.production
     depends_on:
