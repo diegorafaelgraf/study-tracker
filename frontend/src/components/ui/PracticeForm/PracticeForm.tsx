@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
 
@@ -25,6 +26,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
   const [date, setDate] = useState('');
   const { userId } = useAuth();
   const queryClient = useQueryClient();
+  const { t } = useTranslation()
 
   // Queries
   const { data: topics, isLoading: isTopicsLoading } = useQuery({
@@ -49,12 +51,12 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
   const mutation = useMutation({
     mutationFn: createPractice,
     onSuccess: () => {
-      toast.success('Minutos de estudios registrados exitosamente ✅');
+      toast.success(t('practice.practice-created-successfully'));
       queryClient.invalidateQueries({ queryKey: ['topics-current-year', userId] });
       onSuccess();
     },
     onError: (err: any) => {
-      toast.error(err.message || 'Error registrando minutos de estudios');
+      toast.error(err.message || t('practice.practice-creating-error'));
     }
   });
 
@@ -63,7 +65,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
     e.preventDefault();
 
     if (!yearTopicId || !minutes || !date) {
-      toast.error('Completa los campos obligatorios');
+      toast.error(t('practice.complete-required-fields'));
       return;
     }
 
@@ -84,14 +86,14 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
   // Render form
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Registrar minutos de estudio</h1>
+      <h1 className={styles.title}>{t('practice.register-practice')}</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
 
         <div className={styles.formGroup}>
-          <label htmlFor="name">Nombre del Área</label>
+          <label htmlFor="name">{t('practice.area')}</label>
           {selectedYearTopicId ? (
             <div className={styles.readOnlyField}>
-              {selectedTopic?.name || 'Área seleccionada'}
+              {selectedTopic?.name || t('practice.selected-area')}
             </div>
           ) : (
             <select
@@ -100,7 +102,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
               className={styles.input}
               disabled={mutation.isPending}
             >
-              <option value="">Seleccionar área</option>
+              <option value="">{t('practice.select-area')}</option>
               {topics?.map((t: any) => (
                 <option key={t.yearTopicId} value={t.yearTopicId}>
                   {t.name}
@@ -111,7 +113,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="name">Minutos practicados</label>
+          <label htmlFor="name">{t('practice.minutes')}</label>
           <input
             type="number"
             step="1"
@@ -125,7 +127,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="name">Fecha de estudio</label>
+          <label htmlFor="name">{t('practice.date')}</label>
           <input
             type="date"
             min={`${currentYear?.year}-01-01`}
@@ -144,7 +146,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
             className={styles.submitBtn}
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Guardando...' : 'Guardar'}
+            {mutation.isPending ? t('practice.saving') : t('practice.save')}
           </button>
 
           <button
@@ -153,7 +155,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
             disabled={mutation.isPending}
             className={styles.cancelBtn}
           >
-            Cancelar
+            {t('practice.cancel')}
           </button>
         </div>
 
