@@ -79,6 +79,15 @@
   "practice": {
     "practice-created-successfully": "Minutos de estudios registrados exitosamente ✅",
     "practice-creating-error": "Error registrando minutos de estudios ❌",
-    "practice-complete-required-fields": "Completa los campos obligatorios"
+    "practice-complete-required-fields": "Completa los campos obligatorios",
+    "register-practice": "Registrar minutos de estudio",
+    "area": "Área",
+    "selected-area": "Área seleccionada",
+    "select-area": "Seleccionar área",
+    "minutes": "Minutos practicados",
+    "date": "Fecha de estudio",
+    "saving": "Guardando...",
+    "save": "Guardar",
+    "cancel": "Cancelar"
   }
 }
