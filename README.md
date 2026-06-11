@@ -103,6 +103,41 @@ Password: admin
 
 ⚠️ It is strongly recommended to change these credentials after installation.
 
+## Default Ports
+
+### Development
+
+| Service  | Port |
+|-----------|--------|
+| Frontend | 5174 |
+| Backend | 4000 |
+| MongoDB | 27018 |
+
+### Production
+
+| Service  | Port |
+|-----------|--------|
+| Frontend | 4173 |
+| Backend | 5000 |
+| MongoDB | 27019 |
+
+## Advanced Configuration
+
+The default Docker setup works out of the box.
+
+Advanced users can customize:
+
+- JWT secret
+- Token expiration
+- MongoDB connection string
+- Frontend API URL
+- Published ports
+
+See:
+
+- `backend/.env.production`
+- `frontend/.env.production`
+
 ## Project Status
 
 Study Tracker is currently in the MVP (Minimum Viable Product) stage and is actively used for daily study tracking and learning management.
