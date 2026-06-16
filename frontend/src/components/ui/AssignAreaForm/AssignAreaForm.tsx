@@ -134,7 +134,7 @@ export default function AssignAreaForm({ onCreateNewTopic, onClose, onSuccess }:
           <input
             id="goalMinutes"
             type="number"
-            placeholder="Ej: 1000"
+            placeholder={t('assign-area.goal-minutes-placeholder')}
             value={goalMinutes}
             onChange={(e) => setGoalMinutes(e.target.value)}
             min="1"

@@ -4,7 +4,8 @@
     "view-previous-years": "View Previous Years",
     "change-password": "Change Password",
     "logout": "Logout",
-    "cargando": "Loading..."
+    "cargando": "Loading...",
+    "feature-coming-soon": "This feature is coming soon!"
   },
   "auth": {
     "invalid-credentials": "Invalid credentials. Please try again.",
@@ -49,7 +50,9 @@
     "assigning": "Assigning",
     "cancel": "Cancel",
     "assign-area": "Assign Area",
-    "area-to-assign": "Area to Assign"
+    "area-to-assign": "Area to Assign",
+    "have-not-created-area": "You have not created any areas yet or all areas are assigned.",
+    "goal-minutes-placeholder": "Eg: 1000"
   },
   "change-pass": {
     "pass-changed": "Password changed successfully ✅",
@@ -57,6 +60,7 @@
     "pass-do-not-match": "Passwords do not match",
     "pass-long-error": "Password must be at least 6 characters long",
     "enter-current-pass": "Enter your current password",
+    "enter-new-pass": "Enter your new password",
     "new-pass": "New Password",
     "new-pass-confirm": "Confirm New Password",
     "new-pass-confirmation": "Confirm your new password",
@@ -79,6 +83,57 @@
   "practice": {
     "practice-created-successfully": "Study minutes logged successfully ✅",
     "practice-creating-error": "Error logging study minutes ❌",
-    "practice-complete-required-fields": "Please complete all required fields"
+    "complete-required-fields": "Please complete all required fields",
+    "register-practice": "Register study minutes",
+    "area": "Area",
+    "selected-area": "Selected Area",
+    "select-area": "Select Area",
+    "minutes": "Minutes practiced",
+    "date": "Study date",
+    "minutes-placeholder": "Eg: 60",
+    "date-placeholder": "Select a date",
+    "saving": "Saving...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "create-topic": {
+    "title": "Create New Area",
+    "name-label": "Area Name",
+    "name-placeholder": "Eg: Piano, Guitar, Math, English...",
+    "name-hint": "Enter the name of the activity or subject you want to track",
+    "create-area": "Create Area",
+    "creating": "Creating...",
+    "cancel": "Cancel",
+    "create-area-error": "Error creating area ❌",
+    "area-name-required": "The area name is required",
+    "area-name-min-length": "The area name must be at least 2 characters",
+    "area-created-success": "Area created successfully ✅"
+  },
+  "user-form": {
+    "username": "Username",
+    "username-placeholder": "Enter a username",
+    "password": "Password",
+    "password-placeholder": "Enter the password",
+    "confirm-password": "Confirm Password",
+    "confirm-password-placeholder": "Confirm the password",
+    "create-user": "Create User",
+    "cancel": "Cancel",
+    "user-created-successfully": "User created successfully ✅",
+    "create-user-error": "Error creating user ❌",
+    "all-fields-required": "All fields are required",
+    "passwords-do-not-match": "Passwords do not match",
+    "password-min-length": "Password must be at least 6 characters"
+  },
+  "year-topic-stats": {
+    "title": "Statistics:",
+    "annual-goal": "You planned to study {{minutes}} minutes this year.",
+    "daily-goal": "To reach the goal, you need to study {{minutes}} minutes daily.",
+    "current-pace": "At the current study pace, you need to study {{minutes}} minutes daily.",
+    "total-practiced": "You have studied a total of {{minutes}} minutes this year.",
+    "remaining": "To complete the goal, you need {{minutes}} more minutes this year.",
+    "real-progress": "Real Progress",
+    "expected-progress": "Expected Progress",
+    "plan-completion": "Plan Completion",
+    "no-data": "No statistics available for this topic."
   }
 }

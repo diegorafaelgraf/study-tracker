@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
 
@@ -17,11 +18,12 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState<'USER' | 'ADMIN'>('USER');
+  const { t } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: createUser,
     onSuccess: () => {
-      toast.success('Usuario creado exitosamente ✅');
+      toast.success(t('user-form.user-created-successfully'));
       setUsername('');
       setPassword('');
       setConfirmPassword('');
@@ -29,7 +31,7 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
       onSuccess?.();
     },
     onError: (err: any) => {
-      toast.error(err.response?.data?.message || 'Error creando usuario ❌');
+      toast.error(err.response?.data?.message || t('user-form.create-user-error'));
     },
   });
 
@@ -37,19 +39,20 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
     e.preventDefault();
 
     if (!username || !password || !confirmPassword) {
-      toast.error('Todos los campos son requeridos');
+      toast.error(t('user-form.all-fields-required'));
       return;
     }
 
     if (password !== confirmPassword) {
-      toast.error('Las contraseñas no coinciden');
+      toast.error(t('user-form.passwords-do-not-match'));
       return;
     }
 
     if (password.length < 6) {
-      toast.error('La contraseña debe tener al menos 6 caracteres');
+      toast.error(t('user-form.password-min-length'));
       return;
     }
+
     await mutation.mutateAsync({ username, password, role });
   };
 
@@ -57,11 +60,11 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
     <form onSubmit={handleSubmit} className={styles.form}>
       {title && <h1>{title}</h1>}
       <div className={styles.formGroup}>
-        <label htmlFor="username">Usuario</label>
+        <label htmlFor="username">{t('user-form.username')}</label>
         <input
           id="username"
           type="text"
-          placeholder="Ingresa un nombre de usuario"
+          placeholder={t('user-form.username-placeholder')}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -69,11 +72,11 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="password">Contraseña</label>
+        <label htmlFor="password">{t('user-form.password')}</label>
         <input
           id="password"
           type="password"
-          placeholder="Ingresa la contraseña"
+          placeholder={t('user-form.password-placeholder')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -81,11 +84,11 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+        <label htmlFor="confirmPassword">{t('user-form.confirm-password')}</label>
         <input
           id="confirmPassword"
           type="password"
-          placeholder="Confirma la contraseña"
+          placeholder={t('user-form.confirm-password-placeholder')}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
@@ -93,11 +96,11 @@ export default function UserForm({ title, onSuccess }: UserFormProps) {
       </div>
 
       <button type="submit" className={styles.submitBtn}>
-        Crear Usuario
+        {t('user-form.create-user')}
       </button>
 
       <button type="button" className={styles.cancelBtn} onClick={() => onSuccess?.()}>
-        Cancelar
+        {t('user-form.cancel')}
       </button>
     </form>
   );

@@ -118,7 +118,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
             type="number"
             step="1"
             min="0"
-            placeholder="Minutos"
+            placeholder={t('practice.minutes-placeholder')}
             value={minutes}
             onChange={(e) => setMinutes(e.target.value)}
             className={styles.input}
@@ -132,7 +132,7 @@ export default function PracticeForm({ onSuccess, yearTopicId: selectedYearTopic
             type="date"
             min={`${currentYear?.year}-01-01`}
             max={`${currentYear?.year}-12-31`}
-            placeholder="Fecha"
+            placeholder={t('practice.date-placeholder')}
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className={styles.input}
