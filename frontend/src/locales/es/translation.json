@@ -39,7 +39,7 @@
     "click-here-to-assign-area": "Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
   },
   "assign-area": {
-    "successful-assigned-area": "Area asignada exitosamente ✅",
+    "successful-assigned-area": "Área asignada exitosamente ✅",
     "assigned-area-error": "Error agregando área al año ❌",
     "must-select-area-error": "Debes seleccionar un área",
     "select-area": "Seleccionar área",
@@ -70,8 +70,8 @@
   },
   "close-year": {
     "past-year": "Año vencido",
-    "past-year-detected-message": "Detectamos que el año abierto no coincide con el año actual. ¿Querés cerrarlo?.",
-    "past-year-close-warning": "Recordá que una vez cerrado no podrás agregar mas minutos de estudio.",
+    "past-year-detected-message": "Detectamos que el año abierto no coincide con el año actual. ¿Querés cerrarlo?",
+    "past-year-close-warning": "Recordá que una vez cerrado no podrás agregar más minutos de estudio.",
     "remember-later": "Recordármelo más tarde",
     "close-year": "Cerrar año"
   },
@@ -81,8 +81,8 @@
     "assign-area": "Asignar Área"
   },
   "practice": {
-    "practice-created-successfully": "Minutos de estudios registrados exitosamente ✅",
-    "practice-creating-error": "Error registrando minutos de estudios ❌",
+    "practice-created-successfully": "Minutos de estudio registrados exitosamente ✅",
+    "practice-creating-error": "Error registrando minutos de estudio ❌",
     "complete-required-fields": "Completa los campos obligatorios",
     "register-practice": "Registrar minutos de estudio",
     "area": "Área",
