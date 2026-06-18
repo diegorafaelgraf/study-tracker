@@ -15,7 +15,11 @@ i18n
         translation: en,
       },
     },
-    lng: 'es',
+    supportedLngs: ['es', 'en'],
+    load: 'languageOnly',
+    lng: typeof navigator !== 'undefined'
+      ? navigator.language.split('-')[0]
+      : 'es',
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
