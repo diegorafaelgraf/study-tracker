@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
 
@@ -21,17 +22,18 @@ export default function CreateTopicForm({ onSuccess }: CreateTopicFormProps) {
   const [name, setName] = useState('');
   const [selectedIcon, setSelectedIcon] = useState('BookOpen');
   const { userId } = useAuth();
+  const { t } = useTranslation();
 
   // Mutation
   const mutation = useMutation({
     mutationFn: createTopic,
     onSuccess: () => {
-      toast.success('Área creada exitosamente ✅');
+      toast.success(t('create-topic.area-created-success'));
       queryClient.invalidateQueries({ queryKey: ['topics', userId] });
       onSuccess();
     },
     onError: (err: any) => {
-      toast.error(err.response?.data?.message || 'Error creando área');
+      toast.error(err.response?.data?.message || t('create-topic.create-area-error'));
     },
   });
 
@@ -53,12 +55,12 @@ export default function CreateTopicForm({ onSuccess }: CreateTopicFormProps) {
     e.preventDefault();
 
     if (!name.trim()) {
-      toast.error('El nombre del área es requerido');
+      toast.error(t('create-topic.area-name-required'));
       return;
     }
 
     if (name.trim().length < 2) {
-      toast.error('El nombre debe tener al menos 2 caracteres');
+      toast.error(t('create-topic.area-name-min-length'));
       return;
     }
 
@@ -70,21 +72,21 @@ export default function CreateTopicForm({ onSuccess }: CreateTopicFormProps) {
   // Render form
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Crear Nueva Área</h1>
+      <h1 className={styles.title}>{t('create-topic.title')}</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
-          <label htmlFor="name">Nombre del Área</label>
+          <label htmlFor="name">{t('create-topic.name-label')}</label>
           <input
             id="name"
             type="text"
-            placeholder="Ej: Piano, Guitarra, Matemáticas, Inglés..."
+            placeholder={t('create-topic.name-placeholder')}
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
             maxLength={100}
           />
           <small className={styles.hint}>
-            Ingresa el nombre de la actividad o materia que quieres trackear
+            {t('create-topic.name-hint')}
           </small>
         </div>
 
@@ -111,7 +113,7 @@ export default function CreateTopicForm({ onSuccess }: CreateTopicFormProps) {
             disabled={mutation.isPending}
             className={styles.submitBtn}
           >
-            {mutation.isPending ? 'Creando...' : 'Crear Área'}
+            {mutation.isPending ? t('create-topic.creating') : t('create-topic.create-area')}
           </button>
 
           <button
@@ -120,7 +122,7 @@ export default function CreateTopicForm({ onSuccess }: CreateTopicFormProps) {
             disabled={mutation.isPending}
             className={styles.cancelBtn}
           >
-            Cancelar
+            {t('create-topic.cancel')}
           </button>
         </div>
       </form>

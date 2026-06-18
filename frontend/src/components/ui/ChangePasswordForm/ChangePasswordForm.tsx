@@ -56,7 +56,7 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
         <input
           id="oldPassword"
           type="password"
-          placeholder=""
+          placeholder={t('change-pass.enter-current-pass')}
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
           required
@@ -68,7 +68,7 @@ export default function ChangePasswordForm({ title, onSuccess }: ChangePasswordF
         <input
           id="newPassword"
           type="password"
-          placeholder={t('change-pass.enter-current-pass')}
+          placeholder={t('change-pass.enter-new-pass')}
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required

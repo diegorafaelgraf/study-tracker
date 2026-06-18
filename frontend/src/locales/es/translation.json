@@ -4,7 +4,8 @@
     "view-previous-years": "Ver años anteriores",
     "change-password": "Cambiar contraseña",
     "logout": "Salir",
-    "cargando": "Cargando..."
+    "cargando": "Cargando...",
+    "feature-coming-soon": "¡Esta función estará disponible pronto!"
   },
   "auth": {
     "invalid-credentials": "Credenciales inválidas. Intenta nuevamente.",
@@ -49,7 +50,9 @@
     "assigning": "Agregando",
     "cancel": "Cancelar",
     "assign-area": "Asignar Área",
-    "area-to-assign": "Área a asignar"
+    "area-to-assign": "Área a asignar",
+    "have-not-created-area": "Todavía no tenés áreas creadas o todas las áreas están asignadas.",
+    "goal-minutes-placeholder": "Ej: 1000"
   },
   "change-pass": {
     "pass-changed": "Contraseña cambiada exitosamente ✅",
@@ -57,6 +60,7 @@
     "pass-do-not-match": "Las contraseñas no coinciden",
     "pass-long-error": "La contraseña debe tener al menos 6 caracteres",
     "enter-current-pass": "Ingresa tu contraseña actual",
+    "enter-new-pass": "Ingresa tu nueva contraseña",
     "new-pass": "Nueva Contraseña",
     "new-pass-confirm": "Confirmar Nueva Contraseña",
     "new-pass-confirmation": "Confirmar tu nueva contraseña",
@@ -79,15 +83,57 @@
   "practice": {
     "practice-created-successfully": "Minutos de estudios registrados exitosamente ✅",
     "practice-creating-error": "Error registrando minutos de estudios ❌",
-    "practice-complete-required-fields": "Completa los campos obligatorios",
+    "complete-required-fields": "Completa los campos obligatorios",
     "register-practice": "Registrar minutos de estudio",
     "area": "Área",
     "selected-area": "Área seleccionada",
     "select-area": "Seleccionar área",
     "minutes": "Minutos practicados",
     "date": "Fecha de estudio",
+    "minutes-placeholder": "Ej: 60",
+    "date-placeholder": "Selecciona una fecha",
     "saving": "Guardando...",
     "save": "Guardar",
     "cancel": "Cancelar"
+  },
+  "create-topic": {
+    "title": "Crear Nueva Área",
+    "name-label": "Nombre del Área",
+    "name-placeholder": "Ej: Piano, Guitarra, Matemáticas, Inglés...",
+    "name-hint": "Ingresa el nombre de la actividad o materia que quieres trackear",
+    "create-area": "Crear Área",
+    "creating": "Creando...",
+    "cancel": "Cancelar",
+    "create-area-error": "Error creando área ❌",
+    "area-name-required": "El nombre del área es requerido",
+    "area-name-min-length": "El nombre debe tener al menos 2 caracteres",
+    "area-created-success": "Área creada exitosamente ✅"
+  },
+  "user-form": {
+    "username": "Usuario",
+    "username-placeholder": "Ingresa un nombre de usuario",
+    "password": "Contraseña",
+    "password-placeholder": "Ingresa la contraseña",
+    "confirm-password": "Confirmar Contraseña",
+    "confirm-password-placeholder": "Confirma la contraseña",
+    "create-user": "Crear Usuario",
+    "cancel": "Cancelar",
+    "user-created-successfully": "Usuario creado exitosamente ✅",
+    "create-user-error": "Error creando usuario ❌",
+    "all-fields-required": "Todos los campos son requeridos",
+    "passwords-do-not-match": "Las contraseñas no coinciden",
+    "password-min-length": "La contraseña debe tener al menos 6 caracteres"
+  },
+  "year-topic-stats": {
+    "title": "Estadísticas:",
+    "annual-goal": "Te planteaste estudiar {{minutes}} minutos al año.",
+    "daily-goal": "Para cumplir el objetivo, necesitas estudiar {{minutes}} minutos diarios.",
+    "current-pace": "Con el ritmo actual de estudio, necesitas estudiar {{minutes}} minutos diarios.",
+    "total-practiced": "Llevas estudiados en total {{minutes}} minutos durante el año.",
+    "remaining": "Para completar el objetivo, te faltan {{minutes}} minutos durante el año.",
+    "real-progress": "Avance Real",
+    "expected-progress": "Avance Esperado",
+    "plan-completion": "Cumplimiento del Plan",
+    "no-data": "No hay estadísticas disponibles para este tema."
   }
 }

@@ -8,6 +8,7 @@ import styles from './Header.module.css';
 import Modal from '../../components/ui/Modal/Modal';
 import ChangePasswordForm from '../../components/ui/ChangePasswordForm/ChangePasswordForm';
 import LanguageSelector from '../ui/LanguageSelector/LanguageSelector';
+import { toast } from 'sonner';
 
 interface HeaderProps {
   role?: 'USER' | 'ADMIN' | undefined;
@@ -51,7 +52,7 @@ export default function Header({ role = 'USER' }: HeaderProps) {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               <li>
-                <button onClick={() => navigate('/closed-years')} className={styles.navLink}>
+                <button onClick={() => toast.error(t('common.feature-coming-soon'))} className={styles.navLink}>
                   {t('common.view-previous-years')}
                 </button>
               </li>
