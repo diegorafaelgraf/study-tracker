@@ -70,7 +70,7 @@ export default function Login() {
             </div>
 
             <button type="submit" disabled={loading} className={styles.submitBtn}>
-              {loading ? t('auth.loggin-in') : t('auth.log-in')}
+              {loading ? t('auth.logging-in') : t('auth.log-in')}
             </button>
           </form>
         </div>
