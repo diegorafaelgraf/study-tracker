@@ -4,10 +4,31 @@ A web application designed to track study sessions, organize learning areas, and
 
 ## Preview
 
-> Screenshots will be added soon.
+### Login
+
+![Login](docs/screenshots/login.png)
+
+### Dashboard
 
 ![Dashboard](docs/screenshots/dashboard.png)
-![Areas](docs/screenshots/topics.png)
+
+### Areas
+
+#### Asigning areas to the current year
+
+![Assign Area](docs/screenshots/assign-area.png)
+
+#### Creating a new area
+
+![Create Area](docs/screenshots/create-area.png)
+
+### Practice
+
+![Practice](docs/screenshots/practice.png)
+
+### Statistics
+
+![Statistics](docs/screenshots/statistics.png)
 
 ## Why this project exists
 
@@ -83,11 +104,7 @@ MongoDB
 
 ## Getting Started
 
-See the installation guide:
-
-```text
-docs/installation.md
-```
+See the [Installation Guide](docs/installation.md).
 
 ## First Login
 
