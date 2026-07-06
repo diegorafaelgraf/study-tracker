@@ -48,6 +48,23 @@ docker compose down
 docker compose logs -f
 ```
 
+## Testing
+
+### Ejecutar tests
+Desde `backend`:
+
+```bash
+npm install
+npm test
+npm run test:cov
+```
+
+### Reportes
+
+- `backend/coverage/test-results.html` — HTML test results de Jest
+- `backend/coverage/lcov-report/index.html` — HTML coverage report
+- `backend/coverage/` — carpeta de artefactos de cobertura
+
 ## Levantar entorno Productivo
 
 ### 2. Iniciar Servicios

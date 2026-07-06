@@ -11,6 +11,28 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+## Tests
+
+### Ejecutar tests
+Desde `frontend`:
+
+```bash
+npm install
+npm test
+npm run test:unit
+npm run test:coverage
+```
+
+- `npm test` inicia Vitest en modo interactivo/watch.
+- `npm run test:unit` ejecuta los tests una vez y genera un reporte HTML.
+- `npm run test:coverage` ejecuta los tests con cobertura.
+
+### Reportes
+
+- `frontend/coverage/test-results.html` — HTML test report
+- `frontend/coverage/test-results.json` — JSON results
+- `frontend/coverage/` — carpeta de cobertura
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:

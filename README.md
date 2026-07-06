@@ -106,6 +106,43 @@ MongoDB
 
 See the [Installation Guide](docs/installation.md).
 
+## Tests
+
+### Frontend
+From the project root:
+
+```bash
+cd frontend
+npm install
+npm test
+# Run once and generate an HTML test report:
+npm run test:unit
+# Generate coverage reports:
+npm run test:coverage
+```
+
+Look for reports in:
+
+- `frontend/coverage/test-results.html` — HTML test result report
+- `frontend/coverage/test-results.json` — raw Vitest JSON results
+- `frontend/coverage/` — coverage output directory
+
+### Backend
+From the project root:
+
+```bash
+cd backend
+npm install
+npm test
+npm run test:cov
+```
+
+Look for reports in:
+
+- `backend/coverage/test-results.html` — HTML Jest test result report
+- `backend/coverage/lcov-report/index.html` — HTML coverage report
+- `backend/coverage/` — coverage output directory
+
 ## First Login
 
 A default administrator account is automatically created when the application runs for the first time.
