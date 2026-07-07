@@ -30,13 +30,16 @@
     "current-year": "Año vigente:",
     "current-year-not-exist": "No existe año vigente",
     "view-detailed-statistics": "Ver estadísticas extendidas",
-    "minutes-of-study": "minutos de estudio",
-    "needed-minutes": "Minutos diarios necesarios para cumplir objetivo:",
+    "today-total-minutes": "Minutos estudiados hoy:",
+    "minutes-of-study": "minutos de estudio anuales",
+    "needed-minutes": "Minutos diarios necesarios:",
     "track-study-time": "Registrar minutos de estudio",
-    "your-progress-is": "Tu progreso es de un",
+    "your-progress-is": "Tu progreso anual es de un",
     "assign-area": "Asignar Área",
     "assign-area-current-year": "Agregar una nueva área al año vigente",
-    "click-here-to-assign-area": "Haz clic para asignar un área al año y comenzar a registrar minutos de estudio."
+    "click-here-to-assign-area": "Haz clic para asignar un área al año y comenzar a registrar minutos de estudio.",
+    "this-year": "este año",
+    "minutes": "minutos"
   },
   "assign-area": {
     "successful-assigned-area": "Área asignada exitosamente ✅",

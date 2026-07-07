@@ -30,13 +30,16 @@
     "current-year": "Current Year:",
     "current-year-not-exist": "No current year exists",
     "view-detailed-statistics": "View Detailed Statistics",
-    "minutes-of-study": "minutes studied",
-    "needed-minutes": "Daily minutes needed to reach goal:",
+    "today-total-minutes": "Total minutes studied today:",
+    "minutes-of-study": "minutes studied this year",
+    "needed-minutes": "Daily minutes needed:",
     "track-study-time": "Log Study Time",
-    "your-progress-is": "Your progress is",
+    "your-progress-is": "Your annual progress is",
     "assign-area": "Assign Area",
     "assign-area-current-year": "Add a new area to the current year",
-    "click-here-to-assign-area": "Click here to assign an area to the current year and start logging study minutes."
+    "click-here-to-assign-area": "Click here to assign an area to the current year and start logging study minutes.",
+    "this-year": "this year",
+    "minutes": "minutes"
   },
   "assign-area": {
     "successful-assigned-area": "Area assigned successfully ✅",

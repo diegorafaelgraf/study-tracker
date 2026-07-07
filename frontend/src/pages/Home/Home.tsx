@@ -141,17 +141,17 @@ export default function Home() {
                 hideTooltip={hideTooltip}
                 tooltip={t('dashboard.view-detailed-statistics')}
                 onClick={() => openStatsModal(topic.yearTopicId, topic.name)}
-                subtitle={`${topic.practicedMinutes} / ${topic.goalMinutes} ${t('dashboard.minutes-of-study')}`}
+                subtitle={`${t('dashboard.needed-minutes')} ${topic.minutesPerDay.toFixed(0)}`}
                 message={
                   <>
-                    {t('dashboard.needed-minutes')} {' '}
-                    <b style={{ color: '#17640e', fontWeight: 'bold', fontSize: '1.25rem' }}>{topic.minutesPerDay.toFixed(0)}</b>
+                    {t('dashboard.today-total-minutes')} {' '}
+                    <b style={{ color: '#17640e', fontWeight: 'bold', fontSize: '1.25rem' }}>{topic.totalTodayPractices.toFixed(0)} / {topic.minutesPerDay.toFixed(0)}</b>
                   </>
                 }
                 icon={IconComponent ? <IconComponent /> : undefined}
                 button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip={t('dashboard.track-study-time')} />}
               >
-                <ProgressBar progress={progress} text={t('dashboard.your-progress-is')} />
+                <ProgressBar progress={progress} text_before={t('dashboard.your-progress-is')} text_after={` (${topic.practicedMinutes} / ${topic.goalMinutes} ${t('dashboard.minutes')})`} />
               </Card>
             );
           })}
