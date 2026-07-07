@@ -63,9 +63,9 @@ export default function YearTopicStats({ yearTopicId, topicName }: YearTopicStat
                 <label htmlFor="name">{t('year-topic-stats.remaining', { minutes: stats.annualRemainingMinutes.toFixed(0) })}</label>
               </ListItem>
               <ListItem>
-                <ProgressBar progress={stats.progressPercentage} text={t('year-topic-stats.real-progress')} />
-                <ProgressBar progress={stats.expectedProgressPercentage} text={t('year-topic-stats.expected-progress')} />
-                <ProgressBar progress={stats.planCompletionPercentage} text={t('year-topic-stats.plan-completion')} />
+                <ProgressBar progress={stats.progressPercentage} text_before={t('year-topic-stats.real-progress')} />
+                <ProgressBar progress={stats.expectedProgressPercentage} text_before={t('year-topic-stats.expected-progress')} />
+                <ProgressBar progress={stats.planCompletionPercentage} text_before={t('year-topic-stats.plan-completion')} />
               </ListItem>
             </List>
           </>
