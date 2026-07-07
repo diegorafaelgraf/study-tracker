@@ -80,13 +80,22 @@ export class TopicService {
       throw new Error('No hay un año abierto para obtener las áreas');
     }
 
+    const todayUTC = new Date();
+    todayUTC.setUTCHours(0, 0, 0, 0);
+
+
+
     return this.yearTopicModel.aggregate([
+
+      // Match YearTopics for the current year and user
       {
         $match: {
           yearId: currentYear._id,
           userId: new Types.ObjectId(userId),
         },
       },
+
+      // Lookup for the topic details
       {
         $lookup: {
           from: 'topics',
@@ -95,9 +104,13 @@ export class TopicService {
           as: 'topic',
         },
       },
+
+      // Unwind the topic array to get a single topic object
       {
         $unwind: '$topic',
       },
+
+      // Lookup for all practices
       {
         $lookup: {
           from: 'practices',
@@ -106,6 +119,31 @@ export class TopicService {
           as: 'practices',
         },
       },
+
+      // Lookup for today's practices
+      {
+        $lookup: {
+          from: 'practices',
+          let: { localId: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$yearTopicId', '$$localId'] },
+                date: todayUTC
+              }
+            }
+          ],
+          as: 'todayPractices'
+        }
+      },
+
+      // totalTodayPractices
+      {
+        $addFields: {
+          totalTodayPractices: { $sum: "$todayPractices.durationMinutes" }
+        }
+      },
+
       // practicedMinutes
       {
         $addFields: {
@@ -128,23 +166,17 @@ export class TopicService {
       {
         $addFields: {
           daysRemaining: {
-            $floor: {
-              $subtract: [
-                currentYear.totalDays,
-                {
-                  $divide: [
-                    {
-                      $subtract: [
-                        '$$NOW',
-                        new Date(`${currentYear.year}-01-01`),
-                      ],
-                    },
-                    1000 * 60 * 60 * 24,
-                  ],
-                },
-              ],
-            },
-          },
+            $subtract: [
+              currentYear.totalDays,
+              {
+                $dateDiff: {
+                  startDate: new Date(`${currentYear.year}-01-01`),
+                  endDate: "$$NOW",
+                  unit: "day"
+                }
+              }
+            ]
+          }
         },
       },
 
@@ -188,6 +220,8 @@ export class TopicService {
           },
         },
       },
+
+      // Project the final fields to return
       {
         $project: {
           yearTopicId: '$_id',
@@ -197,9 +231,12 @@ export class TopicService {
           remainingMinutes: 1,
           minutesPerDay: 1,
           daysRemaining: 1,
-          progressPercentage: 1
+          progressPercentage: 1,
+          totalTodayPractices: 1
         },
       },
+
+      // Replace the root document with a merged object containing topic details and YearTopic stats
       {
         $replaceRoot: {
           newRoot: {
@@ -213,6 +250,7 @@ export class TopicService {
                 minutesPerDay: '$minutesPerDay',
                 daysRemaining: '$daysRemaining',
                 progressPercentage: '$progressPercentage',
+                totalTodayPractices: '$totalTodayPractices'
               },
             ],
           },
