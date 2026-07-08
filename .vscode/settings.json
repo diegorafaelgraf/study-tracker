@@ -1,5 +1,7 @@
 {
   "conventionalCommits.scopes": [
-    "ci"
+    "ci",
+    "frontend",
+    "config"
   ]
 }
