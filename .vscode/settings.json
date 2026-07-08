@@ -1,5 +1,23 @@
 {
   "conventionalCommits.scopes": [
-    "ci"
+    "api",
+    "auth",
+    "users",
+    "practice",
+    "goals",
+    "stats",
+    "years",
+    "db",
+    "frontend",
+    "ui",
+    "i18n",
+    "docker",
+    "ci",
+    "release",
+    "deps",
+    "docs",
+    "config",
+    "tests",
+    "build"    
   ]
 }
