@@ -134,6 +134,17 @@ export default function Home() {
             const topicIcon = topicIcons.find((item) => item.name === topic.icon)?.icon;
             const IconComponent = topicIcon ? topicIcon : undefined;
 
+            // Function to determine the color of the message based on the user's progress
+            const message = () => {
+              const color = topic.totalTodayPractices.toFixed(0) >= topic.minutesPerDay.toFixed(0) ? '#17640e' : '#ff0000';
+              return (
+                <>
+                  {t('dashboard.today-total-minutes')} {' '}
+                  <b style={{ color: color, fontWeight: 'bold'}}>{topic.totalTodayPractices.toFixed(0)} / {topic.minutesPerDay.toFixed(0)}</b>
+                </>
+              );
+            }
+
             return (
               <Card
                 key={topic._id}
@@ -142,12 +153,7 @@ export default function Home() {
                 tooltip={t('dashboard.view-detailed-statistics')}
                 onClick={() => openStatsModal(topic.yearTopicId, topic.name)}
                 subtitle={`${t('dashboard.needed-minutes')} ${topic.minutesPerDay.toFixed(0)}`}
-                message={
-                  <>
-                    {t('dashboard.today-total-minutes')} {' '}
-                    <b style={{ color: '#17640e', fontWeight: 'bold', fontSize: '1.25rem' }}>{topic.totalTodayPractices.toFixed(0)} / {topic.minutesPerDay.toFixed(0)}</b>
-                  </>
-                }
+                message={message()}
                 icon={IconComponent ? <IconComponent /> : undefined}
                 button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip={t('dashboard.track-study-time')} />}
               >
