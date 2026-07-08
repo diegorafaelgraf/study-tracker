@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.1.0...v1.2.0) (2026-07-08)
+
+
+### ✨ Features
+
+* **frontend:** determine the color of the message in card based on the user's progress ([e3d57ee](https://github.com/diegorafaelgraf/study-tracker/commit/e3d57eec834c628fdc5a29eaec5affc69c6f6a91))
+
+
+### 🐛 Bug Fixes
+
+* **frontend:** fix app title ([affd9d4](https://github.com/diegorafaelgraf/study-tracker/commit/affd9d4aff97f1260bcec33828a8bb7a4ec30775))
+
+
+### 📚 Documentation
+
+* **docs:** update dashboard image in readme ([9bca9de](https://github.com/diegorafaelgraf/study-tracker/commit/9bca9de2dab79bf110ec7485ddf3bf59e7e5f4fa))
+
 ## [1.1.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.0.0...v1.1.0) (2026-07-07)
 
 
