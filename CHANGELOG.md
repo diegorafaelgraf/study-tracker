@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.0...v1.2.1) (2026-07-14)
+
+
+### 🐛 Bug Fixes
+
+* **api:** fix(api):  ([638a0d0](https://github.com/diegorafaelgraf/study-tracker/commit/638a0d09d9a8dd66683683272b6e4780cfa3b550))
+* **docker:** use TZ=America/Argentina/Buenos_Aires in docker container ([04dfe35](https://github.com/diegorafaelgraf/study-tracker/commit/04dfe35d767d30df45c4cbb6a65fd5c0ca9af302))
+
 ## [1.2.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.1.0...v1.2.0) (2026-07-08)
 
 
