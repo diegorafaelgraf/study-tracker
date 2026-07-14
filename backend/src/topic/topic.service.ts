@@ -80,10 +80,12 @@ export class TopicService {
       throw new Error('No hay un año abierto para obtener las áreas');
     }
 
-    const todayUTC = new Date();
-    todayUTC.setUTCHours(0, 0, 0, 0);
-
-
+    // Calculate local date string (YYYY-MM-DD) to filter practices for "today"
+    // Adjust for server's timezone offset
+    const now = new Date();
+    const offset = -now.getTimezoneOffset() * 60 * 1000;
+    const localDate = new Date(now.getTime() + offset);
+    const localDateString = localDate.toISOString().split('T')[0];
 
     return this.yearTopicModel.aggregate([
 
@@ -124,12 +126,26 @@ export class TopicService {
       {
         $lookup: {
           from: 'practices',
-          let: { localId: '$_id' },
+          let: { localId: '$_id', localDateString: localDateString },
           pipeline: [
             {
+              $addFields: {
+                practiceDay: {
+                  $dateToString: {
+                    format: '%Y-%m-%d',
+                    date: '$date',
+                  }
+                }
+              }
+            },
+            {
               $match: {
-                $expr: { $eq: ['$yearTopicId', '$$localId'] },
-                date: todayUTC
+                $expr: {
+                  $and: [
+                    { $eq: ['$yearTopicId', '$$localId'] },
+                    { $eq: ['$practiceDay', '$$localDateString'] }
+                  ]
+                }
               }
             }
           ],

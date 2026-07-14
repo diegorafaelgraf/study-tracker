@@ -8,6 +8,8 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
     env_file:
       - ./backend/.env.development
     restart: unless-stopped
