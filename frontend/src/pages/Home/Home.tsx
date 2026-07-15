@@ -136,7 +136,7 @@ export default function Home() {
 
             // Function to determine the color of the message based on the user's progress
             const message = () => {
-              const color = topic.totalTodayPractices.toFixed(0) >= topic.minutesPerDay.toFixed(0) ? '#17640e' : '#ff0000';
+              const color = topic.totalTodayPractices >= topic.minutesPerDay ? '#17640e' : '#ff0000';
               return (
                 <>
                   {t('dashboard.today-total-minutes')} {' '}
