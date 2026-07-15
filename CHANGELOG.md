@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.2](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.1...v1.2.2) (2026-07-15)
+
+
+### 🐛 Bug Fixes
+
+* **api:** fix(api):  ([638a0d0](https://github.com/diegorafaelgraf/study-tracker/commit/638a0d09d9a8dd66683683272b6e4780cfa3b550))
+* **frontend:** color in daily progress ([73bfe4b](https://github.com/diegorafaelgraf/study-tracker/commit/73bfe4b231aafef71d1168903473b37538691b94))
+* **frontend:** color in daily progress ([99b4ce5](https://github.com/diegorafaelgraf/study-tracker/commit/99b4ce53984be1d1840627c6acca03975082ef12))
+
 ## [1.2.1](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.0...v1.2.1) (2026-07-14)
 
 
