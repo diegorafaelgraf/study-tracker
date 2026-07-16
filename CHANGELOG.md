@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.3](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.2...v1.2.3) (2026-07-16)
+
+
+### 🐛 Bug Fixes
+
+* **docker:** add TZ in production docker compose ([6eee698](https://github.com/diegorafaelgraf/study-tracker/commit/6eee698f4d67a3ca3a07f781fee07aa96b53d806))
+* **docker:** add TZ in production docker compose ([08a477f](https://github.com/diegorafaelgraf/study-tracker/commit/08a477f86edfdc2d18ae95e64d5202e7a824d33a))
+
 ## [1.2.2](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.1...v1.2.2) (2026-07-15)
 
 
