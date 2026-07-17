@@ -5,6 +5,8 @@ services:
       target: production
     ports:
       - "5000:4000"
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
     env_file:
       - ./backend/.env.production
     depends_on:
