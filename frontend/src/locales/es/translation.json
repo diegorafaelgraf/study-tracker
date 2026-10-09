@@ -2,10 +2,16 @@
   "common": {
     "study-tracker": "Study Tracker",
     "view-previous-years": "Ver años anteriores",
+    "minut-counter": "Contador de minutos",
     "change-password": "Cambiar contraseña",
     "logout": "Salir",
     "cargando": "Cargando...",
     "feature-coming-soon": "¡Esta función estará disponible pronto!"
+  },
+  "minute-counter": {
+    "start": "Iniciar",
+    "pause": "Pausar",
+    "stop": "Detener"
   },
   "auth": {
     "invalid-credentials": "Credenciales inválidas. Intenta nuevamente.",
