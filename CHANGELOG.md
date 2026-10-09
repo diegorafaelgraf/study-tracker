@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.3...v1.3.0) (2026-10-09)
+
+
+### ✨ Features
+
+* **frontend:** :sparkles: minute counter ([#48](https://github.com/diegorafaelgraf/study-tracker/issues/48)) ([a5c8e0a](https://github.com/diegorafaelgraf/study-tracker/commit/a5c8e0adef212b20e77a928d75f237ee65bded20))
+
 ## [1.2.3](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.2...v1.2.3) (2026-07-16)
 
 
