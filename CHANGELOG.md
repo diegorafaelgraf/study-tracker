@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.2.3](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.2...v1.2.3) (2026-07-16)
+
+
+### 🐛 Bug Fixes
+
+* **docker:** add TZ in production docker compose ([6eee698](https://github.com/diegorafaelgraf/study-tracker/commit/6eee698f4d67a3ca3a07f781fee07aa96b53d806))
+* **docker:** add TZ in production docker compose ([08a477f](https://github.com/diegorafaelgraf/study-tracker/commit/08a477f86edfdc2d18ae95e64d5202e7a824d33a))
+
+## [1.2.2](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.1...v1.2.2) (2026-07-15)
+
+
+### 🐛 Bug Fixes
+
+* **api:** fix(api):  ([638a0d0](https://github.com/diegorafaelgraf/study-tracker/commit/638a0d09d9a8dd66683683272b6e4780cfa3b550))
+* **frontend:** color in daily progress ([73bfe4b](https://github.com/diegorafaelgraf/study-tracker/commit/73bfe4b231aafef71d1168903473b37538691b94))
+* **frontend:** color in daily progress ([99b4ce5](https://github.com/diegorafaelgraf/study-tracker/commit/99b4ce53984be1d1840627c6acca03975082ef12))
+
+## [1.2.1](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.0...v1.2.1) (2026-07-14)
+
+
+### 🐛 Bug Fixes
+
+* **api:** fix(api):  ([638a0d0](https://github.com/diegorafaelgraf/study-tracker/commit/638a0d09d9a8dd66683683272b6e4780cfa3b550))
+* **docker:** use TZ=America/Argentina/Buenos_Aires in docker container ([04dfe35](https://github.com/diegorafaelgraf/study-tracker/commit/04dfe35d767d30df45c4cbb6a65fd5c0ca9af302))
+
+## [1.2.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.1.0...v1.2.0) (2026-07-08)
+
+
+### ✨ Features
+
+* **frontend:** determine the color of the message in card based on the user's progress ([e3d57ee](https://github.com/diegorafaelgraf/study-tracker/commit/e3d57eec834c628fdc5a29eaec5affc69c6f6a91))
+
+
+### 🐛 Bug Fixes
+
+* **frontend:** fix app title ([affd9d4](https://github.com/diegorafaelgraf/study-tracker/commit/affd9d4aff97f1260bcec33828a8bb7a4ec30775))
+
+
+### 📚 Documentation
+
+* **docs:** update dashboard image in readme ([9bca9de](https://github.com/diegorafaelgraf/study-tracker/commit/9bca9de2dab79bf110ec7485ddf3bf59e7e5f4fa))
+
 ## [1.1.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.0.0...v1.1.0) (2026-07-07)
 
 
