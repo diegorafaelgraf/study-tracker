@@ -2,10 +2,16 @@
   "common": {
     "study-tracker": "Study Tracker",
     "view-previous-years": "View Previous Years",
+    "minut-counter": "Minute Counter",
     "change-password": "Change Password",
     "logout": "Logout",
     "cargando": "Loading...",
     "feature-coming-soon": "This feature is coming soon!"
+  },
+  "minute-counter": {
+    "start": "Start",
+    "pause": "Pause",
+    "stop": "Stop"
   },
   "auth": {
     "invalid-credentials": "Invalid credentials. Please try again.",

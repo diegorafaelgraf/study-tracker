@@ -8,6 +8,7 @@ import styles from './Header.module.css';
 import Modal from '../../components/ui/Modal/Modal';
 import ChangePasswordForm from '../../components/ui/ChangePasswordForm/ChangePasswordForm';
 import LanguageSelector from '../ui/LanguageSelector/LanguageSelector';
+import MinutCounter from '../ui/MinutCounter/MinutCounter';
 import { toast } from 'sonner';
 
 interface HeaderProps {
@@ -15,8 +16,10 @@ interface HeaderProps {
 }
 
 export default function Header({ role = 'USER' }: HeaderProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isMinutCounterModalOpen, setIsMinutCounterModalOpen] = useState(false);
+  const openPasswordModal = () => setIsPasswordModalOpen(true);
+  const openMinutCounterModal = () => setIsMinutCounterModalOpen(true);
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { t } = useTranslation();
@@ -55,14 +58,17 @@ export default function Header({ role = 'USER' }: HeaderProps) {
                 <button onClick={() => toast.error(t('common.feature-coming-soon'))} className={styles.navLink}>
                   {t('common.view-previous-years')}
                 </button>
-              </li>
+                <button onClick={() => openMinutCounterModal()} className={styles.navLink}>
+                  {t('common.minut-counter')}
+                </button>
+              </li>              
             </ul>
           </nav>
         )}
 
         <div className={styles.rightSection}>
 
-          <button onClick={() => openModal()} className={styles.changePasswordBtn}>
+          <button onClick={() => openPasswordModal()} className={styles.changePasswordBtn}>
             {t('common.change-password')}
           </button>
 
@@ -74,8 +80,12 @@ export default function Header({ role = 'USER' }: HeaderProps) {
         </div>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ChangePasswordForm title={t('common.change-password')} onSuccess={() => setIsModalOpen(false)} />
+      <Modal isOpen={isPasswordModalOpen} onClose={() => setIsPasswordModalOpen(false)}>
+        <ChangePasswordForm title={t('common.change-password')} onSuccess={() => setIsPasswordModalOpen(false)} />
+      </Modal>
+
+      <Modal isOpen={isMinutCounterModalOpen} onClose={() => setIsMinutCounterModalOpen(false)}>
+        <MinutCounter title={t('common.minut-counter')} onSuccess={() => setIsMinutCounterModalOpen(false)} />
       </Modal>
     </header>
   );

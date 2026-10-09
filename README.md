@@ -170,6 +170,7 @@ Study Tracker is currently in the MVP (Minimum Viable Product) stage and is acti
 - [x] Statistics dashboard
 - [x] Dockerized development environment
 - [x] Dockerized production environment
+- [x] Counter tool for study sessions
 
 ### Planned
 
