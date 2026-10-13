@@ -26,6 +26,22 @@ import { useAuth } from '../../context/auth.context';
 
 import AdminHome from '../Admin/AdminHome';
 
+const interpolateColor = (start: string, end: string, amount: number) => {
+  const startRgb = start.match(/[\da-f]{2}/gi)?.map((value) => parseInt(value, 16)) ?? [];
+  const endRgb = end.match(/[\da-f]{2}/gi)?.map((value) => parseInt(value, 16)) ?? [];
+  const channels = startRgb.map((value, index) => Math.round(value + (endRgb[index] - value) * amount));
+
+  return `#${channels.map((value) => value.toString(16).padStart(2, '0')).join('')}`;
+};
+
+const getDailyGoalColor = (studiedMinutes: number, dailyGoal: number) => {
+  const progress = dailyGoal <= 0 ? 1 : Math.min(Math.max(studiedMinutes / dailyGoal, 0), 1);
+
+  return progress < 0.5
+    ? interpolateColor('#fff0f0', '#fffde7', progress * 2)
+    : interpolateColor('#fffde7', '#eff8e9', (progress - 0.5) * 2);
+};
+
 export default function Home() {
 
   // Home page state
@@ -131,6 +147,7 @@ export default function Home() {
         <Grid columns={2}>
           {topics.map((topic: any) => {
             const progress = topic.progressPercentage;
+            const dailyGoalColor = getDailyGoalColor(topic.totalTodayPractices, topic.minutesPerDay);
             const topicIcon = topicIcons.find((item) => item.name === topic.icon)?.icon;
             const IconComponent = topicIcon ? topicIcon : undefined;
 
@@ -140,7 +157,7 @@ export default function Home() {
               return (
                 <>
                   {t('dashboard.today-total-minutes')} {' '}
-                  <b style={{ color: color, fontWeight: 'bold'}}>{topic.totalTodayPractices.toFixed(0)} / {topic.minutesPerDay.toFixed(0)}</b>
+                  <b style={{ color: color, fontWeight: 'bold' }}>{topic.totalTodayPractices.toFixed(0)} / {topic.minutesPerDay.toFixed(0)}</b>
                 </>
               );
             }
@@ -156,6 +173,7 @@ export default function Home() {
                 message={message()}
                 icon={IconComponent ? <IconComponent /> : undefined}
                 button={<AddPracticeButton onClick={() => openPracticeModal(topic.yearTopicId)} tooltip={t('dashboard.track-study-time')} />}
+                backgroundColor={dailyGoalColor}
               >
                 <ProgressBar progress={progress} text_before={t('dashboard.your-progress-is')} text_after={` (${topic.practicedMinutes} / ${topic.goalMinutes} ${t('dashboard.minutes')})`} />
               </Card>

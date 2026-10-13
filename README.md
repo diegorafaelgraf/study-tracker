@@ -171,6 +171,7 @@ Study Tracker is currently in the MVP (Minimum Viable Product) stage and is acti
 - [x] Dockerized development environment
 - [x] Dockerized production environment
 - [x] Counter tool for study sessions
+- [X] Display different background colors on the cards based on daily study progress
 
 ### Planned
 

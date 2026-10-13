@@ -13,6 +13,7 @@ type Props = {
   highlight?: boolean;
   icon?: React.ReactNode;
   hideTooltip?: boolean;
+  backgroundColor?: string;
 };
 
 export default function Card({
@@ -26,7 +27,8 @@ export default function Card({
   onClick,
   highlight,
   icon,
-  hideTooltip
+  hideTooltip,
+  backgroundColor
 }: Props) {
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -42,7 +44,8 @@ export default function Card({
         style={{
           opacity: disabled ? 0.5 : 1,
           cursor: disabled ? 'not-allowed' : 'pointer',
-          pointerEvents: disabled ? 'none' : 'auto'
+          pointerEvents: disabled ? 'none' : 'auto',
+          backgroundColor
         }}
       >
         <div className={styles.cardHeader}>
