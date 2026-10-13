@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/diegorafaelgraf/study-tracker/compare/v1.3.0...v1.3.1) (2026-10-13)
+
+
+### 🐛 Bug Fixes
+
+* **release:** force release please execution ([d6adadf](https://github.com/diegorafaelgraf/study-tracker/commit/d6adadf9a039cb97182d39afa9764a4ba454cde2))
+
 ## [1.3.0](https://github.com/diegorafaelgraf/study-tracker/compare/v1.2.3...v1.3.0) (2026-10-09)
 
 
